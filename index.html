@@ -4,10 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="src/css/main.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Les Petis Plats</title>
   </head>
   <body>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+    <div class="w-full h-screen bg-black bg-opacity-30">
+      <header class="h-auto bg-hero-pattern bg-no-repeat bg-cover">
+        <div class="px-10 py-8">
+          <div class="flex-col justify-between items-center">
+            <div>
+              <img
+                class="h-6"
+                src="src/assets/logo/Logo.png"
+                alt="Logo Les Petits Plats"
+              />
+            </div>
+            <div
+              class="py-48 w-full inline-flex flex-col justify-center items-center"
+            >
+              <div
+                class="w-full text-center text-amber-300 text-[44px] font-normal font-['Anton'] mb-4"
+              >
+                CHERCHEZ PARMI PLUS DE 1500 RECETTES <br />
+                DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+              </div>
+              <div class="w-2/3 h-auto relative">
+                <input
+                  class="relative w-full h-14 px-6 py-4 mt-4 text-black bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-300 font-['Manrope'] font-normal"
+                  type="search"
+                  name="search recipes"
+                  id="search-recipes"
+                  placeholder="Rechercher une recette, un ingrédient, ..."
+                />
+                <img
+                  class="absolute top-6 right-2 bg-black hover:bg-amber-300 p-2 w-10 h-10 rounded-lg cursor-pointer"
+                  src="./src/assets/icon/icon-loop.svg"
+                  alt="icon icon-loop"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
   </body>
 </html>
