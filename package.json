@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "scripts": {
+    "build-css": "tailwindcss -i ./src/css/tailwind.css -o ./src/css/main.css --watch",
+    "dev": "concurrently \"npm run build-css\" \"live-server --port=8080 --host=localhost --open=./index.html\""
+  },
+  "dependencies": {
+    "concurrently": "^6.0.2",
+    "live-server": "^1.2.2"
+  }
+}
