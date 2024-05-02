@@ -10,10 +10,453 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/a26836ded1.js"
+      crossorigin="anonymous"
+    ></script>
 
-    <title>Les Petis Plats</title>
+    <title>Les Petits Plats</title>
   </head>
-  <body></body>
-  <script type="module" src="./src/components/Header.js"></script>
-  <script type="module" src="./src/components/InputSearch.js"></script>
+  <body class="bg-gray-200">
+    <header class="h-auto bg-hero-pattern bg-no-repeat bg-cover">
+      <div class="px-10 py-8">
+        <div class="flex-col justify-between items-center">
+          <div>
+            <img
+              class="h-6"
+              src="src/assets/logo/Logo.png"
+              alt="Logo Les Petits Plats"
+            />
+          </div>
+          <div
+            class="py-48 w-full inline-flex flex-col justify-center items-center"
+          >
+            <div
+              class="w-full text-center text-amber-300 text-[44px] font-normal font-['Anton'] mb-4"
+            >
+              CHERCHEZ PARMI PLUS DE 1500 RECETTES <br />
+              DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+            </div>
+            <div class="w-2/3 h-auto relative">
+              <input
+                class="relative w-full h-14 px-6 py-4 mt-4 text-black bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-300 font-['Manrope'] font-normal"
+                type="search"
+                name="search recipes"
+                id="search-recipes"
+                placeholder="Rechercher une recette, un ingrédient, ..."
+              />
+              <img
+                class="absolute top-6 right-2 bg-black hover:bg-amber-300 p-2 w-10 h-10 rounded-lg cursor-pointer"
+                src="./src/assets/icon/icon-loop.svg"
+                alt="icon icon-loop"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="mx-24 my-12">
+      <section id="filters" class="inline-flex gap-12">
+        <div class="flex-col w-44 p-4 rounded-lg bg-white">
+          <span
+            onclick="toggleDropdown('dropdown-ingredients')"
+            id="dropdown-ingredients-toggle"
+            class="inline-flex justify-between w-full items-center cursor-pointer"
+            >Ingrédients <i class="chevron fa-solid fa-chevron-down"></i
+          ></span>
+          <div class="dropdown flex-col hidden" id="dropdown-ingredients">
+            <input class="border" type="search" />
+            <button>Jus de citron</button>
+          </div>
+        </div>
+        <div class="flex-col w-44 p-4 rounded-lg bg-white">
+          <span
+            onclick="toggleDropdown('dropdown-appareils')"
+            id="dropdown-appareils-toggle"
+            class="inline-flex justify-between w-full items-center cursor-pointer"
+            >Appareils <i class="chevron fa-solid fa-chevron-down"></i
+          ></span>
+          <div class="dropdown flex-col hidden" id="dropdown-appareils">
+            <input class="border" type="search" />
+            <button>Jus de citron</button>
+          </div>
+        </div>
+        <div class="flex-col w-44 p-4 rounded-lg bg-white">
+          <span
+            onclick="toggleDropdown('dropdown-ustensiles')"
+            class="inline-flex justify-between w-full items-center cursor-pointer"
+            id="dropdown-ustensiles-toggle"
+            >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
+          ></span>
+          <div class="dropdown flex-col hidden" id="dropdown-ustensiles">
+            <input class="border" type="search" />
+            <button>Jus de citron</button>
+          </div>
+        </div>
+      </section>
+      <section id="cards-recipies" class="mt-12">
+        <div class="grid grid-cols-3 gap-12">
+          <div
+            class="w-[380px] h-[731px] relative bg-white rounded-[21px] shadow"
+          >
+            <img
+              class="w-[380px] h-[253px] left-0 top-0 absolute"
+              src="https://via.placeholder.com/380x253"
+            />
+            <div
+              class="left-[25px] top-[285px] absolute text-black text-lg font-normal font-['Anton']"
+            >
+              Limonade de Coco
+            </div>
+            <div
+              class="left-[25px] top-[341px] absolute flex-col justify-start items-start gap-8 inline-flex"
+            >
+              <div class="flex-col justify-start items-start gap-2.5 flex">
+                <div class="h-[107px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    RECETTE
+                  </div>
+                  <div
+                    class="w-[330px] left-0 top-[31px] absolute text-zinc-900 text-sm font-normal font-['Manrope']"
+                  >
+                    Mettre les glaçons à votre goût dans le blender, Ajouter le
+                    lait la crème de coco, le jus de 2 citrons et le sucre
+                    ensemble. Mixer jusqu'à obtenir la consistance désirée.
+                  </div>
+                </div>
+              </div>
+              <div
+                class="h-[190px] flex-col justify-start items-start gap-2.5 flex"
+              >
+                <div class="w-[263px] h-[190px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    Ingrédients
+                  </div>
+                  <div class="w-[79px] h-[39px] left-[1px] top-[31px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Lait de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      400ml
+                    </div>
+                  </div>
+                  <div
+                    class="w-[84px] h-[39px] left-[179px] top-[31px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Jus de citron
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                  <div class="w-[99px] h-[39px] left-[1px] top-[91px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Créme de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      4 cuillères
+                    </div>
+                  </div>
+                  <div
+                    class="w-[39px] h-[39px] left-[179px] top-[91px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Sucre
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      20g
+                    </div>
+                  </div>
+                  <div
+                    class="w-[54px] h-[39px] left-[1px] top-[151px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Glaçons
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="px-[15px] py-[5px] left-[295px] top-[21px] absolute bg-amber-300 rounded-[14px] justify-center items-center gap-2.5 inline-flex"
+            >
+              <div
+                class="text-center text-zinc-900 text-xs font-normal font-['Manrope']"
+              >
+                10min
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-[380px] h-[731px] relative bg-white rounded-[21px] shadow"
+          >
+            <img
+              class="w-[380px] h-[253px] left-0 top-0 absolute"
+              src="https://via.placeholder.com/380x253"
+            />
+            <div
+              class="left-[25px] top-[285px] absolute text-black text-lg font-normal font-['Anton']"
+            >
+              Limonade de Coco
+            </div>
+            <div
+              class="left-[25px] top-[341px] absolute flex-col justify-start items-start gap-8 inline-flex"
+            >
+              <div class="flex-col justify-start items-start gap-2.5 flex">
+                <div class="h-[107px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    RECETTE
+                  </div>
+                  <div
+                    class="w-[330px] left-0 top-[31px] absolute text-zinc-900 text-sm font-normal font-['Manrope']"
+                  >
+                    Mettre les glaçons à votre goût dans le blender, Ajouter le
+                    lait la crème de coco, le jus de 2 citrons et le sucre
+                    ensemble. Mixer jusqu'à obtenir la consistance désirée.
+                  </div>
+                </div>
+              </div>
+              <div
+                class="h-[190px] flex-col justify-start items-start gap-2.5 flex"
+              >
+                <div class="w-[263px] h-[190px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    Ingrédients
+                  </div>
+                  <div class="w-[79px] h-[39px] left-[1px] top-[31px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Lait de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      400ml
+                    </div>
+                  </div>
+                  <div
+                    class="w-[84px] h-[39px] left-[179px] top-[31px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Jus de citron
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                  <div class="w-[99px] h-[39px] left-[1px] top-[91px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Créme de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      4 cuillères
+                    </div>
+                  </div>
+                  <div
+                    class="w-[39px] h-[39px] left-[179px] top-[91px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Sucre
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      20g
+                    </div>
+                  </div>
+                  <div
+                    class="w-[54px] h-[39px] left-[1px] top-[151px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Glaçons
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="px-[15px] py-[5px] left-[295px] top-[21px] absolute bg-amber-300 rounded-[14px] justify-center items-center gap-2.5 inline-flex"
+            >
+              <div
+                class="text-center text-zinc-900 text-xs font-normal font-['Manrope']"
+              >
+                10min
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-[380px] h-[731px] relative bg-white rounded-[21px] shadow"
+          >
+            <img
+              class="w-[380px] h-[253px] left-0 top-0 absolute"
+              src="https://via.placeholder.com/380x253"
+            />
+            <div
+              class="left-[25px] top-[285px] absolute text-black text-lg font-normal font-['Anton']"
+            >
+              Limonade de Coco
+            </div>
+            <div
+              class="left-[25px] top-[341px] absolute flex-col justify-start items-start gap-8 inline-flex"
+            >
+              <div class="flex-col justify-start items-start gap-2.5 flex">
+                <div class="h-[107px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    RECETTE
+                  </div>
+                  <div
+                    class="w-[330px] left-0 top-[31px] absolute text-zinc-900 text-sm font-normal font-['Manrope']"
+                  >
+                    Mettre les glaçons à votre goût dans le blender, Ajouter le
+                    lait la crème de coco, le jus de 2 citrons et le sucre
+                    ensemble. Mixer jusqu'à obtenir la consistance désirée.
+                  </div>
+                </div>
+              </div>
+              <div
+                class="h-[190px] flex-col justify-start items-start gap-2.5 flex"
+              >
+                <div class="w-[263px] h-[190px] relative">
+                  <div
+                    class="left-0 top-0 absolute text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                  >
+                    Ingrédients
+                  </div>
+                  <div class="w-[79px] h-[39px] left-[1px] top-[31px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Lait de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      400ml
+                    </div>
+                  </div>
+                  <div
+                    class="w-[84px] h-[39px] left-[179px] top-[31px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Jus de citron
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                  <div class="w-[99px] h-[39px] left-[1px] top-[91px] absolute">
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Créme de coco
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      4 cuillères
+                    </div>
+                  </div>
+                  <div
+                    class="w-[39px] h-[39px] left-[179px] top-[91px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Sucre
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      20g
+                    </div>
+                  </div>
+                  <div
+                    class="w-[54px] h-[39px] left-[1px] top-[151px] absolute"
+                  >
+                    <div
+                      class="left-0 top-0 absolute text-zinc-900 text-sm font-medium font-['Manrope']"
+                    >
+                      Glaçons
+                    </div>
+                    <div
+                      class="left-0 top-[20px] absolute text-neutral-500 text-sm font-normal font-['Manrope']"
+                    >
+                      2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="px-[15px] py-[5px] left-[295px] top-[21px] absolute bg-amber-300 rounded-[14px] justify-center items-center gap-2.5 inline-flex"
+            >
+              <div
+                class="text-center text-zinc-900 text-xs font-normal font-['Manrope']"
+              >
+                10min
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Inclusion du fichier JavaScript externe -->
+    <script src="src/scripts/helpers/toggleDropdown.js"></script>
+  </body>
 </html>
