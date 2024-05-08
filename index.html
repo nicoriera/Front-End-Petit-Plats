@@ -58,52 +58,68 @@
       </div>
     </header>
     <main class="mx-24 my-12">
-      <section id="filters" class="inline-flex gap-12">
-        <div class="flex-col w-44 p-4 rounded-lg bg-white">
-          <span
-            onclick="toggleDropdown('dropdown-ingredients')"
-            id="dropdown-ingredients-toggle"
-            class="inline-flex justify-between w-full items-center cursor-pointer"
-            >Ingrédients <i class="chevron fa-solid fa-chevron-down"></i
-          ></span>
-          <div class="dropdown flex-col hidden" id="dropdown-ingredients">
-            <input class="border" type="search" />
-            <button>Jus de citron</button>
+      <section id="filters" class="flex flex-row gap-12 justify-between">
+        <div class="dropdown-filters-wrapper flex gap-12">
+          <div class="flex-col w-44 p-4 rounded-lg bg-white">
+            <span
+              onclick="toggleDropdown('dropdown-ingredients')"
+              id="dropdown-ingredients-toggle"
+              class="inline-flex justify-between w-full items-center cursor-pointer"
+              data-dropdown-toggle="dropdown-ingredients"
+              >Ingrédients <i class="chevron fa-solid fa-chevron-down"></i
+            ></span>
+            <div class="dropdown flex-col hidden" id="dropdown-ingredients">
+              <input class="border" type="search" />
+            </div>
+          </div>
+          <div class="flex-col w-44 p-4 rounded-lg bg-white">
+            <span
+              onclick="toggleDropdown('dropdown-appliances')"
+              id="dropdown-appliances-toggle"
+              class="inline-flex justify-between w-full items-center cursor-pointer"
+              data-dropdown-toggle="dropdown-appliances"
+              >Appareils <i class="chevron fa-solid fa-chevron-down"></i
+            ></span>
+            <div class="dropdown flex-col hidden" id="dropdown-appliances">
+              <input class="border" type="search" />
+            </div>
+          </div>
+          <div class="flex-col w-44 p-4 rounded-lg bg-white">
+            <span
+              onclick="toggleDropdown('dropdown-ustensils')"
+              class="inline-flex justify-between w-full items-center cursor-pointer"
+              id="dropdown-ustensils-toggle"
+              data-dropdown-toggle="dropdown-ustensils"
+              >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
+            ></span>
+            <div class="dropdown flex-col hidden" id="dropdown-ustensils">
+              <input class="border" type="search" />
+            </div>
           </div>
         </div>
-        <div class="flex-col w-44 p-4 rounded-lg bg-white">
-          <span
-            onclick="toggleDropdown('dropdown-appareils')"
-            id="dropdown-appareils-toggle"
-            class="inline-flex justify-between w-full items-center cursor-pointer"
-            >Appareils <i class="chevron fa-solid fa-chevron-down"></i
-          ></span>
-          <div class="dropdown flex-col hidden" id="dropdown-appareils">
-            <input class="border" type="search" />
-            <button>Jus de citron</button>
-          </div>
-        </div>
-        <div class="flex-col w-44 p-4 rounded-lg bg-white">
-          <span
-            onclick="toggleDropdown('dropdown-ustensiles')"
-            class="inline-flex justify-between w-full items-center cursor-pointer"
-            id="dropdown-ustensiles-toggle"
-            >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
-          ></span>
-          <div class="dropdown flex-col hidden" id="dropdown-ustensiles">
-            <input class="border" type="search" />
-            <button>Jus de citron</button>
-          </div>
+        <div
+          class="recipes-number-wrapper text-zinc-900 text-[21px] font-normal font-['Anton']"
+        >
+          1500 Recettes
         </div>
       </section>
+
       <section id="cards-recipies" class="mt-12 mb-48">
         <div class="recipes-wrapper grid grid-cols-3 gap-12"></div>
       </section>
     </main>
     <!-- Models -->
     <script src="src/scripts/models/Recipe.js"></script>
+    <script src="src/scripts/models/RecipesTotal.js"></script>
+    <script src="src/scripts/models/DropdownAplliance.js"></script>
+    <script src="src/scripts/models/DropdownIngredients.js"></script>
+    <script src="src/scripts/models/DropdownUstensils.js"></script>
     <!-- Components -->
     <script src="src/scripts/components/RecipeCard.js"></script>
+    <script src="src/scripts/components/RecipesNumberTotal.js"></script>
+    <script src="src/scripts/components/DropdownFilterIngredients.js"></script>
+    <script src="src/scripts/components/DropdownFilterAplliances.js"></script>
+    <script src="src/scripts/components/DropdownFilterUstensils.js"></script>
     <!-- Api -->
     <script src="src/api/api.js"></script>
     <!-- Entry Point -->

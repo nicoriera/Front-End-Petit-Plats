@@ -26,30 +26,8 @@ class RecipeApi extends Api {
   async getRecipes() {
     return await this.get();
   }
+
+  async getDropdownFilters() {
+    return await this.get();
+  }
 }
-
-// let recipesData = null;
-
-// const fetchRecipes = async () => {
-//   try {
-//     const response = await fetch("src/data/recipes.json");
-//     if (!response.ok) {
-//       throw new Error("HTTP error! status: " + response.status);
-//     }
-//     recipesData = await response.json();
-//     return recipesData;
-//   } catch (error) {
-//     console.error("Erreur:", error);
-//   }
-// };
-
-// const initializeRecipes = async () => {
-//   try {
-//     recipesData = await fetchRecipes();
-//     console.log(recipesData);
-//   } catch (error) {
-//     console.error("Erreur:", error);
-//   }
-// };
-
-// initializeRecipes();
