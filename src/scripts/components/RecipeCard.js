@@ -58,7 +58,9 @@ class RecipeCard {
                       ${ingredient.ingredient}
                     </div>
                     <div class="text-neutral-500 text-sm font-normal font-['Manrope']">
-                      ${ingredient.quantity}${ingredient.unit}
+                      ${ingredient.quantity ? ingredient.quantity : ""} ${
+                  ingredient.unit ? ingredient.unit : ""
+                }
                     </div>
                   </div>
                 `;
