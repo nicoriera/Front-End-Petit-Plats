@@ -71,25 +71,18 @@ class App {
     const DropdownFilterUstensilsData = dropdownFiltersData.map(
       (dropdown) => new DropdownUstensils(dropdown, "ustensils")
     );
-    console.log(DropdownFilterUstensilsData, "ustensils");
 
     const ustensils = DropdownFilterUstensilsData.map(
       (ustensil) => ustensil.ustensil
     );
-    console.log(ustensils, "ustensils");
 
     const allUstensils = ustensils.flat();
-    console.log(allUstensils, "allUstensils");
 
     const uniqueDropdownFilterUstensilsData = allUstensils.filter(
       (value, index, self) => {
         const lowerCaseSelf = self.map((v) => v.toLowerCase());
         return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
       }
-    );
-    console.log(
-      uniqueDropdownFilterUstensilsData,
-      "uniqueDropdownFilterUstensilsData"
     );
 
     // Rendering
@@ -99,6 +92,7 @@ class App {
       const recipeCard = new RecipeCard(recipe);
       this.$recipesWrapper.appendChild(recipeCard.createRecipeCard());
     });
+    console.log(recipesData);
 
     this.$recipesNumberWrapper.appendChild(
       recipesNumber.createRecipesNumberTotal()
