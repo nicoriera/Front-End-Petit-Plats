@@ -59,7 +59,7 @@
     </header>
     <main class="mx-24 my-12">
       <section id="filters" class="flex flex-row gap-12 justify-between">
-        <div class="dropdown-filters-wrapper flex gap-12">
+        <div class="dropdown-filters-wrapper truncate flex gap-12">
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
             <span
               onclick="toggleDropdown('dropdown-ingredients')"
@@ -68,8 +68,27 @@
               data-dropdown-toggle="dropdown-ingredients"
               >Ingrédients <i class="chevron fa-solid fa-chevron-down"></i
             ></span>
-            <div class="dropdown flex-col hidden" id="dropdown-ingredients">
-              <input class="border" type="search" />
+            <div
+              class="dropdown flex-col hidden max-h-32 max-w-40 overflow-y-auto"
+              id="dropdown-ingredients"
+            >
+              <div class="relative">
+                <input
+                  id="search"
+                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  type="search"
+                />
+                <i
+                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                ></i>
+                <button
+                  id="clear"
+                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                  onclick="document.getElementById('search').value = ''"
+                >
+                  X
+                </button>
+              </div>
             </div>
           </div>
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
@@ -80,8 +99,27 @@
               data-dropdown-toggle="dropdown-appliances"
               >Appareils <i class="chevron fa-solid fa-chevron-down"></i
             ></span>
-            <div class="dropdown flex-col hidden" id="dropdown-appliances">
-              <input class="border" type="search" />
+            <div
+              class="dropdown max-h-32 max-w-40 overflow-auto flex-col hidden"
+              id="dropdown-appliances"
+            >
+              <div class="relative">
+                <input
+                  id="search"
+                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  type="search"
+                />
+                <i
+                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                ></i>
+                <button
+                  id="clear"
+                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                  onclick="document.getElementById('search').value = ''"
+                >
+                  X
+                </button>
+              </div>
             </div>
           </div>
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
@@ -92,16 +130,33 @@
               data-dropdown-toggle="dropdown-ustensils"
               >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
             ></span>
-            <div class="dropdown flex-col hidden" id="dropdown-ustensils">
-              <input class="border" type="search" />
+            <div
+              class="dropdown flex-col hidden max-w-40 max-h-32 overflow-auto"
+              id="dropdown-ustensils"
+            >
+              <div class="relative">
+                <input
+                  id="search"
+                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  type="search"
+                />
+                <i
+                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                ></i>
+                <button
+                  id="clear"
+                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                  onclick="document.getElementById('search').value = ''"
+                >
+                  X
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div
           class="recipes-number-wrapper text-zinc-900 text-[21px] font-normal font-['Anton']"
-        >
-          1500 Recettes
-        </div>
+        ></div>
       </section>
 
       <section id="cards-recipies" class="mt-12 mb-48">
@@ -110,7 +165,6 @@
     </main>
     <!-- Models -->
     <script src="src/scripts/models/Recipe.js"></script>
-    <script src="src/scripts/models/RecipesTotal.js"></script>
     <script src="src/scripts/models/DropdownAplliance.js"></script>
     <script src="src/scripts/models/DropdownIngredients.js"></script>
     <script src="src/scripts/models/DropdownUstensils.js"></script>
@@ -126,5 +180,6 @@
     <script src="app.js"></script>
     <!-- Helpers -->
     <script src="src/scripts/helpers/toggleDropdown.js"></script>
+    <script src="src/scripts/helpers/input.js"></script>
   </body>
 </html>

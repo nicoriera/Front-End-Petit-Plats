@@ -33,21 +33,66 @@ class App {
     const Recipes = recipesData.map((recipe) => new Recipe(recipe));
 
     const recipesNumber = new RecipesNumberTotal(recipesData);
-    console.log(recipesNumber, "recipesNumber");
 
     // Components
+
+    // Appliance
 
     const DropdownFilterApllianceData = dropdownFiltersData.map(
       (dropdown) => new DropdownAppliance(dropdown, "appliance")
     );
 
+    const uniqueDropdownFilterApplianceData =
+      DropdownFilterApllianceData.filter((value, index, self) => {
+        const _self = self.map((v) => JSON.stringify(v));
+        return _self.indexOf(JSON.stringify(value)) === index;
+      });
+
+    // Ingredients
+
     const DropdownFilterIngredientsData = dropdownFiltersData.map(
       (dropdown) => new DropdownIngredients(dropdown, "ingredients")
     );
+    const ingredients = DropdownFilterIngredientsData.map(
+      (ingredient) => ingredient.ingredient
+    );
+
+    const allIngredients = ingredients.flat();
+
+    const uniqueDropdownFilterIngredientData = allIngredients.filter(
+      (value, index, self) => {
+        const lowerCaseSelf = self.map((v) => v.toLowerCase());
+        return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
+      }
+    );
+
+    // Ustensils
 
     const DropdownFilterUstensilsData = dropdownFiltersData.map(
       (dropdown) => new DropdownUstensils(dropdown, "ustensils")
     );
+    console.log(DropdownFilterUstensilsData, "ustensils");
+
+    const ustensils = DropdownFilterUstensilsData.map(
+      (ustensil) => ustensil.ustensil
+    );
+    console.log(ustensils, "ustensils");
+
+    const allUstensils = ustensils.flat();
+    console.log(allUstensils, "allUstensils");
+
+    const uniqueDropdownFilterUstensilsData = allUstensils.filter(
+      (value, index, self) => {
+        const lowerCaseSelf = self.map((v) => v.toLowerCase());
+        return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
+      }
+    );
+    console.log(
+      uniqueDropdownFilterUstensilsData,
+      "uniqueDropdownFilterUstensilsData"
+    );
+
+    // Rendering
 
     recipesData;
     Recipes.forEach((recipe) => {
@@ -60,21 +105,21 @@ class App {
     );
 
     dropdownFiltersData;
-    DropdownFilterApllianceData.forEach((dropdown) => {
+    uniqueDropdownFilterApplianceData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterAplliances(dropdown);
       this.$dropdownFiltersAplliances.appendChild(
         dropdownFilterComponent.createDropdownFilterAplliances()
       );
     });
 
-    DropdownFilterIngredientsData.forEach((dropdown) => {
+    uniqueDropdownFilterIngredientData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterIngredients(dropdown);
       this.$dropdownFilterIngredients.appendChild(
         dropdownFilterComponent.createDropdownFilterIngredients()
       );
     });
 
-    DropdownFilterUstensilsData.forEach((dropdown) => {
+    uniqueDropdownFilterUstensilsData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterUstensils(dropdown);
       this.$dropdownFiltersUstensils.appendChild(
         dropdownFilterComponent.createDropdownFilterUstensils()

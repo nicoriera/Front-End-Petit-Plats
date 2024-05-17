@@ -4,7 +4,6 @@ class DropdownAppliance {
   }
 
   get appliance() {
-    console.log(this._appliance);
     return this._appliance;
   }
 }
