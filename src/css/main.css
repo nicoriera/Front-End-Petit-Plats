@@ -566,16 +566,12 @@ video {
   right: 0.5rem;
 }
 
+.right-8 {
+  right: 2rem;
+}
+
 .top-6 {
   top: 1.5rem;
-}
-
-.left-\[0px\] {
-  left: 0px;
-}
-
-.top-\[0px\] {
-  top: 0px;
 }
 
 .mx-24 {
@@ -586,6 +582,11 @@ video {
 .my-12 {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .mb-4 {
@@ -636,16 +637,8 @@ video {
   height: auto;
 }
 
-.h-\[253px\] {
-  height: 253px;
-}
-
-.h-\[40px\] {
-  height: 40px;
-}
-
-.h-\[731px\] {
-  height: 731px;
+.max-h-32 {
+  max-height: 8rem;
 }
 
 .w-10 {
@@ -664,8 +657,12 @@ video {
   width: 100%;
 }
 
-.w-\[380px\] {
-  width: 380px;
+.max-w-36 {
+  max-width: 9rem;
+}
+
+.max-w-40 {
+  max-width: 10rem;
 }
 
 .cursor-pointer {
@@ -676,10 +673,6 @@ video {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -688,16 +681,8 @@ video {
   flex-direction: column;
 }
 
-.items-start {
-  align-items: flex-start;
-}
-
 .items-center {
   align-items: center;
-}
-
-.justify-start {
-  justify-content: flex-start;
 }
 
 .justify-center {
@@ -712,49 +697,26 @@ video {
   gap: 3rem;
 }
 
-.gap-2 {
-  gap: 0.5rem;
+.overflow-auto {
+  overflow: auto;
 }
 
-.gap-2\.5 {
-  gap: 0.625rem;
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-8 {
-  gap: 2rem;
-}
-
-.overflow-hidden {
+.truncate {
   overflow: hidden;
-}
-
-.text-ellipsis {
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rounded-lg {
   border-radius: 0.5rem;
 }
 
-.rounded-\[14px\] {
-  border-radius: 14px;
-}
-
-.rounded-\[21px\] {
-  border-radius: 21px;
-}
-
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.rounded-t-\[21px\] {
-  border-top-left-radius: 21px;
-  border-top-right-radius: 21px;
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .border {
@@ -776,11 +738,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-amber-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 211 77 / var(--tw-bg-opacity));
-}
-
 .bg-hero-pattern {
   background-image: url('/src/assets/pictures/lampos-aritonang-24gR_9lCdes-unsplash 1.png');
 }
@@ -791,11 +748,6 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
-}
-
-.object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .p-2 {
@@ -811,9 +763,19 @@ video {
   padding-right: 2.5rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-4 {
@@ -831,14 +793,8 @@ video {
   padding-bottom: 2rem;
 }
 
-.px-\[15px\] {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.py-\[5px\] {
-  padding-top: 5px;
-  padding-bottom: 5px;
+.pr-7 {
+  padding-right: 1.75rem;
 }
 
 .text-center {
@@ -853,22 +809,12 @@ video {
   font-family: 'Manrope';
 }
 
-.text-\[44px\] {
-  font-size: 44px;
-}
-
 .text-\[21px\] {
   font-size: 21px;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.text-\[44px\] {
+  font-size: 44px;
 }
 
 .text-xs {
@@ -878,22 +824,6 @@ video {
 
 .font-normal {
   font-weight: 400;
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.font-medium {
-  font-weight: 500;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.tracking-wide {
-  letter-spacing: 0.025em;
 }
 
 .text-amber-300 {
@@ -906,24 +836,22 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 .text-zinc-900 {
   --tw-text-opacity: 1;
   color: rgb(24 24 27 / var(--tw-text-opacity));
 }
 
-.text-neutral-500 {
-  --tw-text-opacity: 1;
-  color: rgb(115 115 115 / var(--tw-text-opacity));
-}
-
-.shadow {
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
 
 .hover\:bg-amber-300:hover {

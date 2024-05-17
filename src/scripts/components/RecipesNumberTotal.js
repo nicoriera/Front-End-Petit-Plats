@@ -9,7 +9,7 @@ class RecipesNumberTotal {
 
     const recipesNumberTotal = `
      
-        ${this.recipes.recipesTotal} Recettes
+        ${this.recipes.length} Recettes
     
     `;
 

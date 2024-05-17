@@ -10,7 +10,7 @@ class DropdownFilterUstensils {
     const dropdownFilter = `
     
           <button>
-          ${this._dropdown.ustensil}
+          ${this._dropdown}
           </button>
       
       </div>
