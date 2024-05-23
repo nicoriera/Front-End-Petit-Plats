@@ -1,12 +1,18 @@
-const searchInput = document.getElementById("search");
-const clearButton = document.getElementById("clear");
+const inputIds = [
+  "search-appliances",
+  "search-ingredients",
+  "search-ustensils",
+];
 
-searchInput.addEventListener("input", () => {
-  if (searchInput.value) {
-    // Affiche la croix lorsque l'input n'est pas vide
-    clearButton.classList.remove("hidden");
-  } else {
-    // Cache la croix lorsque l'input est vide
-    clearButton.classList.add("hidden");
-  }
+inputIds.forEach((inputId) => {
+  const input = document.getElementById(inputId);
+  const clearButton = document.getElementById(`clear-${inputId}`);
+
+  input.addEventListener("input", () => {
+    if (input.value) {
+      clearButton.classList.remove("hidden");
+    } else {
+      clearButton.classList.add("hidden");
+    }
+  });
 });

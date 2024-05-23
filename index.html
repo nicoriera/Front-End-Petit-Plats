@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="src/css/main.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,7 +15,6 @@
       src="https://kit.fontawesome.com/a26836ded1.js"
       crossorigin="anonymous"
     ></script>
-
     <title>Les Petits Plats</title>
   </head>
   <body class="bg-gray-200">
@@ -37,7 +35,7 @@
               class="w-full text-center text-amber-300 text-[44px] font-normal font-['Anton'] mb-4"
             >
               CHERCHEZ PARMI PLUS DE 1500 RECETTES <br />
-              DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+              DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
             </div>
             <div class="w-2/3 h-auto relative">
               <input
@@ -57,111 +55,128 @@
         </div>
       </div>
     </header>
-    <main class="mx-24 my-12">
-      <section id="filters" class="flex flex-row gap-12 justify-between">
-        <div class="dropdown-filters-wrapper truncate flex gap-12">
+    <main class="mx-24 mt-4 mb-16">
+      <div id="filters" class="flex relative flex-row gap-12 justify-between">
+        <div class="dropdown-filters-wrapper z-100 truncate flex gap-12">
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
-            <span
+            <div
               onclick="toggleDropdown('dropdown-ingredients')"
               id="dropdown-ingredients-toggle"
               class="inline-flex justify-between w-full items-center cursor-pointer"
-              data-dropdown-toggle="dropdown-ingredients"
-              >Ingrédients <i class="chevron fa-solid fa-chevron-down"></i
-            ></span>
+              aria-expanded="false"
+              aria-controls="dropdown-ingredients"
+              role="button"
+            >
+              Ingrédients <i class="chevron fa-solid fa-chevron-down"></i>
+            </div>
             <div
-              class="dropdown flex-col hidden max-h-32 max-w-40 overflow-y-auto"
+              class="dropdown hidden bg-white z-20 top-10 left-0 flex-col max-h-72 max-w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
               id="dropdown-ingredients"
             >
-              <div class="relative">
+              <div class="relative mx-2">
                 <input
-                  id="search"
-                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  id="search-ingredients"
+                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
                   type="search"
                 />
                 <i
                   class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
                 ></i>
                 <button
-                  id="clear"
+                  id="clear-search-ingredients"
                   class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search').value = ''"
+                  onclick="document.getElementById('search-ingredients').value = ''"
                 >
                   X
                 </button>
               </div>
+              <div
+                id="dropdown-ingredients-buttons"
+                class="flex flex-col"
+              ></div>
             </div>
           </div>
+
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
             <span
               onclick="toggleDropdown('dropdown-appliances')"
               id="dropdown-appliances-toggle"
               class="inline-flex justify-between w-full items-center cursor-pointer"
+              aria-expanded="false"
+              aria-controls="dropdown-appliances"
+              role="button"
               data-dropdown-toggle="dropdown-appliances"
               >Appareils <i class="chevron fa-solid fa-chevron-down"></i
             ></span>
             <div
-              class="dropdown max-h-32 max-w-40 overflow-auto flex-col hidden"
+              class="dropdown hidden bg-white z-20 top-12 left-56 flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
               id="dropdown-appliances"
             >
-              <div class="relative">
+              <div class="relative mx-2">
                 <input
-                  id="search"
-                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  id="search-appliances"
+                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
                   type="search"
                 />
                 <i
                   class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
                 ></i>
                 <button
-                  id="clear"
+                  id="clear-search-appliances"
                   class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search').value = ''"
+                  onclick="document.getElementById('search-appliances').value = ''"
                 >
                   X
                 </button>
               </div>
+              <div id="dropdown-appliances-buttons" class="flex flex-col"></div>
             </div>
           </div>
+
           <div class="flex-col w-44 p-4 rounded-lg bg-white">
             <span
               onclick="toggleDropdown('dropdown-ustensils')"
-              class="inline-flex justify-between w-full items-center cursor-pointer"
               id="dropdown-ustensils-toggle"
+              class="inline-flex justify-between w-full items-center cursor-pointer"
+              aria-expanded="false"
+              aria-controls="dropdown-ustensils"
+              role="button"
               data-dropdown-toggle="dropdown-ustensils"
               >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
             ></span>
             <div
-              class="dropdown flex-col hidden max-w-40 max-h-32 overflow-auto"
+              class="dropdown hidden bg-white z-20 top-12 left-[448px] flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
               id="dropdown-ustensils"
             >
-              <div class="relative">
+              <div class="relative mx-2">
                 <input
-                  id="search"
-                  class="border max-w-36 rounded-sm my-4 py-1 pr-7 px-2 focus:outline-none"
+                  id="search-ustensils"
+                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
                   type="search"
                 />
                 <i
                   class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
                 ></i>
                 <button
-                  id="clear"
+                  id="clear-search-ustensils"
                   class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search').value = ''"
+                  onclick="document.getElementById('search-ustensils').value = ''"
                 >
                   X
                 </button>
               </div>
+              <div id="dropdown-ustensils-buttons" class="flex flex-col"></div>
             </div>
           </div>
         </div>
         <div
           class="recipes-number-wrapper text-zinc-900 text-[21px] font-normal font-['Anton']"
         ></div>
-      </section>
+      </div>
 
-      <section id="cards-recipies" class="mt-12 mb-48">
+      <div id="cards-recipies" class="mt-12 mb-48">
         <div class="recipes-wrapper grid grid-cols-3 gap-12"></div>
-      </section>
+      </div>
     </main>
     <!-- Models -->
     <script src="src/scripts/models/Recipe.js"></script>

@@ -7,13 +7,15 @@ class App {
 
     // Dropdown Filters
     this.$dropdownFilterIngredients = document.getElementById(
-      "dropdown-ingredients"
+      "dropdown-ingredients-buttons"
     );
+    console.log(this.$dropdownFilterIngredients);
     this.$dropdownFiltersAplliances = document.getElementById(
-      "dropdown-appliances"
+      "dropdown-appliances-buttons"
     );
-    this.$dropdownFiltersUstensils =
-      document.getElementById("dropdown-ustensils");
+    this.$dropdownFiltersUstensils = document.getElementById(
+      "dropdown-ustensils-buttons"
+    );
 
     // Recipes Number
     this.$recipesNumberWrapper = document.querySelector(
@@ -78,12 +80,12 @@ class App {
 
     const allUstensils = ustensils.flat();
 
-    const uniqueDropdownFilterUstensilsData = allUstensils.filter(
-      (value, index, self) => {
+    const uniqueDropdownFilterUstensilsData = allUstensils
+      .filter((value, index, self) => {
         const lowerCaseSelf = self.map((v) => v.toLowerCase());
         return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
-      }
-    );
+      })
+      .map((value) => value.charAt(0).toUpperCase() + value.slice(1));
 
     // Rendering
 
@@ -92,7 +94,6 @@ class App {
       const recipeCard = new RecipeCard(recipe);
       this.$recipesWrapper.appendChild(recipeCard.createRecipeCard());
     });
-    console.log(recipesData);
 
     this.$recipesNumberWrapper.appendChild(
       recipesNumber.createRecipesNumberTotal()
