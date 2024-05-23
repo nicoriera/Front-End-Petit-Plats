@@ -4,16 +4,15 @@ class DropdownFilterIngredients {
   }
 
   createDropdownFilterIngredients() {
-    const $wrapper = document.createElement("div");
-    $wrapper.classList.add("dropdown-filter-wrapper");
+    const $wrapper = document.createElement("button");
+    $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
 
     const dropdownFilter = `
 
-      <button>
+   
       ${this._dropdown}
-      </button>
+   
   
-  </div>
     `;
 
     $wrapper.innerHTML = dropdownFilter;

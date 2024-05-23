@@ -10,13 +10,13 @@ class RecipeCard {
     const recipeCard = `
     
     <div
-      class="w-[380px] h-[731px]  bg-white rounded-[21px] shadow"
+      class="w-full h-[740px]  bg-white rounded-[21px] shadow relative"
     >
       <img
-        class="w-[380px] h-[253px] rounded-t-[21px] object-cover"
+        class="w-full h-[253px] rounded-t-[21px] object-cover "
         src="${this.recipe.image}"
       />
-      <div class="p-4">
+      <div class="p-6">
         <div
           class=" text-black text-lg font-normal font-['Anton'] mt-4"
         >
@@ -28,12 +28,12 @@ class RecipeCard {
           <div class="flex-col justify-start items-start gap-2.5 flex">
             <div class="  ">
               <div
-                class=" text-neutral-500 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
+                class=" text-neutral-500 mt-6 text-xs font-bold font-['Manrope'] uppercase tracking-wide"
               >
                 RECETTE
               </div>
               <div
-                class="h-[40px] text-zinc-900 text-sm font-normal font-['Manrope'] overflow-hidden text-ellipsis "
+                class="h-[80px] mt-4 mb-5  text-zinc-900 text-sm font-normal font-['Manrope'] overflow-hidden text-ellipsis "
               >
                 ${this.recipe.description}
               </div>
@@ -53,7 +53,7 @@ class RecipeCard {
             ${this.recipe.ingredients
               .map((ingredient) => {
                 return `
-                  <div class=" mt-4">
+                  <div class=" mt-2">
                     <div class="text-zinc-900 text-sm font-medium font-['Manrope']">
                       ${ingredient.ingredient}
                     </div>
@@ -73,13 +73,13 @@ class RecipeCard {
         </div>
       </div>
       <div
-        class="px-[15px] py-[5px] left-[0px] top-[0px]   bg-amber-300 rounded-[14px] justify-center items-center gap-2.5 inline-flex"
+        class="px-[15px] py-[5px] right-4 top-4   bg-amber-300 rounded-[14px] justify-center items-center gap-2.5 inline-flex absolute"
       >
-        <div
+        <span
           class="text-center text-zinc-900 text-xs font-normal font-['Manrope']"
         >
          ${this.recipe.time}min
-        </div>
+        </span>
       </div>
     </div>
   

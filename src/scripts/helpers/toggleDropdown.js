@@ -1,16 +1,33 @@
-const toggleDropdown = (dropdownId) => {
+function toggleDropdown(dropdownId) {
   const dropdown = document.getElementById(dropdownId);
-  dropdown.classList.toggle("hidden");
+  const toggleButton = document.getElementById(`${dropdownId}-toggle`);
 
-  // Recherche de l'élément avec l'attribut data-dropdown-toggle correspondant à dropdownId
-  const dropdownToggle = document.querySelector(
-    `[data-dropdown-toggle="${dropdownId}"]`
-  );
+  if (dropdown.classList.contains("hidden")) {
+    dropdown.classList.remove("hidden");
+    toggleButton.setAttribute("aria-expanded", "true");
+  } else {
+    dropdown.classList.add("hidden");
+    toggleButton.setAttribute("aria-expanded", "false");
+  }
+}
 
-  // Recherche de l'élément chevron à l'intérieur de l'élément dropdownToggle
-  const chevron = dropdownToggle.querySelector(".chevron");
+// Ferme le dropdown si on clique en dehors
+document.addEventListener("click", function (event) {
+  const dropdownIds = [
+    "dropdown-ingredients",
+    "dropdown-appliances",
+    "dropdown-ustensils",
+  ];
 
-  // Inversion de la classe du chevron pour changer son orientation
-  chevron.classList.toggle("fa-chevron-up");
-  chevron.classList.toggle("fa-chevron-down");
-};
+  dropdownIds.forEach((dropdownId) => {
+    const toggleButton = document.getElementById(`${dropdownId}-toggle`);
+    const dropdown = document.getElementById(dropdownId);
+    if (
+      !toggleButton.contains(event.target) &&
+      !dropdown.contains(event.target)
+    ) {
+      dropdown.classList.add("hidden");
+      toggleButton.setAttribute("aria-expanded", "false");
+    }
+  });
+});
