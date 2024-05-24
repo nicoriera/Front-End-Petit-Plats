@@ -9,7 +9,6 @@ class App {
     this.$dropdownFilterIngredients = document.getElementById(
       "dropdown-ingredients-buttons"
     );
-    console.log(this.$dropdownFilterIngredients);
     this.$dropdownFiltersAplliances = document.getElementById(
       "dropdown-appliances-buttons"
     );
@@ -22,6 +21,9 @@ class App {
       ".recipes-number-wrapper"
     );
 
+    // Input Search Global
+    this.$inputSearchGlobalWrapper = document.querySelector(".recipes-search");
+
     // API
     this.recipesApi = new RecipeApi("src/data/recipes.json");
   }
@@ -30,15 +32,22 @@ class App {
     const recipesData = await this.recipesApi.getRecipes();
     const dropdownFiltersData = await this.recipesApi.getDropdownFilters();
 
-    // Models
+    // Components
+
+    // Recipe Card
 
     const Recipes = recipesData.map((recipe) => new Recipe(recipe));
 
+    // Recipes Number
+
     const recipesNumber = new RecipesNumberTotal(recipesData);
 
-    // Components
+    // Input Search Global
 
-    // Appliance
+    // Somewhere else in your code, after you've added the wrapper to your page
+    const inputSearch = new InputSearch(Recipes);
+
+    // Dropdown Appliance
 
     const DropdownFilterApllianceData = dropdownFiltersData.map(
       (dropdown) => new DropdownAppliance(dropdown, "appliance")
@@ -50,7 +59,7 @@ class App {
         return _self.indexOf(JSON.stringify(value)) === index;
       });
 
-    // Ingredients
+    // Dropdown Ingredients
 
     const DropdownFilterIngredientsData = dropdownFiltersData.map(
       (dropdown) => new DropdownIngredients(dropdown, "ingredients")
@@ -68,7 +77,7 @@ class App {
       }
     );
 
-    // Ustensils
+    // Dropdown Ustensils
 
     const DropdownFilterUstensilsData = dropdownFiltersData.map(
       (dropdown) => new DropdownUstensils(dropdown, "ustensils")
@@ -99,12 +108,18 @@ class App {
       recipesNumber.createRecipesNumberTotal()
     );
 
+    this.$inputSearchGlobalWrapper.appendChild(
+      inputSearch.createInputSearchGlobal()
+    );
+    inputSearch.onSearchRecipes();
+
     dropdownFiltersData;
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterAplliances(dropdown);
       this.$dropdownFiltersAplliances.appendChild(
         dropdownFilterComponent.createDropdownFilterAplliances()
       );
+      dropdownFilterComponent.onSearchAplliances();
     });
 
     uniqueDropdownFilterIngredientData.forEach((dropdown) => {
