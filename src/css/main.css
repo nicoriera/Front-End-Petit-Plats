@@ -554,11 +554,9 @@ video {
   --tw-contain-style:  ;
 }
 
-
 .pointer-events-none {
   pointer-events: none;
 }
-
 
 .visible {
   visibility: visible;
@@ -624,8 +622,32 @@ video {
   right: 2.5rem;
 }
 
+.right-12 {
+  right: 3rem;
+}
+
+.right-14 {
+  right: 3.5rem;
+}
+
+.right-16 {
+  right: 4rem;
+}
+
 .right-2 {
   right: 0.5rem;
+}
+
+.right-20 {
+  right: 5rem;
+}
+
+.right-24 {
+  right: 6rem;
+}
+
+.right-28 {
+  right: 7rem;
 }
 
 .right-4 {
@@ -773,7 +795,6 @@ video {
   margin-top: 1rem;
 }
 
-
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -781,7 +802,6 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
-
 
 .block {
   display: block;
@@ -871,10 +891,6 @@ video {
   width: 100%;
 }
 
-.w-2 {
-  width: 0.5rem;
-}
-
 .max-w-36 {
   max-width: 9rem;
 }
@@ -883,7 +899,6 @@ video {
   max-width: 10rem;
 }
 
-
 .max-w-44 {
   max-width: 11rem;
 }
@@ -891,7 +906,6 @@ video {
 .max-w-96 {
   max-width: 24rem;
 }
-
 
 .border-collapse {
   border-collapse: collapse;
@@ -909,11 +923,9 @@ video {
   resize: both;
 }
 
-
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-
 
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1231,7 +1243,6 @@ video {
   text-decoration-line: underline;
 }
 
-
 .opacity-0 {
   opacity: 0;
 }
@@ -1245,7 +1256,6 @@ video {
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-
 
 .outline {
   outline-style: solid;
@@ -1287,6 +1297,16 @@ input[type="search"]::-webkit-search-cancel-button {
 .hover\:bg-yellow-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+}
+
+.focus\:placeholder-white:focus::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
+}
+
+.focus\:placeholder-white:focus::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-placeholder-opacity));
 }
 
 .focus\:outline-none:focus {
