@@ -4,15 +4,25 @@ const inputIds = [
   "search-ustensils",
 ];
 
-inputIds.forEach((inputId) => {
+function setupClearButton(inputId) {
   const input = document.getElementById(inputId);
   const clearButton = document.getElementById(`clear-${inputId}`);
 
-  input.addEventListener("input", () => {
-    if (input.value) {
-      clearButton.classList.remove("hidden");
-    } else {
+  if (input && clearButton) {
+    input.addEventListener("input", () => {
+      clearButton.classList.toggle("hidden", !input.value);
+    });
+
+    clearButton.addEventListener("click", () => {
+      input.value = "";
       clearButton.classList.add("hidden");
-    }
-  });
+    });
+  }
+}
+
+inputIds.forEach(setupClearButton);
+
+// Gestion pour search-recipes qui est créé dynamiquement
+document.addEventListener("DOMContentLoaded", () => {
+  setupClearButton("search-recipes");
 });
