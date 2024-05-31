@@ -19,7 +19,11 @@ class DropdownFilterIngredients {
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
         this.updateDropdownIngredients(searchValue);
+<<<<<<< HEAD
       }, 300);
+=======
+      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
+>>>>>>> 16e223b (added search for appliances dropdown)
     });
   }
 
@@ -28,6 +32,7 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
+<<<<<<< HEAD
     console.log(searchValue, "searchValue");
     const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
 
@@ -42,15 +47,27 @@ class DropdownFilterIngredients {
           ingredientWord.includes(searchWord)
         )
       );
+=======
+    const dropdownValues = Object.values(this._dropdown);
+
+    const dropdownFiltered = dropdownValues.filter((value) => {
+      return value.toLowerCase().includes(searchValue);
+>>>>>>> 16e223b (added search for appliances dropdown)
     });
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
+<<<<<<< HEAD
     const $dropdownIngredientsButtons = document.getElementById(
       "dropdown-ingredients-buttons"
     );
+=======
+    const $dropdownIngredientsButtons = (this.$dropdownFiltersIngredients =
+      document.getElementById("dropdown-ingredients-buttons"));
+
+>>>>>>> 16e223b (added search for appliances dropdown)
     $dropdownIngredientsButtons.innerHTML = "";
 
     dropdownSorted.forEach((value) => {
@@ -58,18 +75,33 @@ class DropdownFilterIngredients {
       $wrapper.classList.add(
         "w-full",
         "text-left",
+<<<<<<< HEAD
         "hover:bg-amber-300",
         "p-2"
       );
 
       const dropdownFilter = `${value}`;
+=======
+        "hover:bg-yellow-300",
+        "p-2"
+      );
+
+      const dropdownFilter = `
+          ${value}
+      `;
+>>>>>>> 16e223b (added search for appliances dropdown)
 
       $wrapper.innerHTML = dropdownFilter;
 
       setTimeout(() => {
         $dropdownIngredientsButtons.appendChild($wrapper);
+<<<<<<< HEAD
       }, 300);
     });
+=======
+      });
+    }, 1000);
+>>>>>>> 16e223b (added search for appliances dropdown)
   }
 
   createDropdownFilterIngredients() {
