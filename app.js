@@ -135,6 +135,7 @@ class App {
       this.$dropdownFiltersUstensils.appendChild(
         dropdownFilterComponent.createDropdownFilterUstensils()
       );
+      dropdownFilterComponent.onSearchUstensils();
     });
   }
 }
