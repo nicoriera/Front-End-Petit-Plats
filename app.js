@@ -117,11 +117,11 @@ class App {
 
     dropdownFiltersData;
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterAplliances(dropdown);
+      const dropdownFilterComponent = new DropdownFilterAppliances(dropdown);
       this.$dropdownFiltersAplliances.appendChild(
-        dropdownFilterComponent.createDropdownFilterAplliances()
+        dropdownFilterComponent.createDropdownFilterAppliances()
       );
-      dropdownFilterComponent.onSearchAplliances();
+      dropdownFilterComponent.onSearchAppliances();
     });
 
     uniqueDropdownFilterIngredientData.forEach((dropdown) => {
@@ -129,6 +129,7 @@ class App {
       this.$dropdownFilterIngredients.appendChild(
         dropdownFilterComponent.createDropdownFilterIngredients()
       );
+      dropdownFilterComponent.onSearchIngredients();
     });
 
     uniqueDropdownFilterUstensilsData.forEach((dropdown) => {

@@ -1,13 +1,13 @@
-class DropdownFilterAppliances {
+class DropdownFilterIngredients {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
 
-  onSearchAppliances() {
-    const $inputSearch = document.getElementById("search-appliances");
+  onSearchIngredients() {
+    const $inputSearch = document.getElementById("search-ingredients");
 
     if (!$inputSearch) {
-      console.error("L'élément avec l'ID 'search-appliances' n'existe pas.");
+      console.error("L'élément avec l'ID 'search-ingredients' n'existe pas.");
       return;
     }
 
@@ -18,16 +18,16 @@ class DropdownFilterAppliances {
 
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
-        this.updateDropdownAppliances(searchValue);
+        this.updateDropdownIngredients(searchValue);
       }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
     });
   }
 
-  loadAllAppliances() {
-    this.updateDropdownAppliances();
+  loadAllIngredients() {
+    this.updateDropdownIngredients();
   }
 
-  updateDropdownAppliances(searchValue = "") {
+  updateDropdownIngredients(searchValue = "") {
     const dropdownValues = Object.values(this._dropdown);
 
     const dropdownFiltered = dropdownValues.filter((value) => {
@@ -38,10 +38,10 @@ class DropdownFilterAppliances {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
-    const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
-      document.getElementById("dropdown-appliances-buttons"));
+    const $dropdownIngredientsButtons = (this.$dropdownFiltersIngredients =
+      document.getElementById("dropdown-ingredients-buttons"));
 
-    $dropdownAppliancesButtons.innerHTML = "";
+    $dropdownIngredientsButtons.innerHTML = "";
 
     dropdownSorted.forEach((value) => {
       const $wrapper = document.createElement("button");
@@ -59,17 +59,21 @@ class DropdownFilterAppliances {
       $wrapper.innerHTML = dropdownFilter;
 
       setTimeout(() => {
-        $dropdownAppliancesButtons.appendChild($wrapper);
-      }, 1000);
-    });
+        $dropdownIngredientsButtons.appendChild($wrapper);
+      });
+    }, 1000);
   }
 
-  createDropdownFilterAppliances() {
+  createDropdownFilterIngredients() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
 
     const dropdownFilter = `
-          ${this._dropdown.appliance}
+
+   
+      ${this._dropdown}
+   
+  
     `;
 
     $wrapper.innerHTML = dropdownFilter;
