@@ -33,10 +33,12 @@ class DropdownFilterAppliances {
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
     });
+    console.log(dropdownFiltered, "dropdownFiltered");
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
+    console.log(dropdownSorted, "dropdownSorted");
 
     const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
       document.getElementById("dropdown-appliances-buttons"));
@@ -48,7 +50,7 @@ class DropdownFilterAppliances {
       $wrapper.classList.add(
         "w-full",
         "text-left",
-        "hover:bg-yellow-300",
+        "hover:bg-amber-300",
         "p-2"
       );
 
@@ -66,13 +68,25 @@ class DropdownFilterAppliances {
 
   createDropdownFilterAppliances() {
     const $wrapper = document.createElement("button");
-    $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
+    $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `
           ${this._dropdown.appliance}
     `;
 
     $wrapper.innerHTML = dropdownFilter;
+
+    $wrapper.addEventListener("click", () => {
+      this.updateLabel($wrapper.textContent);
+    });
+
     return $wrapper;
+  }
+
+  updateLabel(value) {
+    const $label = document.getElementById(
+      "dropdown-label-search-appliance-value"
+    );
+    $label.textContent = value;
   }
 }

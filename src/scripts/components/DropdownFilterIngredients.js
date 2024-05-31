@@ -28,7 +28,8 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
-    const dropdownValues = Object.values(this._dropdown);
+    const dropdownValues = this._dropdown.split(",");
+    console.log(dropdownValues, "dropdownValues");
 
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
@@ -48,7 +49,7 @@ class DropdownFilterIngredients {
       $wrapper.classList.add(
         "w-full",
         "text-left",
-        "hover:bg-yellow-300",
+        "hover:bg-amber-300",
         "p-2"
       );
 
@@ -61,12 +62,12 @@ class DropdownFilterIngredients {
       setTimeout(() => {
         $dropdownIngredientsButtons.appendChild($wrapper);
       });
-    }, 1000);
+    }, 300);
   }
 
   createDropdownFilterIngredients() {
     const $wrapper = document.createElement("button");
-    $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
+    $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `
 
@@ -77,6 +78,17 @@ class DropdownFilterIngredients {
     `;
 
     $wrapper.innerHTML = dropdownFilter;
+
+    $wrapper.addEventListener("click", () => {
+      this.updateLabel($wrapper.textContent);
+    });
     return $wrapper;
+  }
+
+  updateLabel(value) {
+    const $label = document.getElementById(
+      "dropdown-label-search-ingredient-value"
+    );
+    $label.textContent = value;
   }
 }
