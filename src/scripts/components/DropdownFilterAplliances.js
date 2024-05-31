@@ -1,41 +1,9 @@
-class DropdownFilterAplliances {
+class DropdownFilterAppliances {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
 
-  quickSort(array, key) {
-    if (array.length <= 1) return array;
-
-    const pivot = array[Math.floor(array.length / 2)];
-    const left = [];
-    const right = [];
-
-    for (let i = 0; i < array.length; i++) {
-      if (i === Math.floor(array.length / 2)) continue;
-
-      let pivotValue;
-      let currentValue;
-
-      if (key === "ingredients") {
-        pivotValue = pivot[key]
-          .map((ingredient) => ingredient.ingredient.toLowerCase())
-          .join(" ");
-        currentValue = array[i][key]
-          .map((ingredient) => ingredient.ingredient.toLowerCase())
-          .join(" ");
-      } else {
-        pivotValue = pivot[key].toLowerCase();
-        currentValue = array[i][key].toLowerCase();
-      }
-
-      if (currentValue < pivotValue) left.push(array[i]);
-      else right.push(array[i]);
-    }
-
-    return this.quickSort(left, key).concat(pivot, this.quickSort(right, key));
-  }
-
-  onSearchAplliances() {
+  onSearchAppliances() {
     const $inputSearch = document.getElementById("search-appliances");
 
     if (!$inputSearch) {
@@ -43,11 +11,20 @@ class DropdownFilterAplliances {
       return;
     }
 
+    let debounceTimeout;
     $inputSearch.addEventListener("input", (e) => {
       e.preventDefault();
       const searchValue = e.target.value.toLowerCase();
-      this.updateDropdownAppliances(searchValue);
+
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        this.updateDropdownAppliances(searchValue);
+      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
     });
+  }
+
+  loadAllAppliances() {
+    this.updateDropdownAppliances();
   }
 
   updateDropdownAppliances(searchValue = "") {
@@ -57,62 +34,43 @@ class DropdownFilterAplliances {
       return value.toLowerCase().includes(searchValue);
     });
 
-    const dropdownSorted = this.quickSort(dropdownFiltered, "appliance");
+    const dropdownSorted = dropdownFiltered.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
 
-    this.$dropdownFiltersAplliances = document.getElementById(
-      "dropdown-appliances-buttons"
-    );
+    const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
+      document.getElementById("dropdown-appliances-buttons"));
 
-    this.$dropdownFiltersAplliances.innerHTML = "";
-    dropdownSorted.forEach((dropdownValue) => {
-      const dropdownFilterComponent = new DropdownFilterAplliances({
-        appliance: dropdownValue,
-      });
-      this.$dropdownFiltersAplliances.appendChild(
-        dropdownFilterComponent.createDropdownFilterAplliances()
+    $dropdownAppliancesButtons.innerHTML = "";
+
+    dropdownSorted.forEach((value) => {
+      const $wrapper = document.createElement("button");
+      $wrapper.classList.add(
+        "w-full",
+        "text-left",
+        "hover:bg-yellow-300",
+        "p-2"
       );
+
+      const dropdownFilter = `
+          ${value}
+      `;
+
+      $wrapper.innerHTML = dropdownFilter;
+
+      setTimeout(() => {
+        $dropdownAppliancesButtons.appendChild($wrapper);
+      }, 1000);
     });
   }
 
-  // onSearchAplliances() {
-  //   const $inputSearch = document.getElementById("search-appliances");
-  //   $inputSearch.addEventListener("input", (e) => {
-  //     e.preventDefault();
-  //     const searchValue = e.target.value.toLowerCase();
-
-  //     const dropdownValues = Object.values(this._dropdown);
-
-  //     const dropdownFiltered = dropdownValues.filter((value) => {
-  //       return value.toLowerCase().includes(searchValue);
-  //     });
-
-  //     // Vous pouvez supprimer cette ligne si le tri n'est pas nécessaire
-  //     const dropdownSorted = dropdownFiltered;
-
-  //     this.$dropdownFiltersAplliances = document.getElementById(
-  //       "dropdown-appliances-buttons"
-  //     );
-
-  //     this.$dropdownFiltersAplliances.innerHTML = "";
-  //     dropdownSorted.forEach((dropdownValue) => {
-  //       const dropdownFilterComponent = new DropdownFilterAplliances(
-  //         dropdownValue
-  //       );
-  //       this.$dropdownFiltersAplliances.appendChild(
-  //         dropdownFilterComponent.createDropdownFilterAplliances()
-  //       );
-  //     });
-  //   });
-  // }
-
-  createDropdownFilterAplliances() {
+  createDropdownFilterAppliances() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
 
     const dropdownFilter = `
           ${this._dropdown.appliance}
-    
-      `;
+    `;
 
     $wrapper.innerHTML = dropdownFilter;
     return $wrapper;
