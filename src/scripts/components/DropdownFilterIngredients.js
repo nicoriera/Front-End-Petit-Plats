@@ -33,6 +33,7 @@ class DropdownFilterIngredients {
 
   updateDropdownIngredients(searchValue = "") {
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log(searchValue, "searchValue");
     const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
 
@@ -49,6 +50,10 @@ class DropdownFilterIngredients {
       );
 =======
     const dropdownValues = Object.values(this._dropdown);
+=======
+    const dropdownValues = this._dropdown.split(",");
+    console.log(dropdownValues, "dropdownValues");
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
 
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
@@ -76,6 +81,7 @@ class DropdownFilterIngredients {
         "w-full",
         "text-left",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "hover:bg-amber-300",
         "p-2"
       );
@@ -83,6 +89,9 @@ class DropdownFilterIngredients {
       const dropdownFilter = `${value}`;
 =======
         "hover:bg-yellow-300",
+=======
+        "hover:bg-amber-300",
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
         "p-2"
       );
 
@@ -100,8 +109,12 @@ class DropdownFilterIngredients {
     });
 =======
       });
+<<<<<<< HEAD
     }, 1000);
 >>>>>>> 16e223b (added search for appliances dropdown)
+=======
+    }, 300);
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
   }
 
   createDropdownFilterIngredients() {

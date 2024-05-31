@@ -19,7 +19,11 @@ class DropdownFilterAppliances {
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
         this.updateDropdownAppliances(searchValue);
+<<<<<<< HEAD
       }, 300);
+=======
+      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
     });
   }
 
@@ -33,10 +37,18 @@ class DropdownFilterAppliances {
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
     });
+<<<<<<< HEAD
+=======
+    console.log(dropdownFiltered, "dropdownFiltered");
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
+<<<<<<< HEAD
+=======
+    console.log(dropdownSorted, "dropdownSorted");
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
 
     const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
       document.getElementById("dropdown-appliances-buttons"));

@@ -19,7 +19,11 @@ class DropdownFilterUstensils {
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
         this.updateDropdownUstensils(searchValue);
+<<<<<<< HEAD
       }, 300);
+=======
+      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
+>>>>>>> 5d55c6f (created label search and continue search in dropdown)
     });
   }
 
