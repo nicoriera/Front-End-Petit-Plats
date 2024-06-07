@@ -5,7 +5,7 @@ class DropdownFiltersFactory {
     } else if (type === "ustensils") {
       return new DropdownUstensils(data);
     } else if (type === "appliance") {
-      return new DropdownAplliance(data);
+      return new DropdownAppliances(data);
     } else {
       throw new Error("Invalid dropdown filter data");
     }

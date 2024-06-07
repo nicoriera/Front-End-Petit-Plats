@@ -4,11 +4,11 @@ class DropdownIngredients {
     this._ingredient = data.ingredient;
   }
 
-  get ingredient() {
-    const arrayIngredients = this._ingredients.map(
-      (ingredient) => ingredient.ingredient
-    );
+  get ingredients() {
+    return this._ingredients;
+  }
 
-    return arrayIngredients;
+  get ingredient() {
+    return this._ingredients.map((ingredient) => ingredient);
   }
 }

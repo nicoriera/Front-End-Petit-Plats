@@ -1,13 +1,13 @@
-class DropdownFilterUstensils {
+class DropdownFilterAppliances {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
 
-  onSearchUstensils() {
-    const $inputSearch = document.getElementById("search-ustensils");
+  onSearchAppliances() {
+    const $inputSearch = document.getElementById("search-appliances");
 
     if (!$inputSearch) {
-      console.error("L'élément avec l'ID 'search-ustensils' n'existe pas.");
+      console.error("L'élément avec l'ID 'search-appliances' n'existe pas.");
       return;
     }
 
@@ -18,17 +18,17 @@ class DropdownFilterUstensils {
 
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
-        this.updateDropdownUstensils(searchValue);
+        this.updateDropdownAppliances(searchValue);
       }, 300);
     });
   }
 
-  loadAllUstensils() {
-    this.updateDropdownUstensils();
+  loadAllAppliances() {
+    this.updateDropdownAppliances();
   }
 
-  updateDropdownUstensils(searchValue = "") {
-    const dropdownValues = this._dropdown.split(",");
+  updateDropdownAppliances(searchValue = "") {
+    const dropdownValues = Object.values(this._dropdown);
 
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
@@ -38,10 +38,10 @@ class DropdownFilterUstensils {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
-    const $dropdownUstensilsButtons = (this.$dropdownFiltersUstensils =
-      document.getElementById("dropdown-ustensils-buttons"));
+    const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
+      document.getElementById("dropdown-appliances-buttons"));
 
-    $dropdownUstensilsButtons.innerHTML = "";
+    $dropdownAppliancesButtons.innerHTML = "";
 
     dropdownSorted.forEach((value) => {
       const $wrapper = document.createElement("button");
@@ -59,20 +59,18 @@ class DropdownFilterUstensils {
       $wrapper.innerHTML = dropdownFilter;
 
       setTimeout(() => {
-        $dropdownUstensilsButtons.appendChild($wrapper);
-      }, 300);
+        $dropdownAppliancesButtons.appendChild($wrapper);
+      }, 1000);
     });
   }
 
-  createDropdownFilterUstensils() {
+  createDropdownFilterAppliances() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `
-    
-          ${this._dropdown}
-      
-        `;
+          ${this._dropdown.appliance}
+    `;
 
     $wrapper.innerHTML = dropdownFilter;
 
@@ -85,7 +83,7 @@ class DropdownFilterUstensils {
 
   updateLabel(value) {
     const $label = document.getElementById(
-      "dropdown-label-search-ustensil-value"
+      "dropdown-label-search-appliance-value"
     );
     $label.textContent = value;
   }

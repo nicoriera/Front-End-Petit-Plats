@@ -15,19 +15,23 @@ class Api {
 }
 
 class RecipeApi extends Api {
-  /**
-   *
-   * @param {string} url
-   */
   constructor(url) {
     super(url);
+    this.data = null;
+  }
+
+  async fetchData() {
+    if (!this.data) {
+      this.data = await this.get();
+    }
+    return this.data;
   }
 
   async getRecipes() {
-    return await this.get();
+    return await this.fetchData();
   }
 
   async getDropdownFilters() {
-    return await this.get();
+    return await this.fetchData();
   }
 }
