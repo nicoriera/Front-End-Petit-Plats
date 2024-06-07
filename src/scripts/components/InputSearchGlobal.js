@@ -3,6 +3,34 @@ class InputSearch {
     this.Recipes = Recipes;
   }
 
+  setupEventListeners() {
+    const $inputSearch = document.getElementById("search-recipes");
+    const $clearSearchButton = document.querySelector("#clear-search-recipes");
+    const $searchButton = document.querySelector("#button-search-recipes");
+
+    // Écouteur pour le bouton de nettoyage
+    $clearSearchButton.addEventListener("click", () => {
+      $inputSearch.value = "";
+      this.loadAllRecipes();
+      const $noResult = document.querySelector(".no-result-message");
+      if ($noResult) $noResult.remove();
+    });
+
+    // Écouteur pour le bouton de recherche
+    $searchButton.addEventListener("click", () => {
+      this.onSearchRecipes();
+    });
+
+    // Ajout d'un écouteur d'événements 'input' sur l'élément de recherche
+    $inputSearch.addEventListener("input", () => {
+      if ($inputSearch.value.trim() === "") {
+        this.loadAllRecipes();
+        const $noResult = document.querySelector(".no-result-message");
+        if ($noResult) $noResult.remove();
+      }
+    });
+  }
+
   quickSort(array, key) {
     if (array.length <= 1) return array;
 
@@ -41,7 +69,7 @@ class InputSearch {
       e.preventDefault();
       const searchValue = e.target.value.toLowerCase();
 
-      if (!searchValue) {
+      if (searchValue === "") {
         this.loadAllRecipes(this.Recipes);
         return;
       }
@@ -76,11 +104,35 @@ class InputSearch {
         );
       });
 
-      const sortedRecipes = this.quickSort(recipesFiltered, "name");
-
-      this.updateRecipes(sortedRecipes);
-      this.updateRecipesNumber(sortedRecipes);
+      if (!recipesFiltered.length) {
+        this.displayNoResultMessage(searchValue);
+        return;
+      } else {
+        const sortedRecipes = this.quickSort(recipesFiltered, "name");
+        this.updateRecipes(sortedRecipes);
+        this.updateRecipesNumber(sortedRecipes);
+      }
     });
+  }
+
+  displayNoResultMessage(searchValue) {
+    const $inputSearchWrapper = document.querySelector(".input-search-wrapper");
+    let $noResult = document.querySelector(".no-result-message");
+    if (!$noResult) {
+      $noResult = document.createElement("div");
+      $noResult.classList.add(
+        "no-result-message",
+        "text-center",
+        "text-2xl",
+        "mt-10",
+        "justify-center",
+        "flex",
+        "text-gray-300"
+      );
+      $inputSearchWrapper.appendChild($noResult);
+    }
+
+    $noResult.textContent = `Aucune recette ne correspond à votre critère ${searchValue}. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
   }
 
   loadAllRecipes() {
@@ -141,20 +193,6 @@ class InputSearch {
       `;
 
     $wrapper.innerHTML = inputSearch;
-
-    $wrapper
-      .querySelector("#clear-search-recipes")
-      .addEventListener("click", () => {
-        const $inputSearch = document.getElementById("search-recipes");
-        $inputSearch.value = "";
-        this.loadAllRecipes();
-      });
-
-    $wrapper
-      .querySelector("#button-search-recipes")
-      .addEventListener("click", () => {
-        this.onSearchRecipes();
-      });
 
     return $wrapper;
   }
