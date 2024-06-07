@@ -1,4 +1,4 @@
-class DropdownFilterAppliances {
+export class DropdownFilterAppliances {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
@@ -88,3 +88,5 @@ class DropdownFilterAppliances {
     $label.textContent = value;
   }
 }
+
+export default DropdownFilterAppliances;

@@ -1,4 +1,4 @@
-class DropdownIngredients {
+export class DropdownIngredients {
   constructor(data) {
     this._ingredients = data.ingredients;
     this._ingredient = data.ingredient;
@@ -12,3 +12,5 @@ class DropdownIngredients {
     return this._ingredients.map((ingredient) => ingredient);
   }
 }
+
+export default DropdownIngredients;

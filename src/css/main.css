@@ -783,6 +783,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .mt-12 {
   margin-top: 3rem;
 }
@@ -1169,6 +1173,11 @@ video {
 
 .font-\[\'Manrope\'\] {
   font-family: 'Manrope';
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-\[21px\] {

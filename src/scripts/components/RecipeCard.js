@@ -1,4 +1,4 @@
-class RecipeCard {
+export class RecipeCard {
   constructor(recipe) {
     this.recipe = recipe;
   }
@@ -89,3 +89,5 @@ class RecipeCard {
     return $wrapper;
   }
 }
+
+export default RecipeCard;

@@ -1,4 +1,4 @@
-class RecipesNumberTotal {
+export class RecipesNumberTotal {
   constructor(recipes) {
     this.recipes = recipes;
   }
@@ -17,3 +17,5 @@ class RecipesNumberTotal {
     return $wrapper;
   }
 }
+
+export default RecipesNumberTotal;

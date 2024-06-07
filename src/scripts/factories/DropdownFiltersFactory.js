@@ -1,4 +1,4 @@
-class DropdownFiltersFactory {
+export class DropdownFiltersFactory {
   constructor(data, type) {
     if (type === "ingredients") {
       return new DropdownIngredients(data);
@@ -11,3 +11,5 @@ class DropdownFiltersFactory {
     }
   }
 }
+
+export default DropdownFiltersFactory;

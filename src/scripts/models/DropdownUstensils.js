@@ -1,4 +1,4 @@
-class DropdownUstensils {
+export class DropdownUstensils {
   constructor(data) {
     this._ustensils = data.ustensils;
     this._ustensil = data.ustensil;
@@ -12,3 +12,5 @@ class DropdownUstensils {
     return this._ustensils.map((ustensil) => ustensil);
   }
 }
+
+export default DropdownUstensils;

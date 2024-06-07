@@ -1,4 +1,4 @@
-class DropdownFilterUstensils {
+export class DropdownFilterUstensils {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
@@ -90,3 +90,5 @@ class DropdownFilterUstensils {
     $label.textContent = value;
   }
 }
+
+export default DropdownFilterUstensils;

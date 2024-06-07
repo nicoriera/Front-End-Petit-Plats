@@ -1,4 +1,4 @@
-class Recipe {
+export class Recipe {
   constructor(data) {
     this._id = data.id;
     this._name = data.name;
@@ -47,3 +47,5 @@ class Recipe {
     return this._time;
   }
 }
+
+export default Recipe;

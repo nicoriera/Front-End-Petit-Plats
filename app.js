@@ -1,3 +1,13 @@
+import { inputManager } from "./src/scripts/helpers/inputManager.js";
+import RecipeApi from "./src/scripts/api/api.js";
+import Recipe from "./src/scripts/models/Recipe.js";
+import RecipeCard from "./src/scripts/components/RecipeCard.js";
+import RecipesNumberTotal from "./src/scripts/components/RecipesNumberTotal.js";
+import InputSearch from "./src/scripts/components/InputSearchGlobal.js";
+import DropdownAppliance from "./src/scripts/components/DropdownFilterAppliances.js";
+import DropdownIngredients from "./src/scripts/components/DropdownFilterIngredients.js";
+import DropdownUstensils from "./src/scripts/components/DropdownFilterUstensils.js";
+
 class App {
   constructor() {
     // DOM
@@ -29,110 +39,94 @@ class App {
   }
 
   async main() {
+    // Récupération des données
     const recipesData = await this.recipesApi.getRecipes();
     const dropdownFiltersData = await this.recipesApi.getDropdownFilters();
 
-    // Components
+    // Initialisation des composants
 
-    // Recipe Card
-
-    const Recipes = recipesData.map((recipe) => new Recipe(recipe));
-
-    // Recipes Number
-
-    const recipesNumber = new RecipesNumberTotal(recipesData);
-
-    // Input Search Global
-
-    // Somewhere else in your code, after you've added the wrapper to your page
-    const inputSearch = new InputSearch(Recipes);
-
-    // Dropdown Appliance
-
-    const DropdownFilterApllianceData = dropdownFiltersData.map(
-      (dropdown) => new DropdownAppliance(dropdown, "appliance")
-    );
-
-    const uniqueDropdownFilterApplianceData =
-      DropdownFilterApllianceData.filter((value, index, self) => {
-        const _self = self.map((v) => JSON.stringify(v));
-        return _self.indexOf(JSON.stringify(value)) === index;
-      });
-
-    // Dropdown Ingredients
-
-    const DropdownFilterIngredientsData = dropdownFiltersData.map(
-      (dropdown) => new DropdownIngredients(dropdown, "ingredients")
-    );
-    const ingredients = DropdownFilterIngredientsData.map(
-      (ingredient) => ingredient.ingredient
-    );
-
-    const allIngredients = ingredients.flat();
-
-    const uniqueDropdownFilterIngredientData = allIngredients.filter(
-      (value, index, self) => {
-        const lowerCaseSelf = self.map((v) => v.ingredient.toLowerCase());
-        return lowerCaseSelf.indexOf(value.ingredient.toLowerCase()) === index;
-      }
-    );
-
-    // Dropdown Ustensils
-
-    const DropdownFilterUstensilsData = dropdownFiltersData.map(
-      (dropdown) => new DropdownUstensils(dropdown, "ustensils")
-    );
-
-    const ustensils = DropdownFilterUstensilsData.map(
-      (ustensil) => ustensil.ustensil
-    );
-
-    const allUstensils = ustensils.flat();
-
-    const uniqueDropdownFilterUstensilsData = allUstensils
-      .filter((value, index, self) => {
-        const lowerCaseSelf = self.map((v) => v.toLowerCase());
-        return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
-      })
-      .map((value) => value.charAt(0).toUpperCase() + value.slice(1));
-
-    // Rendering
-
-    recipesData;
-    Recipes.forEach((recipe) => {
+    // Création des cartes de recettes
+    const recipes = recipesData.map((recipe) => new Recipe(recipe));
+    recipes.forEach((recipe) => {
       const recipeCard = new RecipeCard(recipe);
       this.$recipesWrapper.appendChild(recipeCard.createRecipeCard());
     });
 
+    // Affichage du nombre total de recettes
+    const recipesNumber = new RecipesNumberTotal(recipesData);
     this.$recipesNumberWrapper.appendChild(
       recipesNumber.createRecipesNumberTotal()
     );
 
+    // Gestion de la recherche globale
+    const inputSearch = new InputSearch(recipes);
     this.$inputSearchGlobalWrapper.appendChild(
       inputSearch.createInputSearchGlobal()
     );
     inputSearch.onSearchRecipes();
-    inputSearch.setupEventListeners();
 
-    dropdownFiltersData;
+    // Configuration des écouteurs d'événements pour les champs de saisie
+    inputManager.setupSearchRecipeListeners();
+
+    // Gestion des dropdowns
+    this.setupDropdownFilters(dropdownFiltersData);
+  }
+
+  setupDropdownFilters(dropdownFiltersData) {
+    // Gestion des Dropdowns Appliances
+    const uniqueDropdownFilterApplianceData = [
+      ...new Set(
+        dropdownFiltersData.map((dropdown) => dropdown.appliance.toLowerCase())
+      ),
+    ].map(
+      (appliance) => appliance.charAt(0).toUpperCase() + appliance.slice(1)
+    );
+
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterAppliances(dropdown);
+      const dropdownFilterComponent = new DropdownAppliance(
+        dropdown,
+        "appliance"
+      );
       this.$dropdownFiltersAplliances.appendChild(
         dropdownFilterComponent.createDropdownFilterAppliances()
       );
       dropdownFilterComponent.onSearchAppliances();
     });
 
+    // Gestion des Dropdowns Ingredients
+    const allIngredients = dropdownFiltersData
+      .map((dropdown) => dropdown.ingredients)
+      .flat();
+    const uniqueDropdownFilterIngredientData = [
+      ...new Set(allIngredients.map((ingredient) => ingredient.toLowerCase())),
+    ].map(
+      (ingredient) => ingredient.charAt(0).toUpperCase() + ingredient.slice(1)
+    );
+
     uniqueDropdownFilterIngredientData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterIngredients(dropdown);
+      const dropdownFilterComponent = new DropdownIngredients(
+        dropdown,
+        "ingredients"
+      );
       this.$dropdownFilterIngredients.appendChild(
         dropdownFilterComponent.createDropdownFilterIngredients()
       );
       dropdownFilterComponent.onSearchIngredients();
     });
 
+    // Gestion des Dropdowns Ustensils
+    const allUstensils = dropdownFiltersData
+      .map((dropdown) => dropdown.ustensils)
+      .flat();
+    const uniqueDropdownFilterUstensilsData = [
+      ...new Set(allUstensils.map((ustensil) => ustensil.toLowerCase())),
+    ].map((ustensil) => ustensil.charAt(0).toUpperCase() + ustensil.slice(1));
+
     uniqueDropdownFilterUstensilsData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterUstensils(dropdown);
+      const dropdownFilterComponent = new DropdownUstensils(
+        dropdown,
+        "ustensils"
+      );
       this.$dropdownFiltersUstensils.appendChild(
         dropdownFilterComponent.createDropdownFilterUstensils()
       );

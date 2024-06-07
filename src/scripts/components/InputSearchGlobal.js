@@ -1,4 +1,4 @@
-class InputSearch {
+export class InputSearch {
   constructor(Recipes) {
     this.Recipes = Recipes;
   }
@@ -11,6 +11,7 @@ class InputSearch {
     // Écouteur pour le bouton de nettoyage
     $clearSearchButton.addEventListener("click", () => {
       $inputSearch.value = "";
+
       this.loadAllRecipes();
       const $noResult = document.querySelector(".no-result-message");
       if ($noResult) $noResult.remove();
@@ -27,6 +28,9 @@ class InputSearch {
         this.loadAllRecipes();
         const $noResult = document.querySelector(".no-result-message");
         if ($noResult) $noResult.remove();
+        $clearSearchButton.classList.add("hidden"); // Cache le bouton si l'input est vide
+      } else {
+        $clearSearchButton.classList.remove("hidden"); // Affiche le bouton si l'input n'est pas vide
       }
     });
   }
@@ -186,7 +190,8 @@ class InputSearch {
         </button>
         <button
               id="clear-search-recipes"
-              class="absolute top-7 right-16 text-lg text-gray-300"
+              class="absolute hidden top-7 right-16 text-lg text-gray-300"
+
         >
           X
         </button>
@@ -197,3 +202,5 @@ class InputSearch {
     return $wrapper;
   }
 }
+
+export default InputSearch;

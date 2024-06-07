@@ -21,8 +21,3 @@ function setupClearButton(inputId) {
 }
 
 inputIds.forEach(setupClearButton);
-
-// Gestion pour search-recipes qui est créé dynamiquement
-document.addEventListener("DOMContentLoaded", () => {
-  setupClearButton("search-recipes");
-});
