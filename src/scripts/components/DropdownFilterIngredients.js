@@ -19,7 +19,7 @@ class DropdownFilterIngredients {
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
         this.updateDropdownIngredients(searchValue);
-      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
+      }, 300);
     });
   }
 
@@ -28,20 +28,29 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
-    const dropdownValues = this._dropdown.split(",");
-    console.log(dropdownValues, "dropdownValues");
+    console.log(searchValue, "searchValue");
+    const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
 
-    const dropdownFiltered = dropdownValues.filter((value) => {
-      return value.toLowerCase().includes(searchValue);
+    const dropdownValues = this._dropdown.ingredient
+      .split(",")
+      .map((value) => value.trim());
+
+    const dropdownFiltered = dropdownValues.filter((ingredient) => {
+      const ingredientWords = ingredient.toLowerCase().split(/\s+/); // Diviser chaque ingrédient en mots
+      return searchWords.every((searchWord) =>
+        ingredientWords.some((ingredientWord) =>
+          ingredientWord.includes(searchWord)
+        )
+      );
     });
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
-    const $dropdownIngredientsButtons = (this.$dropdownFiltersIngredients =
-      document.getElementById("dropdown-ingredients-buttons"));
-
+    const $dropdownIngredientsButtons = document.getElementById(
+      "dropdown-ingredients-buttons"
+    );
     $dropdownIngredientsButtons.innerHTML = "";
 
     dropdownSorted.forEach((value) => {
@@ -53,16 +62,14 @@ class DropdownFilterIngredients {
         "p-2"
       );
 
-      const dropdownFilter = `
-          ${value}
-      `;
+      const dropdownFilter = `${value}`;
 
       $wrapper.innerHTML = dropdownFilter;
 
       setTimeout(() => {
         $dropdownIngredientsButtons.appendChild($wrapper);
-      });
-    }, 300);
+      }, 300);
+    });
   }
 
   createDropdownFilterIngredients() {
@@ -72,7 +79,7 @@ class DropdownFilterIngredients {
     const dropdownFilter = `
 
    
-      ${this._dropdown}
+      ${this._dropdown.ingredient}
    
   
     `;
