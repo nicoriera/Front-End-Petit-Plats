@@ -20,10 +20,14 @@ class DropdownFilterIngredients {
       debounceTimeout = setTimeout(() => {
         this.updateDropdownIngredients(searchValue);
 <<<<<<< HEAD
+<<<<<<< HEAD
       }, 300);
 =======
       }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
 >>>>>>> 16e223b (added search for appliances dropdown)
+=======
+      }, 300);
+>>>>>>> 19f15ba (created search for dropdown ingredient)
     });
   }
 
@@ -32,6 +36,7 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     console.log(searchValue, "searchValue");
@@ -58,12 +63,29 @@ class DropdownFilterIngredients {
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
 >>>>>>> 16e223b (added search for appliances dropdown)
+=======
+    console.log(searchValue, "searchValue");
+    const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
+
+    const dropdownValues = this._dropdown.ingredient
+      .split(",")
+      .map((value) => value.trim());
+
+    const dropdownFiltered = dropdownValues.filter((ingredient) => {
+      const ingredientWords = ingredient.toLowerCase().split(/\s+/); // Diviser chaque ingrédient en mots
+      return searchWords.every((searchWord) =>
+        ingredientWords.some((ingredientWord) =>
+          ingredientWord.includes(searchWord)
+        )
+      );
+>>>>>>> 19f15ba (created search for dropdown ingredient)
     });
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const $dropdownIngredientsButtons = document.getElementById(
       "dropdown-ingredients-buttons"
@@ -73,6 +95,11 @@ class DropdownFilterIngredients {
       document.getElementById("dropdown-ingredients-buttons"));
 
 >>>>>>> 16e223b (added search for appliances dropdown)
+=======
+    const $dropdownIngredientsButtons = document.getElementById(
+      "dropdown-ingredients-buttons"
+    );
+>>>>>>> 19f15ba (created search for dropdown ingredient)
     $dropdownIngredientsButtons.innerHTML = "";
 
     dropdownSorted.forEach((value) => {
@@ -87,6 +114,7 @@ class DropdownFilterIngredients {
       );
 
       const dropdownFilter = `${value}`;
+<<<<<<< HEAD
 =======
         "hover:bg-yellow-300",
 =======
@@ -99,11 +127,14 @@ class DropdownFilterIngredients {
           ${value}
       `;
 >>>>>>> 16e223b (added search for appliances dropdown)
+=======
+>>>>>>> 19f15ba (created search for dropdown ingredient)
 
       $wrapper.innerHTML = dropdownFilter;
 
       setTimeout(() => {
         $dropdownIngredientsButtons.appendChild($wrapper);
+<<<<<<< HEAD
 <<<<<<< HEAD
       }, 300);
     });
@@ -115,6 +146,10 @@ class DropdownFilterIngredients {
 =======
     }, 300);
 >>>>>>> 5d55c6f (created label search and continue search in dropdown)
+=======
+      }, 300);
+    });
+>>>>>>> 19f15ba (created search for dropdown ingredient)
   }
 
   createDropdownFilterIngredients() {
