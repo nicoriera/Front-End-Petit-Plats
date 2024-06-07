@@ -72,8 +72,8 @@ class App {
 
     const uniqueDropdownFilterIngredientData = allIngredients.filter(
       (value, index, self) => {
-        const lowerCaseSelf = self.map((v) => v.toLowerCase());
-        return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
+        const lowerCaseSelf = self.map((v) => v.ingredient.toLowerCase());
+        return lowerCaseSelf.indexOf(value.ingredient.toLowerCase()) === index;
       }
     );
 
@@ -112,6 +112,7 @@ class App {
       inputSearch.createInputSearchGlobal()
     );
     inputSearch.onSearchRecipes();
+    inputSearch.setupEventListeners();
 
     dropdownFiltersData;
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {

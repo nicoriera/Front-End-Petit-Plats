@@ -19,7 +19,7 @@ class DropdownFilterAppliances {
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
         this.updateDropdownAppliances(searchValue);
-      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
+      }, 300);
     });
   }
 
@@ -33,12 +33,10 @@ class DropdownFilterAppliances {
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
     });
-    console.log(dropdownFiltered, "dropdownFiltered");
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
-    console.log(dropdownSorted, "dropdownSorted");
 
     const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
       document.getElementById("dropdown-appliances-buttons"));
