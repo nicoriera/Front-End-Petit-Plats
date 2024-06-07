@@ -1,4 +1,4 @@
-export class DropdownAppliance {
+export class DropdownAppliances {
   constructor(data) {
     this._appliance = data.appliance;
   }
@@ -8,4 +8,4 @@ export class DropdownAppliance {
   }
 }
 
-export default DropdownAppliance;
+export default DropdownAppliances;

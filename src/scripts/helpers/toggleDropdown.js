@@ -1,4 +1,4 @@
-function toggleDropdown(dropdownId) {
+export function toggleDropdown(dropdownId) {
   const dropdown = document.getElementById(dropdownId);
   const toggleButton = document.getElementById(`${dropdownId}-toggle`);
 
@@ -31,3 +31,5 @@ document.addEventListener("click", function (event) {
     }
   });
 });
+
+export default toggleDropdown;

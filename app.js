@@ -4,9 +4,12 @@ import Recipe from "./src/scripts/models/Recipe.js";
 import RecipeCard from "./src/scripts/components/RecipeCard.js";
 import RecipesNumberTotal from "./src/scripts/components/RecipesNumberTotal.js";
 import InputSearch from "./src/scripts/components/InputSearchGlobal.js";
-import DropdownAppliance from "./src/scripts/components/DropdownFilterAppliances.js";
+import DropdownFilterAppliances from "./src/scripts/components/DropdownFilterAppliances.js";
 import DropdownIngredients from "./src/scripts/components/DropdownFilterIngredients.js";
 import DropdownUstensils from "./src/scripts/components/DropdownFilterUstensils.js";
+import DropdownAppliances from "./src/scripts/models/DropdownAppliances.js";
+import DropdownIngredients from "./src/scripts/models/DropdownIngredients.js";
+import DropdownUstensils from "./src/scripts/models/DropdownUstensils.js";
 
 class App {
   constructor() {
@@ -83,7 +86,7 @@ class App {
     );
 
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownAppliance(
+      const dropdownFilterComponent = new DropdownAppliances(
         dropdown,
         "appliance"
       );
