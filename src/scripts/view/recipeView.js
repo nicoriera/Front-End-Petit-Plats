@@ -35,51 +35,45 @@ export class ViewRecipes {
 
         // Je crée une div pour chaque recette et je l'insère dans la div recipes-zone
         this.recipeSnippet.innerHTML += `
-          <div id="card-container" class="col-12 col-lg-4">
-                      <article class="card h-100 border-0">
-                          <img src="./assets/images/${imageName}.webp" alt="photo de ${
+        <div id="card-container" class="col-12 col-lg-4">
+                    <article class="card h-100 border-0">
+                        <img src="./assets/images/${imageName}.webp" alt="photo de ${
           recipe.name
         }" class="card-img-top" height="178px">
-                          <div class="card-body rounded-bottom">
-                              <div id="recipe-name-time" class="d-flex flex-row justify-content-between">
-                                  <h2 class="card-title w-75">${
-                                    recipe.name
-                                  }</h2>
-                                  <div class="recipe-time text-nowrap">
-                                      <span class="timeIcon me-1">
-                                          <img src="./assets/icons/time.svg" alt="icone d'horloge">
-                                      </span>
-                                      <span id="timeValue" class="smallFont">${
-                                        recipe.time
-                                      } min</span>
-                                  </div>
-                              </div>
-                              <div class="card-text py-2 d-flex flex-row heightFix">
-                                  <ul class="ingredients-list w-50 pe-2">
-                                      ${recipe.ingredients
-                                        .map((ingredient) => {
-                                          return `<li>${
-                                            ingredient.ingredient
-                                          }: ${
-                                            ingredient.quantity
-                                              ? ingredient.quantity
-                                              : ""
-                                          } ${
-                                            ingredient.unit
-                                              ? ingredient.unit
-                                              : ""
-                                          }</li>`;
-                                        })
-                                        .join("")}
-                                  </ul>
-                                  <p class="recipe-description w-50 ps-2">
-                                      ${recipe.description}
-                                  </p>
-                              </div>
-                          </div>
-                      </article>
-                  </div>        
-          `;
+                        <div class="card-body rounded-bottom">
+                            <div id="recipe-name-time" class="d-flex flex-row justify-content-between">
+                                <h2 class="card-title w-75">${recipe.name}</h2>
+                                <div class="recipe-time text-nowrap">
+                                    <span class="timeIcon me-1">
+                                        <img src="./assets/icons/time.svg" alt="icone d'horloge">
+                                    </span>
+                                    <span id="timeValue" class="smallFont">${
+                                      recipe.time
+                                    } min</span>
+                                </div>
+                            </div>
+                            <div class="card-text py-2 d-flex flex-row heightFix">
+                                <ul class="ingredients-list w-50 pe-2">
+                                    ${recipe.ingredients
+                                      .map((ingredient) => {
+                                        return `<li>${ingredient.ingredient}: ${
+                                          ingredient.quantity
+                                            ? ingredient.quantity
+                                            : ""
+                                        } ${
+                                          ingredient.unit ? ingredient.unit : ""
+                                        }</li>`;
+                                      })
+                                      .join("")}
+                                </ul>
+                                <p class="recipe-description w-50 ps-2">
+                                    ${recipe.description}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>        
+        `;
       });
     }
   }
@@ -104,26 +98,26 @@ export class ViewRecipes {
 
     // Ajouter les nouveaux éléments aux listes
     this.ingredientButtonList.innerHTML += `
-          ${ingredientList
-            .map((ingredient) => {
-              return `<li>${ingredient}</li>`;
-            })
-            .join("")}
-      `;
+        ${ingredientList
+          .map((ingredient) => {
+            return `<li>${ingredient}</li>`;
+          })
+          .join("")}
+    `;
     this.applianceButtonList.innerHTML += `
-          ${applianceList
-            .map((appliance) => {
-              return `<li>${appliance}</li>`;
-            })
-            .join("")}
-      `;
+        ${applianceList
+          .map((appliance) => {
+            return `<li>${appliance}</li>`;
+          })
+          .join("")}
+    `;
     this.ustensilsButtonList.innerHTML += `
-          ${ustensilList
-            .map((ustensil) => {
-              return `<li>${ustensil}</li>`;
-            })
-            .join("")}
-      `;
+        ${ustensilList
+          .map((ustensil) => {
+            return `<li>${ustensil}</li>`;
+          })
+          .join("")}
+    `;
   }
 
   // Méthode de contrôle et d'affichage du message d'erreur de recettes non trouvées
@@ -133,10 +127,10 @@ export class ViewRecipes {
       this.applianceButtonList.innerHTML = "";
       this.ustensilsButtonList.innerHTML = "";
       this.recipeSnippet.innerHTML = `
-              <div id="no-recipe" class="col-12 fs-4">
-                  <p class="text-center">Aucune recette ne correspond à votre critère... Vous pouvez chercher "tarte aux pommes", "poisson", etc...</p>
-              </div>
-          `;
+			<div id="no-recipe" class="col-12 fs-4">
+				<p class="text-center">Aucune recette ne correspond à votre critère... Vous pouvez chercher "tarte aux pommes", "poisson", etc...</p>
+			</div>
+		`;
     }
   }
 
@@ -185,10 +179,10 @@ export class FilterTagView {
     const filterTagSnippet = document.getElementById("tags-zone");
 
     filterTagSnippet.innerHTML += `
-          <button type="button" class="tag tag-${type}" data-type="${type}">${tag}
-                  <img src="./assets/icons/tag-close.svg" alt="icone de fermeture du tag" class="tag-close">
-              </button>
-          `;
+        <button type="button" class="tag tag-${type}" data-type="${type}">${tag}
+                <img src="./assets/icons/tag-close.svg" alt="icone de fermeture du tag" class="tag-close">
+            </button>
+        `;
   }
 
   // Méthode pour supprimer un tag de filtre

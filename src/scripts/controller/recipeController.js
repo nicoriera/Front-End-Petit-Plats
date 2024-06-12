@@ -1,13 +1,13 @@
-import { FilterTagView, ViewRecipes } from "../view/recipesView.js";
+import { FilterTagView, ViewRecipes } from "../view/recipeView.js";
 import { Event } from "./Event.js";
 
 export class ControllerRecipes {
   constructor(model) {
     this.model = model;
-    this.searchInput = document.querySelector("#search-zone");
-    this.ingredientSearchInput = document.querySelector("#ingredient-input");
-    this.applianceSearchInput = document.querySelector("#appliance-input");
-    this.ustensilsSearchInput = document.querySelector("#ustensils-input");
+    this.searchInput = document.querySelector("#recipes-search-container");
+    this.ingredientSearchInput = document.querySelector("#search-ingredients");
+    this.applianceSearchInput = document.querySelector("#search-appliances");
+    this.ustensilsSearchInput = document.querySelector("#search-ustensils");
     // Je crée un tableau qui va contenir les tags sélectionnés
     this.selectedTags = this.model.getSelectedTags();
     this.tagToDisplay = "";
