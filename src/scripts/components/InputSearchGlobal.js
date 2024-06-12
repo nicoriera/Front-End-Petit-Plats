@@ -18,7 +18,7 @@ class InputSearch {
 
     // Écouteur pour le bouton de recherche
     $searchButton.addEventListener("click", () => {
-      this.onSearchRecipes();
+      this.searchRecipes();
     });
 
     // Ajout d'un écouteur d'événements 'input' sur l'élément de recherche
@@ -27,6 +27,9 @@ class InputSearch {
         this.loadAllRecipes();
         const $noResult = document.querySelector(".no-result-message");
         if ($noResult) $noResult.remove();
+        $clearSearchButton.classList.add("hidden"); // Cache le bouton si l'input est vide
+      } else {
+        $clearSearchButton.classList.remove("hidden"); // Affiche le bouton si l'input n'est pas vide
       }
     });
   }
@@ -63,7 +66,7 @@ class InputSearch {
     return this.quickSort(left, key).concat(pivot, this.quickSort(right, key));
   }
 
-  onSearchRecipes() {
+  searchRecipes() {
     const $inputSearch = document.getElementById("search-recipes");
     $inputSearch.addEventListener("input", async (e) => {
       e.preventDefault();
@@ -113,6 +116,19 @@ class InputSearch {
         this.updateRecipesNumber(sortedRecipes);
       }
     });
+  }
+
+  updateUstensils(recipesFiltered) {
+    const allUstensils = [];
+
+    recipesFiltered.forEach((recipe) => {
+      recipe.ustensils.forEach((utensil) =>
+        allUstensils.push(utensil.toLowerCase())
+      );
+    });
+
+    const uniqueUstensils = [...new Set(allUstensils)];
+    this.updateDropdownUstensils(uniqueUstensils);
   }
 
   displayNoResultMessage(searchValue) {
@@ -186,7 +202,7 @@ class InputSearch {
         </button>
         <button
               id="clear-search-recipes"
-              class="absolute top-7 right-16 text-lg text-gray-300"
+              class="absolute hidden top-7 right-16 text-lg text-gray-300"
         >
           X
         </button>

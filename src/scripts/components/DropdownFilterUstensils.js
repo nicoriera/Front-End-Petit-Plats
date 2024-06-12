@@ -1,6 +1,8 @@
 class DropdownFilterUstensils {
-  constructor(dropdown) {
+  constructor(dropdown, recipes) {
     this._dropdown = dropdown;
+    this.recipes = recipes;
+    console.log(this.recipes, "recipes");
   }
 
   onSearchUstensils() {

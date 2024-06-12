@@ -1,11 +1,12 @@
+import { RecipeApi } from "./src/api/api.js";
+import { ViewRecipes } from "./src/scripts/view/recipesView.js"; // Import depuis index.js
+import { ControllerRecipes } from "./src/scripts/controller/recipeController.js"; // Import depuis index.js
+import { Recipes } from "./src/scripts/models/recipeModel.js"; // Import depuis index.js
+
 class App {
   constructor() {
-    // DOM
-
-    // Recipes Wrapper
+    // DOM Elements
     this.$recipesWrapper = document.querySelector(".recipes-wrapper");
-
-    // Dropdown Filters
     this.$dropdownFilterIngredients = document.getElementById(
       "dropdown-ingredients-buttons"
     );
@@ -15,129 +16,98 @@ class App {
     this.$dropdownFiltersUstensils = document.getElementById(
       "dropdown-ustensils-buttons"
     );
-
-    // Recipes Number
-    this.$recipesNumberWrapper = document.querySelector(
-      ".recipes-number-wrapper"
+    this.$inputSearchGlobalWrapper = document.getElementById(
+      "input-search-global"
     );
+    this.$recipesNumberWrapper = document.getElementById("recipes-number");
 
-    // Input Search Global
-    this.$inputSearchGlobalWrapper = document.querySelector(".recipes-search");
+    // Initialisation des données
+    this.recipesToShow = [];
+    this.ingredientArray = [];
+    this.applianceArray = [];
+    this.ustensilsArray = [];
 
-    // API
-    this.recipesApi = new RecipeApi("src/data/recipes.json");
+    // Initialisation des composants
+    this.init();
   }
 
-  async main() {
-    const recipesData = await this.recipesApi.getRecipes();
-    const dropdownFiltersData = await this.recipesApi.getDropdownFilters();
+  init() {
+    // Récupération des recettes depuis l'API (ou importation directe des recettes)
+    // Remplacer par `RecipeApi.getRecipes()` si on utilise une API
+    const recipesData = RecipeApi.getRecipes();
+    this.recipesToShow = recipesData.slice();
 
-    // Components
+    // Création des instances de contrôleur et de vue
+    const controller = new ControllerRecipes(new Recipes(this.recipesToShow));
+    this.ingredientArray = controller.getBaseIngredients();
+    this.applianceArray = controller.getBaseAppliances();
+    this.ustensilsArray = controller.getBaseUstensils();
 
-    // Recipe Card
-
-    const Recipes = recipesData.map((recipe) => new Recipe(recipe));
-
-    // Recipes Number
-
-    const recipesNumber = new RecipesNumberTotal(recipesData);
-
-    // Input Search Global
-
-    // Somewhere else in your code, after you've added the wrapper to your page
-    const inputSearch = new InputSearch(Recipes);
-
-    // Dropdown Appliance
-
-    const DropdownFilterApllianceData = dropdownFiltersData.map(
-      (dropdown) => new DropdownAppliance(dropdown, "appliance")
+    // Affichage des recettes et des boutons de filtre
+    const recipesDisplay = new ViewRecipes();
+    recipesDisplay.displayRecipesList(this.recipesToShow);
+    recipesDisplay.displayButtonLists(
+      this.ingredientArray,
+      this.applianceArray,
+      this.ustensilsArray
     );
 
-    const uniqueDropdownFilterApplianceData =
-      DropdownFilterApllianceData.filter((value, index, self) => {
-        const _self = self.map((v) => JSON.stringify(v));
-        return _self.indexOf(JSON.stringify(value)) === index;
-      });
+    // Gestion des événements de sélection/désélection des tags
+    controller.handleTagSelected();
+    controller.handleTagUnSelected();
 
-    // Dropdown Ingredients
+    // Recherche principale
+    controller.mainSearch();
 
-    const DropdownFilterIngredientsData = dropdownFiltersData.map(
-      (dropdown) => new DropdownIngredients(dropdown, "ingredients")
-    );
-    const ingredients = DropdownFilterIngredientsData.map(
-      (ingredient) => ingredient.ingredient
-    );
+    // Affichage des composants additionnels (si nécessaire)
+    this.renderAdditionalComponents();
+  }
 
-    const allIngredients = ingredients.flat();
-
-    const uniqueDropdownFilterIngredientData = allIngredients.filter(
-      (value, index, self) => {
-        const lowerCaseSelf = self.map((v) => v.ingredient.toLowerCase());
-        return lowerCaseSelf.indexOf(value.ingredient.toLowerCase()) === index;
-      }
-    );
-
-    // Dropdown Ustensils
-
-    const DropdownFilterUstensilsData = dropdownFiltersData.map(
-      (dropdown) => new DropdownUstensils(dropdown, "ustensils")
-    );
-
-    const ustensils = DropdownFilterUstensilsData.map(
-      (ustensil) => ustensil.ustensil
-    );
-
-    const allUstensils = ustensils.flat();
-
-    const uniqueDropdownFilterUstensilsData = allUstensils
-      .filter((value, index, self) => {
-        const lowerCaseSelf = self.map((v) => v.toLowerCase());
-        return lowerCaseSelf.indexOf(value.toLowerCase()) === index;
-      })
-      .map((value) => value.charAt(0).toUpperCase() + value.slice(1));
-
-    // Rendering
-
-    recipesData;
-    Recipes.forEach((recipe) => {
-      const recipeCard = new RecipeCard(recipe);
-      this.$recipesWrapper.appendChild(recipeCard.createRecipeCard());
-    });
-
+  renderAdditionalComponents() {
+    // Affichage du nombre total de recettes
+    const recipesNumber = new RecipesNumber(this.recipesToShow.length);
     this.$recipesNumberWrapper.appendChild(
       recipesNumber.createRecipesNumberTotal()
     );
 
+    // Affichage du champ de recherche global
+    const inputSearch = new InputSearch();
     this.$inputSearchGlobalWrapper.appendChild(
       inputSearch.createInputSearchGlobal()
     );
-    inputSearch.onSearchRecipes();
+    inputSearch.searchRecipes();
     inputSearch.setupEventListeners();
 
-    dropdownFiltersData;
-    uniqueDropdownFilterApplianceData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterAppliances(dropdown);
-      this.$dropdownFiltersAplliances.appendChild(
-        dropdownFilterComponent.createDropdownFilterAppliances()
-      );
-      dropdownFilterComponent.onSearchAppliances();
-    });
-
-    uniqueDropdownFilterIngredientData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterIngredients(dropdown);
+    // Affichage des filtres déroulants pour les ingrédients
+    this.ingredientArray.forEach((ingredient) => {
+      const dropdownFilterComponent = new DropdownFilterIngredients(ingredient);
       this.$dropdownFilterIngredients.appendChild(
         dropdownFilterComponent.createDropdownFilterIngredients()
       );
       dropdownFilterComponent.onSearchIngredients();
     });
 
-    uniqueDropdownFilterUstensilsData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterUstensils(dropdown);
+    // Affichage des filtres déroulants pour les appareils
+    this.applianceArray.forEach((appliance) => {
+      const dropdownFilterComponent = new DropdownFilterAppliances(appliance);
+      this.$dropdownFiltersAplliances.appendChild(
+        dropdownFilterComponent.createDropdownFilterAppliances()
+      );
+      dropdownFilterComponent.onSearchAppliances();
+    });
+
+    // Affichage des filtres déroulants pour les ustensiles
+    this.ustensilsArray.forEach((ustensil) => {
+      const dropdownFilterComponent = new DropdownFilterUstensils(ustensil);
       this.$dropdownFiltersUstensils.appendChild(
         dropdownFilterComponent.createDropdownFilterUstensils()
       );
       dropdownFilterComponent.onSearchUstensils();
     });
+  }
+
+  main() {
+    // Toute autre initialisation ou configuration nécessaire
   }
 }
 

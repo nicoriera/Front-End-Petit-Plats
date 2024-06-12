@@ -1,4 +1,4 @@
-class Api {
+export class Api {
   /**
    *
    * @param {string} url
@@ -14,7 +14,7 @@ class Api {
   }
 }
 
-class RecipeApi extends Api {
+export class RecipeApi extends Api {
   constructor(url) {
     super(url);
     this.data = null;
