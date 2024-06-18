@@ -44,114 +44,174 @@
     <main class="mx-24 mt-4 mb-16">
       <div id="filters" class="flex relative flex-row gap-12 justify-between">
         <div class="dropdown-filters-wrapper z-100 truncate flex gap-12">
-          <div class="flex-col w-44 p-4 rounded-lg bg-white">
-            <div
-              onclick="toggleDropdown('dropdown-ingredients')"
-              id="dropdown-ingredients-toggle"
-              class="inline-flex justify-between w-full items-center cursor-pointer"
-              aria-expanded="false"
-              aria-controls="dropdown-ingredients"
-              role="button"
-            >
-              Ingrédients <i class="chevron fa-solid fa-chevron-down"></i>
-            </div>
-            <div
-              class="dropdown hidden bg-white z-20 top-10 left-0 flex-col max-h-72 max-w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
-              id="dropdown-ingredients"
-            >
-              <div class="relative mx-2">
-                <input
-                  id="search-ingredients"
-                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
-                  type="search"
-                />
-                <i
-                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
-                ></i>
-                <button
-                  id="clear-search-ingredients"
-                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search-ingredients').value = ''"
-                >
-                  X
-                </button>
+          <!-- Ingrédients -->
+
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-ingredients')"
+                id="dropdown-ingredients-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-ingredients"
+                role="button"
+              >
+                Ingrédients <i class="chevron fa-solid fa-chevron-down"></i>
               </div>
               <div
-                id="dropdown-ingredients-buttons"
-                class="flex flex-col"
-              ></div>
+                class="dropdown hidden bg-white z-20 top-10 left-0 flex-col max-h-72 max-w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-ingredients"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-ingredients"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-ingredients"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-ingredients').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-ingredients-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-ingredients').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-ingredients"
+              class="hidden justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-ingredient-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-ingredients').classList.add('hidden')"
+              >
+                x
+              </button>
             </div>
           </div>
+          <!-- Appareils -->
 
-          <div class="flex-col w-44 p-4 rounded-lg bg-white">
-            <span
-              onclick="toggleDropdown('dropdown-appliances')"
-              id="dropdown-appliances-toggle"
-              class="inline-flex justify-between w-full items-center cursor-pointer"
-              aria-expanded="false"
-              aria-controls="dropdown-appliances"
-              role="button"
-              data-dropdown-toggle="dropdown-appliances"
-              >Appareils <i class="chevron fa-solid fa-chevron-down"></i
-            ></span>
-            <div
-              class="dropdown hidden bg-white z-20 top-12 left-56 flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
-              id="dropdown-appliances"
-            >
-              <div class="relative mx-2">
-                <input
-                  id="search-appliances"
-                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
-                  type="search"
-                />
-                <i
-                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
-                ></i>
-                <button
-                  id="clear-search-appliances"
-                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search-appliances').value = ''"
-                >
-                  X
-                </button>
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-appliances')"
+                id="dropdown-appliances-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-appliances"
+                role="button"
+                data-dropdown-toggle="dropdown-appliances"
+              >
+                Appareils <i class="chevron fa-solid fa-chevron-down"></i>
               </div>
-              <div id="dropdown-appliances-buttons" class="flex flex-col"></div>
+              <div
+                class="dropdown hidden bg-white z-20 top-12 left-56 flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-appliances"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-appliances"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-appliances"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-appliances').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-appliances-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-appliances').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-appliances"
+              class="hidden inline-flex justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-appliance-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-appliances').classList.add('hidden')"
+              >
+                x
+              </button>
             </div>
           </div>
+          <!-- Ustensiles -->
 
-          <div class="flex-col w-44 p-4 rounded-lg bg-white">
-            <span
-              onclick="toggleDropdown('dropdown-ustensils')"
-              id="dropdown-ustensils-toggle"
-              class="inline-flex justify-between w-full items-center cursor-pointer"
-              aria-expanded="false"
-              aria-controls="dropdown-ustensils"
-              role="button"
-              data-dropdown-toggle="dropdown-ustensils"
-              >Ustensiles <i class="chevron fa-solid fa-chevron-down"></i
-            ></span>
-            <div
-              class="dropdown hidden bg-white z-20 top-12 left-[448px] flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
-              id="dropdown-ustensils"
-            >
-              <div class="relative mx-2">
-                <input
-                  id="search-ustensils"
-                  class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
-                  type="search"
-                />
-                <i
-                  class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
-                ></i>
-                <button
-                  id="clear-search-ustensils"
-                  class="absolute top-6 right-8 text-xs text-gray-300 hidden"
-                  onclick="document.getElementById('search-ustensils').value = ''"
-                >
-                  X
-                </button>
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-ustensils')"
+                id="dropdown-ustensils-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-ustensils"
+                role="button"
+                data-dropdown-toggle="dropdown-ustensils"
+              >
+                Ustensiles <i class="chevron fa-solid fa-chevron-down"></i>
               </div>
-              <div id="dropdown-ustensils-buttons" class="flex flex-col"></div>
+              <div
+                class="dropdown hidden bg-white z-20 top-12 left-[448px] flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-ustensils"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-ustensils"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-ustensils"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-ustensils').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-ustensils-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-ustensils').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-ustensils"
+              class="hidden inline-flex justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-ustensil-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-ustensils').classList.add('hidden')"
+              >
+                x
+              </button>
             </div>
           </div>
         </div>
