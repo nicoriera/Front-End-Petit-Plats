@@ -30,8 +30,4 @@ class RecipeApi extends Api {
   async getRecipes() {
     return await this.fetchData();
   }
-
-  async getDropdownFilters() {
-    return await this.fetchData();
-  }
 }

@@ -28,20 +28,17 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
-    const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
+    const searchWords = searchValue.toLowerCase().trim().split(/\s+/);
 
-    const dropdownValues = this._dropdown
+    const dropdownValues = this._dropdown.ingredient
       .split(",")
       .map((value) => value.trim());
 
-    const dropdownFiltered = dropdownValues.filter((ingredient) => {
-      const ingredientWords = ingredient.toLowerCase().split(/\s+/); // Diviser chaque ingrédient en mots
-      return searchWords.every((searchWord) =>
-        ingredientWords.some((ingredientWord) =>
-          ingredientWord.includes(searchWord)
-        )
-      );
-    });
+    const dropdownFiltered = dropdownValues.filter((ingredient) =>
+      searchWords.every((searchWord) =>
+        ingredient.toLowerCase().includes(searchWord)
+      )
+    );
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
@@ -84,7 +81,7 @@ class DropdownFilterIngredients {
     const dropdownFilter = `
 
    
-      ${this._dropdown}
+      ${this._dropdown.ingredient}
    
   
     `;

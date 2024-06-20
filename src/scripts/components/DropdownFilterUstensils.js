@@ -28,7 +28,9 @@ class DropdownFilterUstensils {
   }
 
   updateDropdownUstensils(searchValue = "") {
-    const dropdownValues = this._dropdown.split(",");
+    const dropdownValues = this._dropdown
+      .split(",")
+      .map((value) => value.trim());
 
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);

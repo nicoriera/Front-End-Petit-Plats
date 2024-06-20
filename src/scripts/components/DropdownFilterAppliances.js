@@ -28,7 +28,7 @@ class DropdownFilterAppliances {
   }
 
   updateDropdownAppliances(searchValue = "") {
-    const dropdownValuesString = this._dropdown.appliance;
+    const dropdownValuesString = this._dropdown;
     const dropdownValues = dropdownValuesString
       .split(",")
       .map((value) => value.trim());
@@ -79,16 +79,15 @@ class DropdownFilterAppliances {
     $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
 
     const dropdownFilter = `
-          ${this._dropdown.appliance}
+          ${this._dropdown}
     
       `;
 
     $wrapper.innerHTML = dropdownFilter;
 
     $wrapper.addEventListener("click", () => {
-      this.updateLabel(this._dropdown.appliance);
+      this.updateLabel(this._dropdown);
     });
-    console.log("dropdownFilter :", dropdownFilter);
     return $wrapper;
   }
 

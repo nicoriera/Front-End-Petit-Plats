@@ -1,6 +1,11 @@
 class InputSearch {
   constructor(Recipes) {
     this.Recipes = Recipes;
+    this.dropdownFilters = [];
+  }
+
+  addDropdownFilter(dropdownFilter) {
+    this.dropdownFilters.push(dropdownFilter);
   }
 
   setupEventListeners() {
@@ -29,6 +34,7 @@ class InputSearch {
       } else {
         $clearSearchButton.classList.remove("hidden"); // Affiche le bouton si l'input n'est pas vide
         this.removeNoResultMessage(); // Retirer le message "no result"
+        this.onSearchRecipes();
       }
     });
   }
@@ -79,6 +85,7 @@ class InputSearch {
       if (searchValue.length < 3) {
         this.updateRecipes(this.Recipes);
         this.updateRecipesNumber(this.Recipes);
+        this.updateDropdowns(this.Recipes);
         return;
       }
 
@@ -113,7 +120,18 @@ class InputSearch {
         const sortedRecipes = this.quickSort(recipesFiltered, "name");
         this.updateRecipes(sortedRecipes);
         this.updateRecipesNumber(sortedRecipes);
+        this.updateDropdowns(sortedRecipes);
       }
+
+      this.dropdownFilters.forEach((dropdownFilter) => {
+        if (dropdownFilter instanceof DropdownFilterAppliances) {
+          dropdownFilter.updateDropdowns(searchValue);
+        } else if (dropdownFilter instanceof DropdownFilterIngredients) {
+          dropdownFilter.updateDropdownIngredients(searchValue);
+        } else if (dropdownFilter instanceof DropdownFilterUstensils) {
+          dropdownFilter.updateDropdowns(searchValue);
+        }
+      });
     });
   }
 
@@ -164,6 +182,18 @@ class InputSearch {
   updateRecipesNumber(recipesFiltered) {
     const $recipesNumber = document.querySelector(".recipes-number-wrapper");
     $recipesNumber.textContent = `${recipesFiltered.length} Recettes`;
+  }
+
+  updateDropdowns(recipesFiltered) {
+    this.dropdownFilters.forEach((dropdownFilter) => {
+      if (dropdownFilter instanceof DropdownFilterIngredients) {
+        dropdownFilter.updateDropdownIngredients(recipesFiltered);
+      } else if (dropdownFilter instanceof DropdownFilterUstensils) {
+        dropdownFilter.updateDropdownUstensils(recipesFiltered);
+      } else if (dropdownFilter instanceof DropdownFilterAppliances) {
+        dropdownFilter.updateDropdownAppliances(recipesFiltered);
+      }
+    });
   }
 
   createInputSearchGlobal() {
