@@ -61,10 +61,16 @@ class DropdownFilterUstensils {
       setTimeout(() => {
         $dropdownUstensilsButtons.appendChild($wrapper);
       }, 300);
+
+      $wrapper.addEventListener("click", () => {
+        this.updateLabel($wrapper.textContent);
+      });
+
+      $dropdownUstensilsButtons.appendChild($wrapper);
     });
   }
 
-  createDropdownFilterUstensils() {
+  createDropdownFilterItem() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 

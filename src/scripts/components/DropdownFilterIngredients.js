@@ -28,10 +28,9 @@ class DropdownFilterIngredients {
   }
 
   updateDropdownIngredients(searchValue = "") {
-    console.log(searchValue, "searchValue");
     const searchWords = searchValue.toLowerCase().trim().split(/\s+/); // Diviser la chaîne de recherche en mots
 
-    const dropdownValues = this._dropdown.ingredient
+    const dropdownValues = this._dropdown
       .split(",")
       .map((value) => value.trim());
 
@@ -69,17 +68,23 @@ class DropdownFilterIngredients {
       setTimeout(() => {
         $dropdownIngredientsButtons.appendChild($wrapper);
       }, 300);
+
+      $wrapper.addEventListener("click", () => {
+        this.updateLabel($wrapper.textContent);
+      });
+
+      $dropdownIngredientsButtons.appendChild($wrapper);
     });
   }
 
-  createDropdownFilterIngredients() {
+  createDropdownFilterItem() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `
 
    
-      ${this._dropdown.ingredient}
+      ${this._dropdown}
    
   
     `;

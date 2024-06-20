@@ -9,7 +9,7 @@ class App {
     this.$dropdownFilterIngredients = document.getElementById(
       "dropdown-ingredients-buttons"
     );
-    this.$dropdownFiltersAplliances = document.getElementById(
+    this.$dropdownFiltersAppliances = document.getElementById(
       "dropdown-appliances-buttons"
     );
     this.$dropdownFiltersUstensils = document.getElementById(
@@ -49,12 +49,12 @@ class App {
 
     // Dropdown Appliance
 
-    const DropdownFilterApllianceData = dropdownFiltersData.map(
+    const DropdownFilterApplianceData = dropdownFiltersData.map(
       (dropdown) => new DropdownAppliance(dropdown, "appliance")
     );
 
     const uniqueDropdownFilterApplianceData =
-      DropdownFilterApllianceData.filter((value, index, self) => {
+      DropdownFilterApplianceData.filter((value, index, self) => {
         const _self = self.map((v) => JSON.stringify(v));
         return _self.indexOf(JSON.stringify(value)) === index;
       });
@@ -115,25 +115,27 @@ class App {
 
     dropdownFiltersData;
     uniqueDropdownFilterApplianceData.forEach((dropdown) => {
-      const dropdownFilterComponent = new DropdownFilterAplliances(dropdown);
-      this.$dropdownFiltersAplliances.appendChild(
-        dropdownFilterComponent.createDropdownFilterAplliances()
+      const dropdownFilterComponent = new DropdownFilterAppliances(dropdown);
+      this.$dropdownFiltersAppliances.appendChild(
+        dropdownFilterComponent.createDropdownFilterItem()
       );
-      dropdownFilterComponent.onSearchAplliances();
+      dropdownFilterComponent.onSearchAppliances();
     });
 
     uniqueDropdownFilterIngredientData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterIngredients(dropdown);
       this.$dropdownFilterIngredients.appendChild(
-        dropdownFilterComponent.createDropdownFilterIngredients()
+        dropdownFilterComponent.createDropdownFilterItem()
       );
+      dropdownFilterComponent.onSearchIngredients();
     });
 
     uniqueDropdownFilterUstensilsData.forEach((dropdown) => {
       const dropdownFilterComponent = new DropdownFilterUstensils(dropdown);
       this.$dropdownFiltersUstensils.appendChild(
-        dropdownFilterComponent.createDropdownFilterUstensils()
+        dropdownFilterComponent.createDropdownFilterItem()
       );
+      dropdownFilterComponent.onSearchUstensils();
     });
   }
 }

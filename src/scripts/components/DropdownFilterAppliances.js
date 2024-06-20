@@ -1,9 +1,9 @@
-class DropdownFilterAplliances {
+class DropdownFilterAppliances {
   constructor(dropdown) {
     this._dropdown = dropdown;
   }
 
-  onSearchAplliances() {
+  onSearchAppliances() {
     const $inputSearch = document.getElementById("search-appliances");
 
     if (!$inputSearch) {
@@ -23,8 +23,15 @@ class DropdownFilterAplliances {
     });
   }
 
+  loadAllAppliances() {
+    this.updateDropdownAppliances();
+  }
+
   updateDropdownAppliances(searchValue = "") {
-    const dropdownValues = Object.values(this._dropdown);
+    const dropdownValuesString = this._dropdown.appliance;
+    const dropdownValues = dropdownValuesString
+      .split(",")
+      .map((value) => value.trim());
 
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
@@ -34,22 +41,40 @@ class DropdownFilterAplliances {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
-    this.$dropdownFiltersAplliances = document.getElementById(
+    const $dropdownAppliancesButtons = document.getElementById(
       "dropdown-appliances-buttons"
     );
 
-    this.$dropdownFiltersAplliances.innerHTML = "";
-    dropdownSorted.forEach((dropdownValue) => {
-      const dropdownFilterComponent = new DropdownFilterAplliances({
-        appliance: dropdownValue,
-      });
-      this.$dropdownFiltersAplliances.appendChild(
-        dropdownFilterComponent.createDropdownFilterAplliances()
+    $dropdownAppliancesButtons.innerHTML = "";
+
+    dropdownSorted.forEach((value) => {
+      const $wrapper = document.createElement("button");
+      $wrapper.classList.add(
+        "w-full",
+        "text-left",
+        "hover:bg-yellow-300",
+        "p-2"
       );
+
+      const dropdownFilter = `
+          ${value}
+      `;
+
+      $wrapper.innerHTML = dropdownFilter;
+
+      setTimeout(() => {
+        $dropdownAppliancesButtons.appendChild($wrapper);
+      }, 300);
+
+      $wrapper.addEventListener("click", () => {
+        this.updateLabel(value);
+      });
+
+      $dropdownAppliancesButtons.appendChild($wrapper);
     });
   }
 
-  createDropdownFilterAplliances() {
+  createDropdownFilterItem() {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
 
@@ -63,6 +88,7 @@ class DropdownFilterAplliances {
     $wrapper.addEventListener("click", () => {
       this.updateLabel(this._dropdown.appliance);
     });
+    console.log("dropdownFilter :", dropdownFilter);
     return $wrapper;
   }
 
@@ -70,7 +96,6 @@ class DropdownFilterAplliances {
     const $label = document.getElementById(
       "dropdown-label-search-appliance-value"
     );
-    console.log($label);
     $label.textContent = value;
   }
 }
