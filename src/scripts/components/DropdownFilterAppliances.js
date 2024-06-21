@@ -1,6 +1,20 @@
 class DropdownFilterAppliances {
   constructor(dropdown) {
-    this._dropdown = dropdown;
+    if (!dropdown || !dropdown.appliance) {
+      throw new Error(
+        "Le paramètre 'dropdown' est obligatoire pour instancier un objet DropdownFilterAppliances."
+      );
+    }
+    this._dropdown = dropdown.appliance; // Assurez-vous que c'est correctement initialisé
+    this.$dropdownButtons = document.getElementById(
+      "dropdown-appliances-buttons"
+    );
+    this.setupEventListeners();
+    this.loadAllAppliances();
+  }
+
+  loadAllAppliances() {
+    this.updateDropdownAppliances(); // Chargement initial des boutons
   }
 
   onSearchAppliances() {
@@ -18,76 +32,56 @@ class DropdownFilterAppliances {
 
       clearTimeout(debounceTimeout);
       debounceTimeout = setTimeout(() => {
-        this.updateDropdownAppliances(searchValue);
+        this.updateDropdownAppliances(searchValue); // Update on input after debounce
       }, 300);
     });
   }
 
-  loadAllAppliances() {
-    this.updateDropdownAppliances();
+  setupEventListeners() {
+    document.addEventListener("recipesFiltered", (e) => {
+      const appliances = this.extractAppliances(e.detail.recipes);
+      this.updateDropdownAppliances(appliances); // Update from recipesFiltered event
+    });
   }
 
-  updateDropdownAppliances(searchValue = "") {
-    const dropdownValuesString = this._dropdown;
-    const dropdownValues = dropdownValuesString
-      .split(",")
-      .map((value) => value.trim());
-
-    const dropdownFiltered = dropdownValues.filter((value) => {
-      return value.toLowerCase().includes(searchValue);
+  extractAppliances(recipes) {
+    const applianceSet = new Set();
+    recipes.forEach((recipe) => {
+      if (recipe.appliance) {
+        applianceSet.add(recipe.appliance);
+      }
     });
+    return [...applianceSet];
+  }
 
-    const dropdownSorted = dropdownFiltered.sort((a, b) => {
-      return a.toLowerCase().localeCompare(b.toLowerCase());
-    });
+  updateDropdownAppliances(appliances = []) {
+    this.$dropdownButtons.innerHTML = ""; // Clear existing buttons
 
-    const $dropdownAppliancesButtons = document.getElementById(
-      "dropdown-appliances-buttons"
-    );
+    // Ensure appliances is an array or split string if not
+    const appliancesList = Array.isArray(appliances)
+      ? appliances
+      : appliances.split(",").map((appliance) => appliance.trim());
 
-    $dropdownAppliancesButtons.innerHTML = "";
-
-    dropdownSorted.forEach((value) => {
-      const $wrapper = document.createElement("button");
-      $wrapper.classList.add(
-        "w-full",
-        "text-left",
-        "hover:bg-yellow-300",
-        "p-2"
-      );
-
-      const dropdownFilter = `
-          ${value}
-      `;
-
-      $wrapper.innerHTML = dropdownFilter;
-
-      setTimeout(() => {
-        $dropdownAppliancesButtons.appendChild($wrapper);
-      }, 300);
-
-      $wrapper.addEventListener("click", () => {
-        this.updateLabel(value);
+    appliancesList
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+      .forEach((appliance) => {
+        const $wrapper = this.createDropdownFilterItem(appliance);
+        this.$dropdownButtons.appendChild($wrapper);
       });
-
-      $dropdownAppliancesButtons.appendChild($wrapper);
-    });
   }
 
-  createDropdownFilterItem() {
+  createDropdownFilterItem(appliance) {
     const $wrapper = document.createElement("button");
-    $wrapper.classList.add("w-full", "text-left", "hover:bg-yellow-300", "p-2");
+    $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
-    const dropdownFilter = `
-          ${this._dropdown}
-    
-      `;
+    const dropdownFilter = `${appliance}`;
 
     $wrapper.innerHTML = dropdownFilter;
 
     $wrapper.addEventListener("click", () => {
-      this.updateLabel(this._dropdown);
+      this.updateLabel($wrapper.textContent);
     });
+
     return $wrapper;
   }
 
@@ -95,6 +89,6 @@ class DropdownFilterAppliances {
     const $label = document.getElementById(
       "dropdown-label-search-appliance-value"
     );
-    $label.textContent = value;
+    $label.textContent = value; // Update label content
   }
 }

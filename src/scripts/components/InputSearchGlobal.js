@@ -10,33 +10,53 @@ class InputSearch {
 
   setupEventListeners() {
     const $inputSearch = document.getElementById("search-recipes");
-    const $clearSearchButton = document.querySelector("#clear-search-recipes");
+    const $clearSearchButton = document.getElementById("clear-search-recipes");
     const $searchButton = document.querySelector("#button-search-recipes");
 
-    // Écouteur pour le bouton de nettoyage
+    $inputSearch.addEventListener("input", () => {
+      const trimmedValue = $inputSearch.value.trim();
+      if (trimmedValue === "") {
+        this.loadAllRecipes();
+        this.removeNoResultMessage();
+        $clearSearchButton.classList.add("hidden");
+      } else {
+        $clearSearchButton.classList.remove("hidden");
+        this.removeNoResultMessage();
+        this.onSearchRecipes(trimmedValue);
+      }
+      const filteredRecipes = this.filterRecipes(trimmedValue);
+      this.emitRecipeFilteredEvent(filteredRecipes);
+    });
+
     $clearSearchButton.addEventListener("click", () => {
       $inputSearch.value = "";
       this.loadAllRecipes();
       this.removeNoResultMessage();
+      $clearSearchButton.classList.add("hidden");
     });
 
-    // Écouteur pour le bouton de recherche
     $searchButton.addEventListener("click", () => {
-      this.onSearchRecipes();
+      this.onSearchRecipes($inputSearch.value.trim());
     });
+  }
 
-    // Ajout d'un écouteur d'événements 'input' sur l'élément de recherche
-    $inputSearch.addEventListener("input", () => {
-      if ($inputSearch.value.trim() === "") {
-        this.loadAllRecipes();
-        this.removeNoResultMessage();
-        $clearSearchButton.classList.add("hidden"); // Cache le bouton si l'input est vide
-      } else {
-        $clearSearchButton.classList.remove("hidden"); // Affiche le bouton si l'input n'est pas vide
-        this.removeNoResultMessage(); // Retirer le message "no result"
-        this.onSearchRecipes();
-      }
+  filterRecipes(searchValue) {
+    return this.Recipes.filter(
+      (recipe) =>
+        recipe.name.toLowerCase().includes(searchValue) ||
+        recipe.description.toLowerCase().includes(searchValue) ||
+        recipe.ingredients.some((ing) =>
+          ing.ingredient.toLowerCase().includes(searchValue)
+        )
+    );
+  }
+
+  emitRecipeFilteredEvent(filteredRecipes) {
+    // Création de l'événement personnalisé
+    const event = new CustomEvent("recipesFiltered", {
+      detail: { recipes: filteredRecipes },
     });
+    document.dispatchEvent(event); // Déclenchement de l'événement sur l'objet document
   }
 
   quickSort(array, key) {
@@ -71,68 +91,41 @@ class InputSearch {
     return this.quickSort(left, key).concat(pivot, this.quickSort(right, key));
   }
 
-  onSearchRecipes() {
-    const $inputSearch = document.getElementById("search-recipes");
-    $inputSearch.addEventListener("input", async (e) => {
-      e.preventDefault();
-      const searchValue = e.target.value.toLowerCase();
+  onSearchRecipes(searchValue) {
+    if (!searchValue) {
+      this.loadAllRecipes(this.Recipes);
+      return;
+    }
 
-      if (!searchValue) {
-        this.loadAllRecipes(this.Recipes);
-        return;
-      }
+    if (searchValue.length < 3) {
+      this.updateRecipes(this.Recipes);
+      this.updateRecipesNumber(this.Recipes);
+      this.updateDropdowns(this.Recipes);
+      return;
+    }
 
-      if (searchValue.length < 3) {
-        this.updateRecipes(this.Recipes);
-        this.updateRecipesNumber(this.Recipes);
-        this.updateDropdowns(this.Recipes);
-        return;
-      }
-
-      const recipesFiltered = this.Recipes.filter((recipe) => {
-        const recipeIngredients = recipe.ingredients.some((ingredient) =>
+    const recipesFiltered = this.Recipes.filter((recipe) => {
+      return (
+        recipe.ingredients.some((ingredient) =>
           ingredient.ingredient.toLowerCase().includes(searchValue)
-        );
-        const recipesDescription = recipe.description
-          .toLowerCase()
-          .includes(searchValue);
-        const recipesName = recipe.name.toLowerCase().includes(searchValue);
-        const recipesAppliance = (recipe.appliance || "")
-          .toLowerCase()
-          .includes(searchValue);
-        const recipesUstensils = (recipe.ustensils || []).some((ustensil) =>
+        ) ||
+        recipe.description.toLowerCase().includes(searchValue) ||
+        recipe.name.toLowerCase().includes(searchValue) ||
+        recipe.appliance.toLowerCase().includes(searchValue) ||
+        recipe.ustensils.some((ustensil) =>
           ustensil.toLowerCase().includes(searchValue)
-        );
-
-        return (
-          recipeIngredients ||
-          recipesDescription ||
-          recipesName ||
-          recipesAppliance ||
-          recipesUstensils
-        );
-      });
-
-      if (!recipesFiltered.length) {
-        this.displayNoResultMessage(searchValue);
-        return;
-      } else {
-        const sortedRecipes = this.quickSort(recipesFiltered, "name");
-        this.updateRecipes(sortedRecipes);
-        this.updateRecipesNumber(sortedRecipes);
-        this.updateDropdowns(sortedRecipes);
-      }
-
-      this.dropdownFilters.forEach((dropdownFilter) => {
-        if (dropdownFilter instanceof DropdownFilterAppliances) {
-          dropdownFilter.updateDropdowns(searchValue);
-        } else if (dropdownFilter instanceof DropdownFilterIngredients) {
-          dropdownFilter.updateDropdownIngredients(searchValue);
-        } else if (dropdownFilter instanceof DropdownFilterUstensils) {
-          dropdownFilter.updateDropdowns(searchValue);
-        }
-      });
+        )
+      );
     });
+
+    if (!recipesFiltered.length) {
+      this.displayNoResultMessage(searchValue);
+    } else {
+      const sortedRecipes = this.quickSort(recipesFiltered, "name");
+      this.updateRecipes(sortedRecipes);
+      this.updateRecipesNumber(sortedRecipes);
+      this.updateDropdowns(sortedRecipes);
+    }
   }
 
   displayNoResultMessage(searchValue) {
@@ -239,7 +232,6 @@ class InputSearch {
         $inputSearch.value = "";
         this.loadAllRecipes();
         this.removeNoResultMessage();
-        $clearSearchButton.classList.add("hidden");
       });
 
     $wrapper

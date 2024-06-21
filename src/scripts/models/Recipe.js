@@ -4,7 +4,9 @@ class Recipe {
     this._name = data.name;
     this._ingredients = data.ingredients;
     this._ingredient = data.ingredient;
+    this._appliance = data.appliance;
     this._quantity = data.quantity;
+    this._ustensils = data.ustensils;
     this._unit = data.unit;
     this._description = data.description;
     this._image = data.image;
@@ -17,6 +19,14 @@ class Recipe {
 
   get ingredient() {
     return this._ingredients.map((ingredient) => ingredient.ingredient);
+  }
+
+  get appliance() {
+    return this._appliance;
+  }
+
+  get ustensils() {
+    return this._ustensils;
   }
 
   get quantity() {

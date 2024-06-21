@@ -1,6 +1,20 @@
 class DropdownFilterIngredients {
   constructor(dropdown) {
-    this._dropdown = dropdown;
+    if (!dropdown || !dropdown.ingredient) {
+      throw new Error(
+        "Le paramètre 'dropdown' est obligatoire pour instancier un objet DropdownFilterIngredients."
+      );
+    }
+    this._dropdown = { ingredient: dropdown.ingredient };
+    this.$dropdownButtons = document.getElementById(
+      "dropdown-ingredients-buttons"
+    );
+    this.setupEventListeners();
+    this.loadAllIngredients();
+  }
+
+  loadAllIngredients() {
+    this.updateDropdownIngredients();
   }
 
   onSearchIngredients() {
@@ -23,65 +37,90 @@ class DropdownFilterIngredients {
     });
   }
 
-  loadAllIngredients() {
-    this.updateDropdownIngredients();
+  setupEventListeners() {
+    document.addEventListener("recipesFiltered", (e) => {
+      const ingredients = this.extractIngredients(e.detail.recipes);
+      this.updateDropdownIngredients(ingredients);
+    });
   }
 
-  updateDropdownIngredients(searchValue = "") {
-    const searchWords = searchValue.toLowerCase().trim().split(/\s+/);
-
-    const dropdownValues = this._dropdown.ingredient
-      .split(",")
-      .map((value) => value.trim());
-
-    const dropdownFiltered = dropdownValues.filter((ingredient) =>
-      searchWords.every((searchWord) =>
-        ingredient.toLowerCase().includes(searchWord)
-      )
-    );
-
-    const dropdownSorted = dropdownFiltered.sort((a, b) => {
-      return a.toLowerCase().localeCompare(b.toLowerCase());
-    });
-
-    const $dropdownIngredientsButtons = document.getElementById(
-      "dropdown-ingredients-buttons"
-    );
-    $dropdownIngredientsButtons.innerHTML = "";
-
-    dropdownSorted.forEach((value) => {
-      const $wrapper = document.createElement("button");
-      $wrapper.classList.add(
-        "w-full",
-        "text-left",
-        "hover:bg-amber-300",
-        "p-2"
-      );
-
-      const dropdownFilter = `${value}`;
-
-      $wrapper.innerHTML = dropdownFilter;
-
-      setTimeout(() => {
-        $dropdownIngredientsButtons.appendChild($wrapper);
-      }, 300);
-
-      $wrapper.addEventListener("click", () => {
-        this.updateLabel($wrapper.textContent);
+  extractIngredients(recipes) {
+    const ingredientSet = new Set();
+    recipes.forEach((recipe) => {
+      recipe.ingredients.forEach((ing) => {
+        ingredientSet.add(ing.ingredient);
       });
-
-      $dropdownIngredientsButtons.appendChild($wrapper);
     });
+    return [...ingredientSet];
   }
 
-  createDropdownFilterItem() {
+  // updateDropdownIngredients(searchValue = "") {
+  //   const searchWords = searchValue.toLowerCase().trim();
+
+  //   const dropdownValues = this._dropdown.ingredient.ingredient.split(",");
+
+  //   const dropdownFiltered = dropdownValues.filter((value) => {
+  //     return value.toLowerCase().includes(searchWords);
+  //   });
+
+  //   const dropdownSorted = dropdownFiltered.sort((a, b) => {
+  //     return a.toLowerCase().localeCompare(b.toLowerCase());
+  //   });
+
+  //   const $dropdownIngredientsButtons = document.getElementById(
+  //     "dropdown-ingredients-buttons"
+  //   );
+  //   $dropdownIngredientsButtons.innerHTML = "";
+
+  //   dropdownSorted.forEach((value) => {
+  //     const $wrapper = document.createElement("button");
+  //     $wrapper.classList.add(
+  //       "w-full",
+  //       "text-left",
+  //       "hover:bg-amber-300",
+  //       "p-2"
+  //     );
+
+  //     const dropdownFilter = `${value}`;
+
+  //     $wrapper.innerHTML = dropdownFilter;
+
+  //     setTimeout(() => {
+  //       $dropdownIngredientsButtons.appendChild($wrapper);
+  //     }, 300);
+
+  //     $wrapper.addEventListener("click", () => {
+  //       this.updateLabel($wrapper.textContent);
+  //     });
+
+  //     $dropdownIngredientsButtons.appendChild($wrapper);
+  //   });
+  // }
+
+  updateDropdownIngredients(ingredients = []) {
+    this.$dropdownButtons.innerHTML = ""; // Clear existing buttons
+
+    // Ensure ingredients is an array or split string if not
+    const ingredientsList = Array.isArray(ingredients)
+      ? ingredients
+      : ingredients.split(",").map((ingredient) => ingredient.trim());
+
+    ingredientsList
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+      .forEach((ingredient) => {
+        const $wrapper = this.createDropdownFilterItem(ingredient);
+        this.$dropdownButtons.appendChild($wrapper);
+      });
+  }
+
+  createDropdownFilterItem(ingredient) {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `
 
    
-      ${this._dropdown.ingredient}
+      ${ingredient}
    
   
     `;
