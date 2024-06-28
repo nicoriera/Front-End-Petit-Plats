@@ -14,7 +14,7 @@ class DropdownFilterAppliances {
   }
 
   loadAllAppliances() {
-    this.updateDropdownAppliances(); // Chargement initial des boutons
+    // this.updateDropdownAppliances(); // Chargement initial des boutons
   }
 
   onSearchAppliances() {
@@ -44,18 +44,18 @@ class DropdownFilterAppliances {
     });
   }
 
-  extractAppliances(recipes) {
-    const applianceSet = new Set();
-    recipes.forEach((recipe) => {
-      if (recipe.appliance) {
-        applianceSet.add(recipe.appliance);
-      }
-    });
-    return [...applianceSet];
-  }
+  // extractAppliances(recipes) {
+  //   const applianceSet = new Set();
+  //   recipes.forEach((recipe) => {
+  //     if (recipe.appliance) {
+  //       applianceSet.add(recipe.appliance);
+  //     }
+  //   });
+  //   return [...applianceSet];
+  // }
 
   updateDropdownAppliances(appliances = []) {
-    this.$dropdownButtons.innerHTML = ""; // Clear existing buttons
+    // this.$dropdownButtons.innerHTML = ""; // Clear existing buttons
 
     // Ensure appliances is an array or split string if not
     const appliancesList = Array.isArray(appliances)
@@ -66,20 +66,27 @@ class DropdownFilterAppliances {
       .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
       .forEach((appliance) => {
         const $wrapper = this.createDropdownFilterItem(appliance);
-        this.$dropdownButtons.appendChild($wrapper);
+        // this.$dropdownButtons.appendChild($wrapper);
       });
   }
 
   createDropdownFilterItem(appliance) {
+    console.log("appliance :", appliance);
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
 
     const dropdownFilter = `${appliance}`;
+    console.trace("dropdownFilter :", dropdownFilter);
 
     $wrapper.innerHTML = dropdownFilter;
 
     $wrapper.addEventListener("click", () => {
       this.updateLabel($wrapper.textContent);
+
+      const applianceEvent = new CustomEvent("appliancesFiltered", {
+        detail: { appliances: $wrapper.textContent },
+      });
+      document.dispatchEvent(applianceEvent);
     });
 
     return $wrapper;

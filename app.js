@@ -32,6 +32,9 @@ class App {
 
     // Création des instances de recettes
     const Recipes = recipesData.map((recipe) => new Recipe(recipe));
+    console.log("Recipes :", Recipes);
+
+    this.updateDropdowns(Recipes);
 
     // Initialisation du nombre de recettes
     const recipesNumber = new RecipesNumberTotal(Recipes);
@@ -47,7 +50,6 @@ class App {
     inputSearch.setupEventListeners();
 
     // Setup initial update and display of dropdowns and recipes
-    this.updateDropdowns(Recipes);
     this.displayRecipes(Recipes);
 
     // Attach update functionality to search events
@@ -58,10 +60,12 @@ class App {
   }
 
   updateDropdowns(recipes) {
+    console.log("Recipes :", recipes);
     // Extract unique filter data from filtered recipes
     const uniqueApplianceData = [
       ...new Set(recipes.map((recipe) => recipe.appliance)),
     ];
+    console.log("uniqueApplianceData :", uniqueApplianceData);
     const uniqueIngredientsData = [
       ...new Set(recipes.flatMap((recipe) => recipe.ingredients)),
     ];
@@ -85,15 +89,17 @@ class App {
   }
 
   populateAppliancesDropdown(dropdown, appliances) {
+    console.log("appliances :", appliances);
+    console.log("dropdown :", dropdown);
     dropdown.innerHTML = ""; // Effacer les options existantes
     appliances.forEach((appliance) => {
-      const dropdownAppliance = new DropdownAppliance({ appliance });
       const dropdownFilterAppliances = new DropdownFilterAppliances({
         appliance,
       });
-
-      const applianceElement = dropdownAppliance.createDropdownElement(); // Assurez-vous que cette méthode existe
-      dropdown.appendChild(applianceElement);
+      dropdown.appendChild(
+        dropdownFilterAppliances.createDropdownFilterItem(appliance)
+      );
+      console.log("dropdownFilterAppliances :", dropdownFilterAppliances);
 
       dropdownFilterAppliances.onSearchAppliances();
       dropdownFilterAppliances.loadAllAppliances();
@@ -106,7 +112,9 @@ class App {
       const dropdownFilterUstensils = new DropdownFilterUstensils({
         ustensil,
       });
-      dropdown.appendChild(dropdownFilterUstensils.createDropdownFilterItem());
+      dropdown.appendChild(
+        dropdownFilterUstensils.createDropdownFilterItem(ustensil)
+      );
       dropdownFilterUstensils.onSearchUstensils();
       dropdownFilterUstensils.loadAllUstensils();
     });
@@ -119,7 +127,7 @@ class App {
         ingredient,
       });
       dropdown.appendChild(
-        dropdownFilterIngredients.createDropdownFilterItem()
+        dropdownFilterIngredients.createDropdownFilterItem(ingredient)
       );
       dropdownFilterIngredients.onSearchIngredients();
     });

@@ -70,51 +70,6 @@ class DropdownFilterUstensils {
       });
   }
 
-  // updateDropdownUstensils(searchValue = "") {
-  //   const dropdownValues = this._dropdown
-  //     .split(",")
-  //     .map((value) => value.trim());
-
-  //   const dropdownFiltered = dropdownValues.filter((value) => {
-  //     return value.toLowerCase().includes(searchValue);
-  //   });
-
-  //   const dropdownSorted = dropdownFiltered.sort((a, b) => {
-  //     return a.toLowerCase().localeCompare(b.toLowerCase());
-  //   });
-
-  //   const $dropdownUstensilsButtons = (this.$dropdownFiltersUstensils =
-  //     document.getElementById("dropdown-ustensils-buttons"));
-
-  //   $dropdownUstensilsButtons.innerHTML = "";
-
-  //   dropdownSorted.forEach((value) => {
-  //     const $wrapper = document.createElement("button");
-  //     $wrapper.classList.add(
-  //       "w-full",
-  //       "text-left",
-  //       "hover:bg-amber-300",
-  //       "p-2"
-  //     );
-
-  //     const dropdownFilter = `
-  //         ${value}
-  //     `;
-
-  //     $wrapper.innerHTML = dropdownFilter;
-
-  //     setTimeout(() => {
-  //       $dropdownUstensilsButtons.appendChild($wrapper);
-  //     }, 300);
-
-  //     $wrapper.addEventListener("click", () => {
-  //       this.updateLabel($wrapper.textContent);
-  //     });
-
-  //     $dropdownUstensilsButtons.appendChild($wrapper);
-  //   });
-  // }
-
   createDropdownFilterItem(ustensil) {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
@@ -129,6 +84,11 @@ class DropdownFilterUstensils {
 
     $wrapper.addEventListener("click", () => {
       this.updateLabel($wrapper.textContent);
+
+      const ustensilEvent = new CustomEvent("ustensilsFiltered", {
+        detail: { ustensils: $wrapper.textContent },
+      });
+      document.dispatchEvent(ustensilEvent);
     });
 
     return $wrapper;

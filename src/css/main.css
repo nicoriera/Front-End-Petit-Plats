@@ -1308,11 +1308,6 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: rgb(252 211 77 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-yellow-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-
 .focus\:placeholder-white:focus::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(255 255 255 / var(--tw-placeholder-opacity));

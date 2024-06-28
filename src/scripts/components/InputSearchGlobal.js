@@ -8,9 +8,96 @@ class InputSearch {
     this.dropdownFilters.push(dropdownFilter);
   }
 
+  searchAllFields() {
+    const searchValue = document.getElementById("search-recipes").value.trim();
+    const ingredientsValue = document
+      .getElementById("search-ingredients")
+      .value.trim();
+    const ustensilsValue = document
+      .getElementById("search-ustensils")
+      .value.trim();
+    const appliancesValue = document
+      .getElementById("search-appliances")
+      .value.trim();
+
+    // Check if all fields are empty
+    const allEmpty =
+      !searchValue && !ingredientsValue && !ustensilsValue && !appliancesValue;
+
+    if (allEmpty) {
+      this.loadAllRecipes();
+      this.removeNoResultMessage();
+      document.getElementById("clear-search-recipes").classList.add("hidden");
+    } else {
+      document
+        .getElementById("clear-search-recipes")
+        .classList.remove("hidden");
+      this.removeNoResultMessage();
+      const filteredRecipes = this.filterRecipesCombined(
+        searchValue,
+        ingredientsValue,
+        ustensilsValue,
+        appliancesValue
+      );
+      this.emitRecipeFilteredEvent(filteredRecipes);
+      if (!filteredRecipes.length) {
+        this.displayNoResultMessage("No recipes match your combined criteria.");
+      }
+    }
+  }
+
+  filterRecipesCombined(search, ingredients, ustensils, appliances) {
+    return this.Recipes.filter(
+      (recipe) =>
+        (search &&
+          (recipe.name.toLowerCase().includes(search) ||
+            recipe.description.toLowerCase().includes(search))) ||
+        (ingredients &&
+          recipe.ingredients.some((ing) =>
+            ing.ingredient.toLowerCase().includes(ingredients)
+          )) ||
+        (ustensils &&
+          recipe.ustensils.some((ustensil) =>
+            ustensil.toLowerCase().includes(ustensils)
+          )) ||
+        (appliances && recipe.appliance.toLowerCase().includes(appliances))
+    );
+  }
+
   setupEventListeners() {
     const $inputSearch = document.getElementById("search-recipes");
+    const $inputSearchIngredients =
+      document.getElementById("search-ingredients");
+
+    const $inputSearchUstensils = document.getElementById("search-ustensils");
+    const $inputSearchAppliances = document.getElementById("search-appliances");
     const $clearSearchButton = document.getElementById("clear-search-recipes");
+
+    const $labelIngredients = document.getElementById(
+      "dropdown-ingredients-buttons"
+    );
+    const $labelUstensils = document.getElementById(
+      "dropdown-ustensils-buttons"
+    );
+    const $labelAppliances = document.getElementById(
+      "dropdown-appliances-buttons"
+    );
+
+    const labels = [$labelIngredients, $labelUstensils, $labelAppliances];
+
+    labels.forEach((label) => {
+      label.addEventListener("click", (event) => {
+        console.log("Label clicked", label);
+        console.log("Label clicked event", event.target);
+        // Supposons que chaque label a une valeur data associée correspondant à ce qu'il doit rechercher
+        const value = event.target.textContent;
+        console.log("Value", value);
+        const correspondingInputId = label.dataset.inputId;
+        document.getElementById(correspondingInputId).value = value; // Met à jour le champ avec la valeur du label
+        this.searchAllFields(); // Exécute la recherche
+      });
+    });
+
     const $searchButton = document.querySelector("#button-search-recipes");
 
     $inputSearch.addEventListener("input", () => {
@@ -28,6 +115,54 @@ class InputSearch {
       this.emitRecipeFilteredEvent(filteredRecipes);
     });
 
+    $inputSearchIngredients.addEventListener("input", () => {
+      const ingredientsString = $inputSearchIngredients.value.trim();
+      if (ingredientsString === "") {
+        this.loadAllRecipes();
+        this.removeNoResultMessage();
+        $clearSearchButton.classList.add("hidden");
+      } else {
+        $clearSearchButton.classList.remove("hidden");
+        this.removeNoResultMessage();
+        this.onSearchRecipes(ingredientsString);
+      }
+
+      const filteredRecipes = this.filterRecipes(ingredientsString);
+      this.emitRecipeFilteredEvent(filteredRecipes);
+    });
+
+    $inputSearchUstensils.addEventListener("input", () => {
+      const ustensilsString = $inputSearchUstensils.value.trim();
+      if (ustensilsString === "") {
+        this.loadAllRecipes();
+        this.removeNoResultMessage();
+        $clearSearchButton.classList.add("hidden");
+      } else {
+        $clearSearchButton.classList.remove("hidden");
+        this.removeNoResultMessage();
+        this.onSearchRecipes(ustensilsString);
+      }
+
+      const filteredRecipes = this.filterRecipes(ustensilsString);
+      this.emitRecipeFilteredEvent(filteredRecipes);
+    });
+
+    $inputSearchAppliances.addEventListener("input", () => {
+      const appliancesString = $inputSearchAppliances.value.trim();
+      if (appliancesString === "") {
+        this.loadAllRecipes();
+        this.removeNoResultMessage();
+        $clearSearchButton.classList.add("hidden");
+      } else {
+        $clearSearchButton.classList.remove("hidden");
+        this.removeNoResultMessage();
+        this.onSearchRecipes(appliancesString);
+      }
+
+      const filteredRecipes = this.filterRecipes(appliancesString);
+      this.emitRecipeFilteredEvent(filteredRecipes);
+    });
+
     $clearSearchButton.addEventListener("click", () => {
       $inputSearch.value = "";
       this.loadAllRecipes();
@@ -37,6 +172,32 @@ class InputSearch {
 
     $searchButton.addEventListener("click", () => {
       this.onSearchRecipes($inputSearch.value.trim());
+    });
+
+    document.addEventListener("ingredientsFiltered", (e) => {
+      const ingredientsString = e.detail.ingredients.trim();
+      const ingredientsArray = ingredientsString
+        .split(",")
+        .map((ingredient) => ingredient.trim());
+      this.updateRecipes(ingredientsArray);
+    });
+
+    document.addEventListener("ustensilsFiltered", (e) => {
+      const ustensilsString = e.detail.ustensils.trim();
+      const ustensilsArray = ustensilsString
+        .split(",")
+        .map((ustensil) => ustensil.trim());
+      console.log("Ustensiles filtrés :", ustensilsArray);
+      this.updateRecipes(ustensilsArray);
+    });
+
+    document.addEventListener("appliancesFiltered", (e) => {
+      const appliancesString = e.detail.appliances.trim();
+      const appliancesArray = appliancesString
+        .split(",")
+        .map((appliance) => appliance.trim());
+      console.log("Appareils filtrés :", appliancesArray);
+      this.updateRecipes(appliancesArray);
     });
   }
 

@@ -54,49 +54,6 @@ class DropdownFilterIngredients {
     return [...ingredientSet];
   }
 
-  // updateDropdownIngredients(searchValue = "") {
-  //   const searchWords = searchValue.toLowerCase().trim();
-
-  //   const dropdownValues = this._dropdown.ingredient.ingredient.split(",");
-
-  //   const dropdownFiltered = dropdownValues.filter((value) => {
-  //     return value.toLowerCase().includes(searchWords);
-  //   });
-
-  //   const dropdownSorted = dropdownFiltered.sort((a, b) => {
-  //     return a.toLowerCase().localeCompare(b.toLowerCase());
-  //   });
-
-  //   const $dropdownIngredientsButtons = document.getElementById(
-  //     "dropdown-ingredients-buttons"
-  //   );
-  //   $dropdownIngredientsButtons.innerHTML = "";
-
-  //   dropdownSorted.forEach((value) => {
-  //     const $wrapper = document.createElement("button");
-  //     $wrapper.classList.add(
-  //       "w-full",
-  //       "text-left",
-  //       "hover:bg-amber-300",
-  //       "p-2"
-  //     );
-
-  //     const dropdownFilter = `${value}`;
-
-  //     $wrapper.innerHTML = dropdownFilter;
-
-  //     setTimeout(() => {
-  //       $dropdownIngredientsButtons.appendChild($wrapper);
-  //     }, 300);
-
-  //     $wrapper.addEventListener("click", () => {
-  //       this.updateLabel($wrapper.textContent);
-  //     });
-
-  //     $dropdownIngredientsButtons.appendChild($wrapper);
-  //   });
-  // }
-
   updateDropdownIngredients(ingredients = []) {
     this.$dropdownButtons.innerHTML = ""; // Clear existing buttons
 
@@ -116,6 +73,7 @@ class DropdownFilterIngredients {
   createDropdownFilterItem(ingredient) {
     const $wrapper = document.createElement("button");
     $wrapper.classList.add("w-full", "text-left", "hover:bg-amber-300", "p-2");
+    $wrapper.id = "label-ingredient";
 
     const dropdownFilter = `
 
@@ -128,6 +86,10 @@ class DropdownFilterIngredients {
     $wrapper.innerHTML = dropdownFilter;
 
     $wrapper.addEventListener("click", () => {
+      const ingredientEvent = new CustomEvent("ingredientsFiltered", {
+        detail: { ingredients: $wrapper.textContent },
+      });
+      document.dispatchEvent(ingredientEvent);
       this.updateLabel($wrapper.textContent);
     });
     return $wrapper;
