@@ -32,7 +32,6 @@ class App {
 
     // Création des instances de recettes
     const Recipes = recipesData.map((recipe) => new Recipe(recipe));
-    console.log("Recipes :", Recipes);
 
     this.updateDropdowns(Recipes);
 
@@ -60,18 +59,21 @@ class App {
   }
 
   updateDropdowns(recipes) {
-    console.log("Recipes :", recipes);
     // Extract unique filter data from filtered recipes
     const uniqueApplianceData = [
       ...new Set(recipes.map((recipe) => recipe.appliance)),
     ];
     console.log("uniqueApplianceData :", uniqueApplianceData);
     const uniqueIngredientsData = [
-      ...new Set(recipes.flatMap((recipe) => recipe.ingredients)),
+      ...new Set(
+        recipes.flatMap((recipe) => recipe.ingredients.map((i) => i.ingredient))
+      ),
     ];
+    console.log("uniqueIngredientsData :", uniqueIngredientsData);
     const uniqueUstensilsData = [
       ...new Set(recipes.flatMap((recipe) => recipe.ustensils)),
     ];
+    console.log("uniqueUstensilsData :", uniqueUstensilsData);
 
     // Update dropdowns with unique data
     this.populateAppliancesDropdown(
@@ -89,8 +91,6 @@ class App {
   }
 
   populateAppliancesDropdown(dropdown, appliances) {
-    console.log("appliances :", appliances);
-    console.log("dropdown :", dropdown);
     dropdown.innerHTML = ""; // Effacer les options existantes
     appliances.forEach((appliance) => {
       const dropdownFilterAppliances = new DropdownFilterAppliances({
@@ -99,7 +99,6 @@ class App {
       dropdown.appendChild(
         dropdownFilterAppliances.createDropdownFilterItem(appliance)
       );
-      console.log("dropdownFilterAppliances :", dropdownFilterAppliances);
 
       dropdownFilterAppliances.onSearchAppliances();
       dropdownFilterAppliances.loadAllAppliances();
