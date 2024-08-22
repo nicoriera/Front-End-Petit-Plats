@@ -29,7 +29,7 @@
   <body class="bg-gray-200">
     <header class="header h-auto bg-hero-pattern bg-no-repeat bg-cover">
       <div class="px-10 py-8">
-        <div class="flex-col justify-between items-center">
+        <div class="flex-col h-[667px] justify-between items-center">
           <div>
             <img
               class="h-6"
@@ -37,9 +37,9 @@
               alt="Logo Les Petits Plats"
             />
           </div>
-          <div class="flex flex-col justify-center items-center">
+          <div class="flex flex-col mt-44 justify-center items-center">
             <div
-              class="recipes-search py-48 w-full inline-flex flex-col justify-center items-center"
+              class="recipes-search w-full inline-flex flex-col justify-center items-center"
             >
               <div
                 class="w-full text-center text-amber-300 text-[44px] font-normal font-['Anton'] mb-4"
@@ -81,23 +81,20 @@
         </div>
       </section> -->
 
-      <section id="tags__selected" class="m-4 flex">
-        <!-- ARRAY OF TAGS EN JAVASCRIPT -->
-        <div class="tag__ingredients--wrapper"></div>
-        <div class="tag__appliances--wrapper"></div>
-        <div class="tag__ustensils--wrapper"></div>
-      </section>
-
       <section id="filters" class="flex flex-row gap-12">
         <div class="filter__ingredients"></div>
         <div class="filter__appliances"></div>
         <div class="filter__ustensils"></div>
       </section>
 
-      <section
-        id="recipes__cards"
-        class="grid grid-cols-3 gap-12 mt-12 mb-48 m-4"
-      >
+      <section id="tags__selected" class="flex">
+        <!-- ARRAY OF TAGS EN JAVASCRIPT -->
+        <div class="tag__ingredients--wrapper flex mr-4"></div>
+        <div class="tag__appliances--wrapper"></div>
+        <div class="tag__ustensils--wrapper"></div>
+      </section>
+
+      <section id="recipes__cards" class="grid grid-cols-3 gap-12 mt-12 mb-48">
         <!-- CARDS COMPONENT JAVASCRIPTS recipes_cards.js -->
       </section>
       <span class="no-result-message"></span>

@@ -17,7 +17,7 @@ function filterIngredients() {
     "p-4",
     "w-44",
     "flex",
-    "flex-row"
+    "flex-col"
   );
 
   const headerIngredients = document.createElement("header");
@@ -35,58 +35,65 @@ function filterIngredients() {
   arrowDown.className = "fa-solid fa-angle-down fa-lg";
   arrowDown.style.cursor = "pointer";
 
-  const hiddenAngle = document.createElement("span");
-  hiddenAngle.className = "filter__ingredients--angleUp";
-
   const arrowUp = document.createElement("i");
   arrowUp.className = "fa-solid fa-angle-up fa-lg";
   arrowUp.style.cursor = "pointer";
   arrowUp.style.display = "none";
 
+  spanAngle.appendChild(arrowDown);
+  spanAngle.appendChild(arrowUp);
+
+  headerIngredients.appendChild(title);
+  headerIngredients.appendChild(spanAngle);
+  article.appendChild(headerIngredients);
+  template.appendChild(article);
+
   const inputIngredients = document.createElement("input");
   inputIngredients.setAttribute("id", "ingredients-input");
   inputIngredients.style.display = "none";
-  inputIngredients.setAttribute("placeholder", "Sélectionner un ingrédient...");
   inputIngredients.className = "filter__ingredients--input";
+  inputIngredients.classList.add("my-4", "border", "border-gray-300", "p-1");
 
   const ingredientsListBox = document.createElement("ul");
   ingredientsListBox.className = "filter__ingredients--list";
   ingredientsListBox.style.display = "none";
 
-  /** Ingredients Event **/
-
-  /* Lors du clique sur ArrowDown */
-  arrowDown.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-down fa-lg") {
+  /** Unified Event Listener for Angle Click **/
+  spanAngle.addEventListener("click", () => {
+    if (article.classList.contains("filter__ingredients--close")) {
+      // Open the dropdown
       article.classList.remove("filter__ingredients--close");
       article.classList.add("filter__ingredients--view");
-      headerIngredients.style.display = "none";
-      inputIngredients.style.display = "flex";
       arrowDown.style.display = "none";
-      arrowUp.style.display = "flex";
-      template.style.width = "650px";
+      arrowUp.style.display = "inline";
+      inputIngredients.style.display = "flex";
+      template.style.width = "176px";
+      template.style.height = "315px";
       ingredientsListBox.style.display = "flex";
+      ingredientsListBox.style.width = "100%";
+      ingredientsListBox.style.maxHeight = "210px";
+      ingredientsListBox.classList.add(
+        "flex",
+        "flex-col",
+        "text-ellipsis",
+        "overflow-y-auto"
+      );
       inputIngredients.focus();
-
       /* défini dans filters_input */
       // eslint-disable-next-line no-undef
       inputIngredient();
-    }
-    /* Défini dans tags.js */
-    // eslint-disable-next-line no-undef
-    addTagFilterIngredients();
-  });
-
-  /* Lors du clique sur ArrowUp */
-  arrowUp.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-up fa-lg") {
+      /* Défini dans tags.js */
+      // eslint-disable-next-line no-undef
+      addTagFilterIngredients();
+    } else {
+      // Close the dropdown
       article.classList.remove("filter__ingredients--view");
       article.classList.add("filter__ingredients--close");
-      headerIngredients.style.display = "flex";
-      inputIngredients.style.display = "none";
-      arrowDown.style.display = "flex";
+      arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
+      inputIngredients.style.display = "none";
       template.style.width = "170px";
+      template.style.height = "auto";
       ingredientsListBox.style.display = "none";
     }
   });
@@ -97,9 +104,6 @@ function filterIngredients() {
   article.appendChild(headerIngredients);
   headerIngredients.appendChild(title);
   headerIngredients.appendChild(spanAngle);
-  spanAngle.appendChild(arrowDown);
-  article.appendChild(hiddenAngle);
-  hiddenAngle.appendChild(arrowUp);
   article.appendChild(inputIngredients);
   article.appendChild(ingredientsListBox);
 
@@ -122,7 +126,7 @@ function filterAppliances() {
     "p-4",
     "w-44",
     "flex",
-    "flex-row"
+    "flex-col"
   );
 
   const headerAppliances = document.createElement("header");
@@ -140,58 +144,65 @@ function filterAppliances() {
   arrowDown.className = "fa-solid fa-angle-down fa-lg";
   arrowDown.style.cursor = "pointer";
 
-  const hiddenAngle = document.createElement("span");
-  hiddenAngle.className = "filter__appliances--angleUp";
-
   const arrowUp = document.createElement("i");
   arrowUp.className = "fa-solid fa-angle-up fa-lg";
   arrowUp.style.cursor = "pointer";
   arrowUp.style.display = "none";
 
+  spanAngle.appendChild(arrowDown);
+  spanAngle.appendChild(arrowUp);
+
+  headerAppliances.appendChild(title);
+  headerAppliances.appendChild(spanAngle);
+  article.appendChild(headerAppliances);
+  template.appendChild(article);
+
   const inputAppliances = document.createElement("input");
   inputAppliances.setAttribute("id", "appliances-input");
-  inputAppliances.setAttribute("placeholder", "Sélectionner un appareil...");
-  inputAppliances.className = "filter__appliances--input";
   inputAppliances.style.display = "none";
+  inputAppliances.className = "filter__appliances--input";
+  inputAppliances.classList.add("my-4", "border", "border-gray-300", "p-1");
 
   const appliancesListBox = document.createElement("ul");
   appliancesListBox.className = "filter__appliances--list";
   appliancesListBox.style.display = "none";
 
-  /** Appliances Event **/
-
-  /* Lors du clique sur ArrowDown */
-  arrowDown.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-down fa-lg") {
+  /** Unified Event Listener for Angle Click **/
+  spanAngle.addEventListener("click", () => {
+    if (article.classList.contains("filter__appliances--close")) {
+      // Open the dropdown
       article.classList.remove("filter__appliances--close");
       article.classList.add("filter__appliances--view");
-      headerAppliances.style.display = "none";
-      inputAppliances.style.display = "flex";
       arrowDown.style.display = "none";
-      arrowUp.style.display = "flex";
-      template.style.width = "650px";
+      arrowUp.style.display = "inline";
+      inputAppliances.style.display = "flex";
+      template.style.width = "176px";
+      template.style.height = "315px";
       appliancesListBox.style.display = "flex";
+      appliancesListBox.style.width = "100%";
+      appliancesListBox.style.maxHeight = "210px";
+      appliancesListBox.classList.add(
+        "flex",
+        "flex-col",
+        "text-ellipsis",
+        "overflow-y-auto"
+      );
       inputAppliances.focus();
-
       /* Défini dans filters_input */
       // eslint-disable-next-line no-undef
       inputAppliance();
-    }
-    /* Défini dans tags.js */
-    // eslint-disable-next-line no-undef
-    addTagFilterAppliances();
-  });
-
-  /* Lors du clique sur ArrowUp */
-  arrowUp.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-up fa-lg") {
+      /* Défini dans tags.js */
+      // eslint-disable-next-line no-undef
+      addTagFilterAppliances();
+    } else {
+      // Close the dropdown
       article.classList.remove("filter__appliances--view");
       article.classList.add("filter__appliances--close");
-      headerAppliances.style.display = "flex";
-      inputAppliances.style.display = "none";
-      arrowDown.style.display = "flex";
+      arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
+      inputAppliances.style.display = "none";
       template.style.width = "170px";
+      template.style.height = "auto";
       appliancesListBox.style.display = "none";
     }
   });
@@ -202,9 +213,6 @@ function filterAppliances() {
   article.appendChild(headerAppliances);
   headerAppliances.appendChild(title);
   headerAppliances.appendChild(spanAngle);
-  spanAngle.appendChild(arrowDown);
-  article.appendChild(hiddenAngle);
-  hiddenAngle.appendChild(arrowUp);
   article.appendChild(inputAppliances);
   article.appendChild(appliancesListBox);
 
@@ -227,7 +235,7 @@ function filterUstensils() {
     "p-4",
     "w-44",
     "flex",
-    "flex-row"
+    "flex-col"
   );
 
   const headerUstensils = document.createElement("header");
@@ -245,60 +253,65 @@ function filterUstensils() {
   arrowDown.className = "fa-solid fa-angle-down fa-lg";
   arrowDown.style.cursor = "pointer";
 
-  const hiddenAngle = document.createElement("span");
-  hiddenAngle.className = "filter__ustensils--angleUp";
-
   const arrowUp = document.createElement("i");
   arrowUp.className = "fa-solid fa-angle-up fa-lg";
   arrowUp.style.cursor = "pointer";
   arrowUp.style.display = "none";
 
+  spanAngle.appendChild(arrowDown);
+  spanAngle.appendChild(arrowUp);
+
+  headerUstensils.appendChild(title);
+  headerUstensils.appendChild(spanAngle);
+  article.appendChild(headerUstensils);
+  template.appendChild(article);
+
   const inputUstensils = document.createElement("input");
   inputUstensils.setAttribute("id", "ustensils-input");
-  inputUstensils.setAttribute("placeholder", "Sélectionner un ustensil...");
-  inputUstensils.className = "filter__ustensils--input";
   inputUstensils.style.display = "none";
+  inputUstensils.className = "filter__ustensils--input";
+  inputUstensils.classList.add("my-4", "border", "border-gray-300", "p-1");
 
   const ustensilsListBox = document.createElement("ul");
   ustensilsListBox.className = "filter__ustensils--list";
   ustensilsListBox.style.display = "none";
 
-  /** Ustensils Event **/
-
-  /* Lors du clique sur ArrowDown */
-  arrowDown.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-down fa-lg") {
+  /** Unified Event Listener for Angle Click **/
+  spanAngle.addEventListener("click", () => {
+    if (article.classList.contains("filter__ustensils--close")) {
+      // Open the dropdown
       article.classList.remove("filter__ustensils--close");
-      article.classList.add("filter__ustensils--view", "flex", "flex-col");
-
-      headerUstensils.style.display = "none";
-      inputUstensils.style.display = "flex";
+      article.classList.add("filter__ustensils--view");
       arrowDown.style.display = "none";
-      arrowUp.style.display = "flex";
-      template.style.width = "650px";
+      arrowUp.style.display = "inline";
+      inputUstensils.style.display = "flex";
+      template.style.width = "176px";
+      template.style.height = "315px";
       ustensilsListBox.style.display = "flex";
-      ustensilsListBox.classList.add("flex", "flex-col");
+      ustensilsListBox.style.width = "100%";
+      ustensilsListBox.style.maxHeight = "210px";
+      ustensilsListBox.classList.add(
+        "flex",
+        "flex-col",
+        "text-ellipsis",
+        "overflow-y-auto"
+      );
       inputUstensils.focus();
-
       /* Défini dans Filters_input */
       // eslint-disable-next-line no-undef
       inputUstensil();
-    }
-    /* Défini dans tags.js */
-    // eslint-disable-next-line no-undef
-    addTagFilterUstensils();
-  });
-
-  /* Lors du clique sur ArrowUp */
-  arrowUp.addEventListener("click", (e) => {
-    if (e.target.className === "fa-solid fa-angle-up fa-lg") {
+      /* Défini dans tags.js */
+      // eslint-disable-next-line no-undef
+      addTagFilterUstensils();
+    } else {
+      // Close the dropdown
       article.classList.remove("filter__ustensils--view");
       article.classList.add("filter__ustensils--close");
-      headerUstensils.style.display = "flex";
-      inputUstensils.style.display = "none";
-      arrowDown.style.display = "flex";
+      arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
+      inputUstensils.style.display = "none";
       template.style.width = "170px";
+      template.style.height = "auto";
       ustensilsListBox.style.display = "none";
     }
   });
@@ -309,9 +322,6 @@ function filterUstensils() {
   article.appendChild(headerUstensils);
   headerUstensils.appendChild(title);
   headerUstensils.appendChild(spanAngle);
-  spanAngle.appendChild(arrowDown);
-  article.appendChild(hiddenAngle);
-  hiddenAngle.appendChild(arrowUp);
   article.appendChild(inputUstensils);
   article.appendChild(ustensilsListBox);
 

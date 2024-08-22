@@ -6,10 +6,15 @@
 
 /** On sélectionne les items dans chaque filtre **/
 
-const filterItemIngredients = document.getElementsByClassName('filter__ingredients--items');
-const filterItemAppliances = document.getElementsByClassName('filter__appliances--items');
-const filterItemUstensils = document.getElementsByClassName('filter__ustensils--items');
-
+const filterItemIngredients = document.getElementsByClassName(
+  "filter__ingredients--items"
+);
+const filterItemAppliances = document.getElementsByClassName(
+  "filter__appliances--items"
+);
+const filterItemUstensils = document.getElementsByClassName(
+  "filter__ustensils--items"
+);
 
 let tagIngredientAlreadyAdded = false;
 let tagApplianceAlreadyAdded = false;
@@ -17,9 +22,11 @@ let tagUstensilAlreadyAdded = false;
 
 /** TAGS WRAPPERS - Conteneur des tags **/
 
-const tagIngredientWrapper = document.querySelector('.tag__ingredients--wrapper');
-const tagApplianceWrapper = document.querySelector('.tag__appliances--wrapper');
-const tagUstensilWrapper = document.querySelector('.tag__ustensils--wrapper');
+const tagIngredientWrapper = document.querySelector(
+  ".tag__ingredients--wrapper"
+);
+const tagApplianceWrapper = document.querySelector(".tag__appliances--wrapper");
+const tagUstensilWrapper = document.querySelector(".tag__ustensils--wrapper");
 
 /*** FUNCTIONS ***/
 
@@ -32,23 +39,33 @@ function addTagFilterIngredients() {
   if (tagIngredientAlreadyAdded === false) {
     tagIngredientAlreadyAdded = true;
     Array.from(filterItemIngredients).forEach((element) => {
-      element.addEventListener('click', (e) => {
-        const tagIngredientContainer = document.createElement('div');
-        tagIngredientContainer.setAttribute('class', 'tag__ingredient');
-        
-        const tagIngredient = document.createElement('li');
+      element.addEventListener("click", (e) => {
+        const tagIngredientContainer = document.createElement("div");
+        tagIngredientContainer.setAttribute("class", "tag__ingredient");
+        tagIngredientContainer.classList.add(
+          "flex",
+          "items-center",
+          "justify-between",
+          "w-44",
+          "bg-amber-300",
+          "rounded-lg",
+          "p-4",
+          "mr-4"
+        );
+
+        const tagIngredient = document.createElement("p");
         tagIngredient.innerText = e.target.innerText;
-        tagIngredient.classList.add('tag-blue');
-        
-        const deleteTagIcon = document.createElement('span');
-        deleteTagIcon.classname = 'deleteIcon';
-        
-        const deleteIconImg = document.createElement('i');
-        deleteIconImg.className = 'fa-regular fa-circle-xmark';
-        deleteIconImg.style.cursor = 'pointer';
-        deleteIconImg.style.width = '20px';
-        
-        deleteIconImg.addEventListener('click', () => {
+        tagIngredient.classList.add("tag-blue");
+
+        const deleteTagIcon = document.createElement("span");
+        deleteTagIcon.classname = "deleteIcon";
+
+        const deleteIconImg = document.createElement("i");
+        deleteIconImg.className = "fa-solid fa-x";
+        deleteIconImg.style.cursor = "pointer";
+        deleteIconImg.style.width = "20px";
+
+        deleteIconImg.addEventListener("click", () => {
           tagIngredientContainer.remove();
           searchLive();
           return false;
@@ -63,32 +80,41 @@ function addTagFilterIngredients() {
   }
 }
 
-/* Appareils */ 
+/* Appareils */
 
 // eslint-disable-next-line no-unused-vars
 function addTagFilterAppliances() {
   if (tagApplianceAlreadyAdded === false) {
     tagApplianceAlreadyAdded = true;
     Array.from(filterItemAppliances).forEach((element) => {
-      element.addEventListener('click', (e) => {
+      element.addEventListener("click", (e) => {
+        const tagApplianceContainer = document.createElement("div");
+        tagApplianceContainer.setAttribute("class", "tag__appliance");
+        tagApplianceContainer.classList.add(
+          "flex",
+          "items-center",
+          "justify-between",
+          "w-44",
+          "bg-amber-300",
+          "rounded-lg",
+          "p-4",
+          "mr-4"
+        );
 
-        const tagApplianceContainer = document.createElement('div');
-        tagApplianceContainer.setAttribute('class', 'tag__appliance');
-
-        const tagAppliance = document.createElement('li');
+        const tagAppliance = document.createElement("p");
         tagAppliance.innerText = e.target.innerText;
-        tagAppliance.classList.add('tag-green');
+        tagAppliance.classList.add("tag-green");
 
-        const deleteTagIcon = document.createElement('span');
-        deleteTagIcon.className = 'deleteIcon';
-        
-        const deleteIconImg = document.createElement('i');
-        deleteIconImg.className = 'fa-regular fa-circle-xmark';
-        deleteIconImg.style.cursor = 'pointer';
-        deleteIconImg.style.width = '20px';
-        deleteTagIcon.addEventListener('click', () => {
+        const deleteTagIcon = document.createElement("span");
+        deleteTagIcon.className = "deleteIcon";
+
+        const deleteIconImg = document.createElement("i");
+        deleteIconImg.className = "fa-solid fa-x";
+        deleteIconImg.style.cursor = "pointer";
+        deleteIconImg.style.width = "20px";
+        deleteTagIcon.addEventListener("click", () => {
           tagApplianceContainer.remove();
-          // défini dans search_bar.js 
+          // défini dans search_bar.js
           searchLive();
           return false;
         });
@@ -103,30 +129,39 @@ function addTagFilterAppliances() {
   }
 }
 
-/* Ustensils */ 
+/* Ustensils */
 
 // eslint-disable-next-line no-unused-vars
 function addTagFilterUstensils() {
   if (tagUstensilAlreadyAdded === false) {
     tagUstensilAlreadyAdded = true;
     Array.from(filterItemUstensils).forEach((element) => {
-      element.addEventListener('click', (e) => {
-        
-        const tagUstensilContainer = document.createElement('div');
-        tagUstensilContainer.setAttribute('class', 'tag__ustensil');
+      element.addEventListener("click", (e) => {
+        const tagUstensilContainer = document.createElement("div");
+        tagUstensilContainer.setAttribute("class", "tag__ustensil");
+        tagUstensilContainer.classList.add(
+          "flex",
+          "items-center",
+          "justify-between",
+          "w-44",
+          "bg-amber-300",
+          "rounded-lg",
+          "p-4",
+          "mr-4"
+        );
 
-        const tagUstensil = document.createElement('li');
+        const tagUstensil = document.createElement("p");
         tagUstensil.innerText = e.target.innerText;
-        tagUstensil.classList.add('tag-red');
-        
-        const deleteTagIcon = document.createElement('span');
-        deleteTagIcon.className = 'deleteIcon';
-        
-        const deleteIconImg = document.createElement('i');
-        deleteIconImg.className = 'fa-regular fa-circle-xmark';
-        deleteIconImg.style.cursor = 'pointer';
-        deleteIconImg.style.width = '20px';
-        deleteTagIcon.addEventListener('click', () => {
+        tagUstensil.classList.add("tag-red");
+
+        const deleteTagIcon = document.createElement("span");
+        deleteTagIcon.className = "deleteIcon";
+
+        const deleteIconImg = document.createElement("i");
+        deleteIconImg.className = "fa-solid fa-x";
+        deleteIconImg.style.cursor = "pointer";
+        deleteIconImg.style.width = "20px";
+        deleteTagIcon.addEventListener("click", () => {
           tagUstensilContainer.remove();
           // défini dans search_bar.js
           searchLive();
@@ -143,28 +178,45 @@ function addTagFilterUstensils() {
   }
 }
 
-
 /** TAG FILTRE RECIPES **/
 
 /* filteredRecipesWithTags */
 // eslint-disable-next-line no-unused-vars
 function filteredRecipesWithTags(recipesToFilter) {
-  /* Faire des tableaux des items afficher pour chaque filtre */ 
-  const taggedIngredientsDOM = Array.from(document.querySelectorAll('.tag__ingredients--wrapper .tag__ingredient .tag-blue'));
+  /* Faire des tableaux des items afficher pour chaque filtre */
+  const taggedIngredientsDOM = Array.from(
+    document.querySelectorAll(
+      ".tag__ingredients--wrapper .tag__ingredient .tag-blue"
+    )
+  );
 
-  const taggedAppliancesDOM = Array.from(document.querySelectorAll('.tag__appliances--wrapper .tag__appliance .tag-green'));
+  const taggedAppliancesDOM = Array.from(
+    document.querySelectorAll(
+      ".tag__appliances--wrapper .tag__appliance .tag-green"
+    )
+  );
 
-  const taggedustensilsDOM = Array.from(document.querySelectorAll('.tag__ustensils--wrapper .tag__ustensil .tag-red'));
+  const taggedustensilsDOM = Array.from(
+    document.querySelectorAll(
+      ".tag__ustensils--wrapper .tag__ustensil .tag-red"
+    )
+  );
   let recipesToDisplay = [];
   let taggedIngredients = [];
   let taggedAppliances = [];
   let taggedUstensils = [];
-  
+
   /* Créer des tableaux avec map contenant le texte de chaque tableau */
-  taggedIngredients = taggedIngredientsDOM.map((taggedIngredient) => taggedIngredient.innerText);
-  taggedAppliances = taggedAppliancesDOM.map((taggedAppliance) => taggedAppliance.innerText);
-  taggedUstensils = taggedustensilsDOM.map((taggedUstensil) => taggedUstensil.innerText);
-  
+  taggedIngredients = taggedIngredientsDOM.map(
+    (taggedIngredient) => taggedIngredient.innerText
+  );
+  taggedAppliances = taggedAppliancesDOM.map(
+    (taggedAppliance) => taggedAppliance.innerText
+  );
+  taggedUstensils = taggedustensilsDOM.map(
+    (taggedUstensil) => taggedUstensil.innerText
+  );
+
   /* Définir le tableau recipesToDisplay un filtre de recipes */
   recipesToDisplay = recipesToFilter.filter((recipe) => {
     let recipeIsMatching = false;
@@ -180,13 +232,15 @@ function filteredRecipesWithTags(recipesToFilter) {
     let appliancesInTheRecipe = [];
     let ustensilsInTheRecipe = [];
 
-    ingredientsInTheRecipe = recipe.ingredients.map(({ ingredient }) => ingredient);
-    
+    ingredientsInTheRecipe = recipe.ingredients.map(
+      ({ ingredient }) => ingredient
+    );
+
     appliancesInTheRecipe.push(recipe.appliance);
-    
+
     ustensilsInTheRecipe = recipe.ustensils.map((ustensil) => ustensil);
 
-    if(taggedIngredients.length > 0) {
+    if (taggedIngredients.length > 0) {
       taggedIngredients.forEach((taggedIngredient) => {
         if (ingredientsInTheRecipe.includes(taggedIngredient)) {
           ingredientsMatching += 1;
@@ -194,14 +248,14 @@ function filteredRecipesWithTags(recipesToFilter) {
       });
     }
 
-    if(taggedAppliances.length > 0) {
+    if (taggedAppliances.length > 0) {
       taggedAppliances.forEach((taggedAppliance) => {
         if (appliancesInTheRecipe.includes(taggedAppliance)) {
           appliancesMatching += 1;
         }
       });
     }
-    
+
     if (taggedUstensils.length > 0) {
       taggedUstensils.forEach((taggedUstensil) => {
         if (ustensilsInTheRecipe.includes(taggedUstensil)) {
@@ -224,13 +278,17 @@ function filteredRecipesWithTags(recipesToFilter) {
       ustensilIsMatching = true;
     }
 
-    if ((ingredientIsMatching === true) && (applianceIsMatching === true) && (ustensilIsMatching === true)) {
+    if (
+      ingredientIsMatching === true &&
+      applianceIsMatching === true &&
+      ustensilIsMatching === true
+    ) {
       recipeIsMatching = true;
     }
 
     return recipeIsMatching;
   });
-  // filFilters is defined in filters-fill.js 
+  // filFilters is defined in filters-fill.js
   fillFilters(recipesToDisplay);
   return recipesToDisplay;
 }
