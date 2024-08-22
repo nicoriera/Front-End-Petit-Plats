@@ -11,18 +11,17 @@ function filterIngredients() {
 
   const article = document.createElement("div");
   article.className = "filter__ingredients--close";
-  article.classList.add(
-    "bg-white",
-    "rounded-lg",
-    "p-4",
-    "w-44",
-    "flex",
-    "flex-col"
-  );
+  article.classList.add("bg-white", "rounded-lg", "w-44", "flex", "flex-col");
 
   const headerIngredients = document.createElement("header");
   headerIngredients.className = "filter__ingredients--header";
-  headerIngredients.classList.add("flex", "flex-row", "items-center", "gap-8");
+  headerIngredients.classList.add(
+    "flex",
+    "flex-row",
+    "items-center",
+    "gap-12",
+    "p-4"
+  );
 
   const title = document.createElement("h2");
   title.textContent = "Ingredients";
@@ -52,7 +51,14 @@ function filterIngredients() {
   inputIngredients.setAttribute("id", "ingredients-input");
   inputIngredients.style.display = "none";
   inputIngredients.className = "filter__ingredients--input";
-  inputIngredients.classList.add("my-4", "border", "border-gray-300", "p-1");
+  inputIngredients.classList.add(
+    "mt-2",
+    "mb-4",
+    "mx-4",
+    "border",
+    "border-gray-300",
+    "p-1"
+  );
 
   const ingredientsListBox = document.createElement("ul");
   ingredientsListBox.className = "filter__ingredients--list";
@@ -120,18 +126,17 @@ function filterAppliances() {
 
   const article = document.createElement("div");
   article.className = "filter__appliances--close";
-  article.classList.add(
-    "bg-white",
-    "rounded-lg",
-    "p-4",
-    "w-44",
-    "flex",
-    "flex-col"
-  );
+  article.classList.add("bg-white", "rounded-lg", "w-44", "flex", "flex-col");
 
   const headerAppliances = document.createElement("header");
   headerAppliances.className = "filter__appliances--header";
-  headerAppliances.classList.add("flex", "flex-row", "items-center", "gap-12");
+  headerAppliances.classList.add(
+    "flex",
+    "flex-row",
+    "items-center",
+    "gap-12",
+    "p-4"
+  );
 
   const title = document.createElement("h2");
   title.textContent = "Appareils";
@@ -161,7 +166,14 @@ function filterAppliances() {
   inputAppliances.setAttribute("id", "appliances-input");
   inputAppliances.style.display = "none";
   inputAppliances.className = "filter__appliances--input";
-  inputAppliances.classList.add("my-4", "border", "border-gray-300", "p-1");
+  inputAppliances.classList.add(
+    "mt-2",
+    "mb-4",
+    "mx-4",
+    "border",
+    "border-gray-300",
+    "p-1"
+  );
 
   const appliancesListBox = document.createElement("ul");
   appliancesListBox.className = "filter__appliances--list";
@@ -229,18 +241,17 @@ function filterUstensils() {
 
   const article = document.createElement("div");
   article.className = "filter__ustensils--close";
-  article.classList.add(
-    "bg-white",
-    "rounded-lg",
-    "p-4",
-    "w-44",
-    "flex",
-    "flex-col"
-  );
+  article.classList.add("bg-white", "rounded-lg", "w-44", "flex", "flex-col");
 
   const headerUstensils = document.createElement("header");
   headerUstensils.className = "filter__ustensils--header";
-  headerUstensils.classList.add("flex", "flex-row", "items-center", "gap-12");
+  headerUstensils.classList.add(
+    "flex",
+    "flex-row",
+    "items-center",
+    "gap-12",
+    "p-4"
+  );
 
   const title = document.createElement("h2");
   title.textContent = "Ustensils";
@@ -270,7 +281,14 @@ function filterUstensils() {
   inputUstensils.setAttribute("id", "ustensils-input");
   inputUstensils.style.display = "none";
   inputUstensils.className = "filter__ustensils--input";
-  inputUstensils.classList.add("my-4", "border", "border-gray-300", "p-1");
+  inputUstensils.classList.add(
+    "mt-2",
+    "mb-4",
+    "mx-4",
+    "border",
+    "border-gray-300",
+    "p-1"
+  );
 
   const ustensilsListBox = document.createElement("ul");
   ustensilsListBox.className = "filter__ustensils--list";

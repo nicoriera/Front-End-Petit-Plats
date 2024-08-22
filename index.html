@@ -62,34 +62,25 @@
                 <img src="src/assets/image/loupe.svg" alt="Search" />
               </button>
             </div>
+            <span class="no-result-message text-white"></span>
           </div>
         </div>
       </div>
     </header>
 
     <main class="main m-16">
-      <!-- <section class="search">
-        <div class="search__input-group">
-          <input
-            type="text"
-            class="search__input"
-            placeholder="Rechercher un ingrédient, un appareil, un ustensile, une recette..."
-          />
-          <button class="search__button">
-            <img src="src/assets/image/loupe.svg" alt="Search" />
-          </button>
+      <section id="filters" class="flex flex-row justify-between">
+        <div class="flex gap-12">
+          <div class="filter__ingredients"></div>
+          <div class="filter__appliances"></div>
+          <div class="filter__ustensils"></div>
         </div>
-      </section> -->
-
-      <section id="filters" class="flex flex-row gap-12">
-        <div class="filter__ingredients"></div>
-        <div class="filter__appliances"></div>
-        <div class="filter__ustensils"></div>
+        <div id="recipes__number"></div>
       </section>
 
       <section id="tags__selected" class="flex">
         <!-- ARRAY OF TAGS EN JAVASCRIPT -->
-        <div class="tag__ingredients--wrapper flex mr-4"></div>
+        <div class="tag__ingredients--wrapper"></div>
         <div class="tag__appliances--wrapper"></div>
         <div class="tag__ustensils--wrapper"></div>
       </section>
@@ -97,7 +88,6 @@
       <section id="recipes__cards" class="grid grid-cols-3 gap-12 mt-12 mb-48">
         <!-- CARDS COMPONENT JAVASCRIPTS recipes_cards.js -->
       </section>
-      <span class="no-result-message"></span>
     </main>
     <script src="src/scripts/main_index/index.js"></script>
     <script src="src/scripts/main_index/recipes_cards.js"></script>

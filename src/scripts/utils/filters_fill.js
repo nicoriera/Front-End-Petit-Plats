@@ -32,7 +32,10 @@ function fillFilters(recipes) {
         filterItem.classList.add(
           "filter__ingredients--items",
           "cursor-pointer",
-          "my-1"
+          "px-4",
+          "py-2",
+          "capitalize",
+          "hover:bg-amber-300"
         );
         filterItem.innerText = ingredient;
         ingredientsBloc.appendChild(filterItem);
@@ -53,7 +56,10 @@ function fillFilters(recipes) {
       filterItem.classList.add(
         "filter__appliances--items",
         "cursor-pointer",
-        "my-1"
+        "px-4",
+        "py-2",
+        "capitalize",
+        "hover:bg-amber-300"
       );
       filterItem.innerText = recipe.appliance;
       appliancesBloc.appendChild(filterItem);
@@ -74,7 +80,10 @@ function fillFilters(recipes) {
         filterItem.classList.add(
           "filter__ustensils--items",
           "cursor-pointer",
-          "my-1"
+          "px-4",
+          "py-2",
+          "capitalize",
+          "hover:bg-amber-300"
         );
         filterItem.innerText = ustensil;
         ustensilsBloc.appendChild(filterItem);

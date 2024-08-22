@@ -3,12 +3,13 @@ let recipes = [];
 async function getDataJson() {
   const response = await fetch("src/data/recipes.json");
   recipes = (await response.json()).recipes;
-  console.log(recipes);
+
   init();
 }
 /*** Afficher les cards ***/
 function displayData(recipes) {
   const recipeSection = document.getElementById("recipes__cards");
+  const recipeCount = document.getElementById("recipes__number");
   recipeSection.innerHTML = "";
   for (const recipe of recipes) {
     /* getRecipeCard is defined in recipes_cards.js */
@@ -16,6 +17,8 @@ function displayData(recipes) {
     const recipeCard = getRecipeCard(recipe);
     recipeSection.appendChild(recipeCard);
   }
+  recipeCount.textContent = `${recipes.length} recettes`;
+  recipeCount.classList.add("text-[21px]", "font-normal", "font-['Anton']");
 }
 
 function init() {
