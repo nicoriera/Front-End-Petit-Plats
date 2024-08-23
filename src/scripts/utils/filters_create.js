@@ -7,7 +7,7 @@
 function filterIngredients() {
   const ingredientsBox = document.getElementsByClassName("filter__ingredients");
   const template = document.createElement("div");
-  template.className = "filter__ingredients--template";
+  template.className = "filter__ingredients--template relative";
 
   const article = document.createElement("div");
   article.className = "filter__ingredients--close";
@@ -24,7 +24,7 @@ function filterIngredients() {
   );
 
   const title = document.createElement("h2");
-  title.textContent = "Ingredients";
+  title.textContent = "Ingrédients";
   title.className = "filter__ingredients--name";
 
   const spanAngle = document.createElement("span");
@@ -57,15 +57,35 @@ function filterIngredients() {
     "mx-4",
     "border",
     "border-gray-300",
-    "p-1"
+    "p-1",
+    "focus:outline-none"
   );
+
+  // Bouton de suppression pour l'input
+  const clearIngredientsButton = document.createElement("button");
+  clearIngredientsButton.setAttribute("type", "button");
+  clearIngredientsButton.className =
+    "filter__ingredients--clear-button absolute top-[72px] right-6 text-gray-500 hover:text-gray-700 focus:outline-none";
+  clearIngredientsButton.style.display = "none"; // Caché par défaut
+  clearIngredientsButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>`;
 
   const ingredientsListBox = document.createElement("ul");
   ingredientsListBox.className = "filter__ingredients--list";
   ingredientsListBox.style.display = "none";
 
+  // Fonction pour réinitialiser la liste des ingrédients
+  function resetIngredientsList() {
+    const listItems = ingredientsListBox.querySelectorAll("li");
+    listItems.forEach((item) => {
+      item.style.display = "block"; // Rendre tous les éléments visibles
+    });
+  }
+
   /** Unified Event Listener for Angle Click **/
-  spanAngle.addEventListener("click", () => {
+  spanAngle.addEventListener("click", (e) => {
+    e.preventDefault();
     if (article.classList.contains("filter__ingredients--close")) {
       // Open the dropdown
       article.classList.remove("filter__ingredients--close");
@@ -73,6 +93,9 @@ function filterIngredients() {
       arrowDown.style.display = "none";
       arrowUp.style.display = "inline";
       inputIngredients.style.display = "flex";
+      clearIngredientsButton.style.display = inputIngredients.value
+        ? "block"
+        : "none";
       template.style.width = "176px";
       template.style.height = "315px";
       ingredientsListBox.style.display = "flex";
@@ -85,7 +108,7 @@ function filterIngredients() {
         "overflow-y-auto"
       );
       inputIngredients.focus();
-      /* défini dans filters_input */
+      /* Défini dans filters_input */
       // eslint-disable-next-line no-undef
       inputIngredient();
       /* Défini dans tags.js */
@@ -98,10 +121,29 @@ function filterIngredients() {
       arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
       inputIngredients.style.display = "none";
+      clearIngredientsButton.style.display = "none";
       template.style.width = "170px";
       template.style.height = "auto";
       ingredientsListBox.style.display = "none";
     }
+  });
+
+  // Afficher/Masquer le bouton de suppression en fonction du texte dans l'input
+  inputIngredients.addEventListener("input", () => {
+    clearIngredientsButton.style.display = inputIngredients.value
+      ? "block"
+      : "none";
+  });
+
+  // Gestion du clic sur le bouton de suppression
+  clearIngredientsButton.addEventListener("click", () => {
+    inputIngredients.value = "";
+    clearIngredientsButton.style.display = "none";
+    resetIngredientsList(); // Réinitialiser la liste lorsque le texte est effacé
+
+    inputIngredients.focus(); // Remet le focus sur l'input
+    // Optionnel: Réinitialiser le filtre si nécessaire
+    // filterIngredients();
   });
 
   /* Append Section */
@@ -111,6 +153,7 @@ function filterIngredients() {
   headerIngredients.appendChild(title);
   headerIngredients.appendChild(spanAngle);
   article.appendChild(inputIngredients);
+  article.appendChild(clearIngredientsButton); // Ajouter le bouton de suppression ici
   article.appendChild(ingredientsListBox);
 
   return article;
@@ -122,7 +165,7 @@ function filterIngredients() {
 function filterAppliances() {
   const appliancesBox = document.getElementsByClassName("filter__appliances");
   const template = document.createElement("div");
-  template.className = "filter__appliances--template";
+  template.className = "filter__appliances--template relative";
 
   const article = document.createElement("div");
   article.className = "filter__appliances--close";
@@ -172,15 +215,35 @@ function filterAppliances() {
     "mx-4",
     "border",
     "border-gray-300",
-    "p-1"
+    "p-1",
+    "focus:outline-none"
   );
+
+  // Bouton de suppression pour l'input
+  const clearAppliancesButton = document.createElement("button");
+  clearAppliancesButton.setAttribute("type", "button");
+  clearAppliancesButton.className =
+    "filter__appliances--clear-button absolute top-[72px] right-6 text-gray-500 hover:text-gray-700 focus:outline-none";
+  clearAppliancesButton.style.display = "none"; // Caché par défaut
+  clearAppliancesButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>`;
 
   const appliancesListBox = document.createElement("ul");
   appliancesListBox.className = "filter__appliances--list";
   appliancesListBox.style.display = "none";
 
+  // Fonction pour réinitialiser la liste des appareils
+  function resetAppliancesList() {
+    const listItems = appliancesListBox.querySelectorAll("li");
+    listItems.forEach((item) => {
+      item.style.display = "block"; // Rendre tous les éléments visibles
+    });
+  }
+
   /** Unified Event Listener for Angle Click **/
-  spanAngle.addEventListener("click", () => {
+  spanAngle.addEventListener("click", (e) => {
+    e.preventDefault();
     if (article.classList.contains("filter__appliances--close")) {
       // Open the dropdown
       article.classList.remove("filter__appliances--close");
@@ -188,6 +251,9 @@ function filterAppliances() {
       arrowDown.style.display = "none";
       arrowUp.style.display = "inline";
       inputAppliances.style.display = "flex";
+      clearAppliancesButton.style.display = inputAppliances.value
+        ? "block"
+        : "none";
       template.style.width = "176px";
       template.style.height = "315px";
       appliancesListBox.style.display = "flex";
@@ -213,10 +279,29 @@ function filterAppliances() {
       arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
       inputAppliances.style.display = "none";
+      clearAppliancesButton.style.display = "none";
       template.style.width = "170px";
       template.style.height = "auto";
       appliancesListBox.style.display = "none";
     }
+  });
+
+  // Afficher/Masquer le bouton de suppression en fonction du texte dans l'input
+  inputAppliances.addEventListener("input", () => {
+    clearAppliancesButton.style.display = inputAppliances.value
+      ? "block"
+      : "none";
+  });
+
+  // Gestion du clic sur le bouton de suppression
+  clearAppliancesButton.addEventListener("click", () => {
+    inputAppliances.value = "";
+    clearAppliancesButton.style.display = "none";
+    resetAppliancesList(); // Réinitialiser la liste lorsque le texte est effacé
+
+    inputAppliances.focus(); // Remet le focus sur l'input
+    // Optionnel: Réinitialiser le filtre si nécessaire
+    // filterAppliances();
   });
 
   /* Append Section */
@@ -226,6 +311,7 @@ function filterAppliances() {
   headerAppliances.appendChild(title);
   headerAppliances.appendChild(spanAngle);
   article.appendChild(inputAppliances);
+  article.appendChild(clearAppliancesButton); // Ajouter le bouton de suppression ici
   article.appendChild(appliancesListBox);
 
   return article;
@@ -237,7 +323,7 @@ function filterAppliances() {
 function filterUstensils() {
   const ustensilsBox = document.getElementsByClassName("filter__ustensils");
   const template = document.createElement("div");
-  template.className = "filter__ustensils--template";
+  template.className = "filter__ustensils--template relative";
 
   const article = document.createElement("div");
   article.className = "filter__ustensils--close";
@@ -254,7 +340,7 @@ function filterUstensils() {
   );
 
   const title = document.createElement("h2");
-  title.textContent = "Ustensils";
+  title.textContent = "Ustensiles";
   title.className = "filter__ustensils--name";
 
   const spanAngle = document.createElement("span");
@@ -287,15 +373,35 @@ function filterUstensils() {
     "mx-4",
     "border",
     "border-gray-300",
-    "p-1"
+    "p-1",
+    "focus:outline-none"
   );
+
+  // Bouton de suppression pour l'input
+  const clearUstensilsButton = document.createElement("button");
+  clearUstensilsButton.setAttribute("type", "button");
+  clearUstensilsButton.className =
+    "filter__ustensils--clear-button absolute top-[72px] right-6 text-gray-500 hover:text-gray-700 focus:outline-none";
+  clearUstensilsButton.style.display = "none"; // Caché par défaut
+  clearUstensilsButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>`;
 
   const ustensilsListBox = document.createElement("ul");
   ustensilsListBox.className = "filter__ustensils--list";
   ustensilsListBox.style.display = "none";
 
+  // Fonction pour réinitialiser la liste des ustensiles
+  function resetUstensilsList() {
+    const listItems = ustensilsListBox.querySelectorAll("li");
+    listItems.forEach((item) => {
+      item.style.display = "block"; // Rendre tous les éléments visibles
+    });
+  }
+
   /** Unified Event Listener for Angle Click **/
-  spanAngle.addEventListener("click", () => {
+  spanAngle.addEventListener("click", (e) => {
+    e.preventDefault();
     if (article.classList.contains("filter__ustensils--close")) {
       // Open the dropdown
       article.classList.remove("filter__ustensils--close");
@@ -303,6 +409,9 @@ function filterUstensils() {
       arrowDown.style.display = "none";
       arrowUp.style.display = "inline";
       inputUstensils.style.display = "flex";
+      clearUstensilsButton.style.display = inputUstensils.value
+        ? "block"
+        : "none";
       template.style.width = "176px";
       template.style.height = "315px";
       ustensilsListBox.style.display = "flex";
@@ -315,7 +424,7 @@ function filterUstensils() {
         "overflow-y-auto"
       );
       inputUstensils.focus();
-      /* Défini dans Filters_input */
+      /* Défini dans filters_input */
       // eslint-disable-next-line no-undef
       inputUstensil();
       /* Défini dans tags.js */
@@ -328,10 +437,29 @@ function filterUstensils() {
       arrowDown.style.display = "inline";
       arrowUp.style.display = "none";
       inputUstensils.style.display = "none";
+      clearUstensilsButton.style.display = "none";
       template.style.width = "170px";
       template.style.height = "auto";
       ustensilsListBox.style.display = "none";
     }
+  });
+
+  // Afficher/Masquer le bouton de suppression en fonction du texte dans l'input
+  inputUstensils.addEventListener("input", () => {
+    clearUstensilsButton.style.display = inputUstensils.value
+      ? "block"
+      : "none";
+  });
+
+  // Gestion du clic sur le bouton de suppression
+  clearUstensilsButton.addEventListener("click", () => {
+    inputUstensils.value = "";
+    clearUstensilsButton.style.display = "none";
+    resetUstensilsList(); // Réinitialiser la liste lorsque le texte est effacé
+
+    inputUstensils.focus(); // Remet le focus sur l'input
+    // Optionnel: Réinitialiser le filtre si nécessaire
+    // filterUstensils();
   });
 
   /* Append Section */
@@ -341,6 +469,7 @@ function filterUstensils() {
   headerUstensils.appendChild(title);
   headerUstensils.appendChild(spanAngle);
   article.appendChild(inputUstensils);
+  article.appendChild(clearUstensilsButton); // Ajouter le bouton de suppression ici
   article.appendChild(ustensilsListBox);
 
   return article;
