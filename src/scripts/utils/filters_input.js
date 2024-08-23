@@ -5,13 +5,10 @@ function getSearchIngredients() {
   const filterRender = document.querySelectorAll(
     ".filter__ingredients--list li"
   );
-  console.log("filterRender", filterRender);
 
   const cards = document.querySelectorAll(".filter__ingredients--items");
-  console.log("cards", cards);
 
   const searchQuery = document.getElementById("ingredients-input").value;
-  console.log("searchQuery", searchQuery);
 
   cards.forEach((card) => {
     if (card.innerText.toLowerCase().includes(searchQuery.toLowerCase())) {

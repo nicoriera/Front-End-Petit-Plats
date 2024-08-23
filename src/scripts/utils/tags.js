@@ -33,13 +33,12 @@ const tagUstensilWrapper = document.querySelector(".tag__ustensils--wrapper");
 /** Ajouter des tags pour les filtres **/
 
 /* Ingrédients */
-
-// eslint-disable-next-line no-unused-vars
 function addTagFilterIngredients() {
   if (tagIngredientAlreadyAdded === false) {
     tagIngredientAlreadyAdded = true;
     Array.from(filterItemIngredients).forEach((element) => {
       element.addEventListener("click", (e) => {
+        e.preventDefault();
         const tagIngredientContainer = document.createElement("div");
         tagIngredientContainer.setAttribute("class", "tag__ingredient");
         tagIngredientContainer.classList.add(
@@ -56,6 +55,7 @@ function addTagFilterIngredients() {
 
         const tagIngredient = document.createElement("p");
         tagIngredient.innerText = e.target.innerText;
+        console.log(tagIngredient);
 
         const deleteTagIcon = document.createElement("span");
         deleteTagIcon.classname = "deleteIcon";
@@ -64,16 +64,20 @@ function addTagFilterIngredients() {
         deleteIconImg.className = "fa-solid fa-x";
         deleteIconImg.classList.add("cursor-pointer", "w-5");
 
-        deleteIconImg.addEventListener("click", () => {
+        deleteIconImg.addEventListener("click", (e) => {
+          e.preventDefault();
           tagIngredientContainer.remove();
-          searchLive();
+          searchLive(); // Recalculer la recherche après suppression du tag
           return false;
         });
-        tagIngredientWrapper.appendChild(tagIngredientContainer);
+
         tagIngredientContainer.appendChild(tagIngredient);
         tagIngredientContainer.appendChild(deleteTagIcon);
         deleteTagIcon.appendChild(deleteIconImg);
-        searchLive();
+
+        tagIngredientWrapper.appendChild(tagIngredientContainer);
+
+        searchLive(); // Recalculer la recherche après ajout du tag
 
         closeIngredientDropdown();
       });
@@ -92,6 +96,9 @@ function closeIngredientDropdown() {
   const ingredientsListBox = ingredientDropdown.querySelector(
     ".filter__ingredients--list"
   );
+  const clearIngredientsButton = ingredientDropdown.querySelector(
+    ".filter__ingredients--clear-button"
+  );
 
   ingredientDropdown.classList.remove("filter__ingredients--view");
   ingredientDropdown.classList.add("filter__ingredients--close");
@@ -101,16 +108,16 @@ function closeIngredientDropdown() {
   ingredientsListBox.style.display = "none";
   ingredientDropdown.style.width = "170px";
   ingredientDropdown.style.height = "auto";
+  clearIngredientsButton.style.display = "none";
 }
 
 /* Appareils */
-
-// eslint-disable-next-line no-unused-vars
 function addTagFilterAppliances() {
   if (tagApplianceAlreadyAdded === false) {
     tagApplianceAlreadyAdded = true;
     Array.from(filterItemAppliances).forEach((element) => {
       element.addEventListener("click", (e) => {
+        e.preventDefault();
         const tagApplianceContainer = document.createElement("div");
         tagApplianceContainer.setAttribute("class", "tag__appliance");
         tagApplianceContainer.classList.add(
@@ -134,18 +141,21 @@ function addTagFilterAppliances() {
         const deleteIconImg = document.createElement("i");
         deleteIconImg.className = "fa-solid fa-x";
         deleteIconImg.classList.add("cursor-pointer", "w-5");
-        deleteTagIcon.addEventListener("click", () => {
+
+        deleteIconImg.addEventListener("click", (e) => {
+          e.preventDefault();
           tagApplianceContainer.remove();
-          // défini dans search_bar.js
-          searchLive();
+          searchLive(); // Recalculer la recherche après suppression du tag
           return false;
         });
-        tagApplianceWrapper.appendChild(tagApplianceContainer);
+
         tagApplianceContainer.appendChild(tagAppliance);
         tagApplianceContainer.appendChild(deleteTagIcon);
         deleteTagIcon.appendChild(deleteIconImg);
-        // défini dans search_bar.js
-        searchLive();
+
+        tagApplianceWrapper.appendChild(tagApplianceContainer);
+
+        searchLive(); // Recalculer la recherche après ajout du tag
 
         closeApplianceDropdown();
       });
@@ -163,6 +173,9 @@ function closeApplianceDropdown() {
   const appliancesListBox = applianceDropdown.querySelector(
     ".filter__appliances--list"
   );
+  const clearAppliancesButton = applianceDropdown.querySelector(
+    ".filter__appliances--clear-button"
+  );
 
   applianceDropdown.classList.remove("filter__appliances--view");
   applianceDropdown.classList.add("filter__appliances--close");
@@ -172,16 +185,16 @@ function closeApplianceDropdown() {
   appliancesListBox.style.display = "none";
   applianceDropdown.style.width = "170px";
   applianceDropdown.style.height = "auto";
+  clearAppliancesButton.style.display = "none";
 }
 
-/* Ustensils */
-
-// eslint-disable-next-line no-unused-vars
+/* Ustensiles */
 function addTagFilterUstensils() {
   if (tagUstensilAlreadyAdded === false) {
     tagUstensilAlreadyAdded = true;
     Array.from(filterItemUstensils).forEach((element) => {
       element.addEventListener("click", (e) => {
+        e.preventDefault();
         const tagUstensilContainer = document.createElement("div");
         tagUstensilContainer.setAttribute("class", "tag__ustensil");
         tagUstensilContainer.classList.add(
@@ -205,18 +218,21 @@ function addTagFilterUstensils() {
         const deleteIconImg = document.createElement("i");
         deleteIconImg.className = "fa-solid fa-x";
         deleteIconImg.classList.add("cursor-pointer", "w-5");
-        deleteTagIcon.addEventListener("click", () => {
+
+        deleteIconImg.addEventListener("click", (e) => {
+          e.preventDefault();
           tagUstensilContainer.remove();
-          // défini dans search_bar.js
-          searchLive();
+          searchLive(); // Recalculer la recherche après suppression du tag
           return false;
         });
-        tagUstensilWrapper.appendChild(tagUstensilContainer);
+
         tagUstensilContainer.appendChild(tagUstensil);
         tagUstensilContainer.appendChild(deleteTagIcon);
         deleteTagIcon.appendChild(deleteIconImg);
-        // défini dans search_bar.js
-        searchLive();
+
+        tagUstensilWrapper.appendChild(tagUstensilContainer);
+
+        searchLive(); // Recalculer la recherche après ajout du tag
 
         closeUstensilDropdown();
       });
@@ -234,6 +250,9 @@ function closeUstensilDropdown() {
   const ustensilsListBox = ustensilDropdown.querySelector(
     ".filter__ustensils--list"
   );
+  const clearUstensilsButton = ustensilDropdown.querySelector(
+    ".filter__ustensils--clear-button"
+  );
 
   ustensilDropdown.classList.remove("filter__ustensils--view");
   ustensilDropdown.classList.add("filter__ustensils--close");
@@ -243,6 +262,7 @@ function closeUstensilDropdown() {
   ustensilsListBox.style.display = "none";
   ustensilDropdown.style.width = "170px";
   ustensilDropdown.style.height = "auto";
+  clearUstensilsButton.style.display = "none";
 }
 
 /** TAG FILTRE RECIPES **/
@@ -250,106 +270,39 @@ function closeUstensilDropdown() {
 /* filteredRecipesWithTags */
 // eslint-disable-next-line no-unused-vars
 function filteredRecipesWithTags(recipesToFilter) {
-  /* Faire des tableaux des items afficher pour chaque filtre */
   const taggedIngredientsDOM = Array.from(
-    document.querySelectorAll(".tag__ingredients--wrapper .tag__ingredient ")
+    document.querySelectorAll(".tag__ingredients--wrapper .tag__ingredient")
   );
 
   const taggedAppliancesDOM = Array.from(
-    document.querySelectorAll(".tag__appliances--wrapper .tag__appliance ")
+    document.querySelectorAll(".tag__appliances--wrapper .tag__appliance")
   );
 
-  const taggedustensilsDOM = Array.from(
+  const taggedUstensilsDOM = Array.from(
     document.querySelectorAll(".tag__ustensils--wrapper .tag__ustensil")
   );
-  let recipesToDisplay = [];
-  let taggedIngredients = [];
-  let taggedAppliances = [];
-  let taggedUstensils = [];
 
-  /* Créer des tableaux avec map contenant le texte de chaque tableau */
-  taggedIngredients = taggedIngredientsDOM.map(
-    (taggedIngredient) => taggedIngredient.innerText
+  const taggedIngredients = taggedIngredientsDOM.map((tag) =>
+    tag.innerText.toLowerCase()
   );
-  taggedAppliances = taggedAppliancesDOM.map(
-    (taggedAppliance) => taggedAppliance.innerText
+  const taggedAppliances = taggedAppliancesDOM.map((tag) =>
+    tag.innerText.toLowerCase()
   );
-  taggedUstensils = taggedustensilsDOM.map(
-    (taggedUstensil) => taggedUstensil.innerText
+  const taggedUstensils = taggedUstensilsDOM.map((tag) =>
+    tag.innerText.toLowerCase()
   );
 
-  /* Définir le tableau recipesToDisplay un filtre de recipes */
-  recipesToDisplay = recipesToFilter.filter((recipe) => {
-    let recipeIsMatching = false;
-    let ingredientIsMatching = false;
-    let applianceIsMatching = false;
-    let ustensilIsMatching = false;
-
-    let ingredientsMatching = 0;
-    let appliancesMatching = 0;
-    let ustensilsMatching = 0;
-
-    let ingredientsInTheRecipe = [];
-    let appliancesInTheRecipe = [];
-    let ustensilsInTheRecipe = [];
-
-    ingredientsInTheRecipe = recipe.ingredients.map(
-      ({ ingredient }) => ingredient
+  return recipesToFilter.filter((recipe) => {
+    const ingredientsMatch = taggedIngredients.every((tag) =>
+      recipe.ingredients.some((ing) => ing.ingredient.toLowerCase() === tag)
+    );
+    const applianceMatch =
+      taggedAppliances.length === 0 ||
+      taggedAppliances.includes(recipe.appliance.toLowerCase());
+    const ustensilsMatch = taggedUstensils.every((tag) =>
+      recipe.ustensils.includes(tag)
     );
 
-    appliancesInTheRecipe.push(recipe.appliance);
-
-    ustensilsInTheRecipe = recipe.ustensils.map((ustensil) => ustensil);
-
-    if (taggedIngredients.length > 0) {
-      taggedIngredients.forEach((taggedIngredient) => {
-        if (ingredientsInTheRecipe.includes(taggedIngredient)) {
-          ingredientsMatching += 1;
-        }
-      });
-    }
-
-    if (taggedAppliances.length > 0) {
-      taggedAppliances.forEach((taggedAppliance) => {
-        if (appliancesInTheRecipe.includes(taggedAppliance)) {
-          appliancesMatching += 1;
-        }
-      });
-    }
-
-    if (taggedUstensils.length > 0) {
-      taggedUstensils.forEach((taggedUstensil) => {
-        if (ustensilsInTheRecipe.includes(taggedUstensil)) {
-          ustensilsMatching += 1;
-        }
-      });
-    }
-
-    if (ingredientsMatching === taggedIngredients.length) {
-      ingredientIsMatching = true;
-    }
-
-    if (taggedAppliances.length > 0) {
-      if (appliancesMatching > 0) {
-        applianceIsMatching = true;
-      }
-    } else applianceIsMatching = true;
-
-    if (ustensilsMatching === taggedUstensils.length) {
-      ustensilIsMatching = true;
-    }
-
-    if (
-      ingredientIsMatching === true &&
-      applianceIsMatching === true &&
-      ustensilIsMatching === true
-    ) {
-      recipeIsMatching = true;
-    }
-
-    return recipeIsMatching;
+    return ingredientsMatch && applianceMatch && ustensilsMatch;
   });
-  // filFilters is defined in filters-fill.js
-  fillFilters(recipesToDisplay);
-  return recipesToDisplay;
 }

@@ -130,7 +130,8 @@ function isArrowClicked() {
   /** Events **/
 
   /* Ingredient */
-  arrowDownIngredient.addEventListener("click", () => {
+  arrowDownIngredient.addEventListener("click", (e) => {
+    e.preventDefault();
     applianceCloseElt = document.querySelector(".filter__appliances--view");
     applianceArrowUp = document.querySelector(
       ".filter__appliances--angleUp .fa-angle-up"
@@ -148,7 +149,8 @@ function isArrowClicked() {
   });
 
   /* Appliance */
-  arrowDownAppliance.addEventListener("click", () => {
+  arrowDownAppliance.addEventListener("click", (e) => {
+    e.preventDefault();
     ustensilCloseElt = document.querySelector(".filter__ustensils--view");
     ustensilArrowUp = document.querySelector(
       ".filter__ustensils--angleUp .fa-angle-up"
@@ -166,7 +168,8 @@ function isArrowClicked() {
   });
 
   /* Ustensil */
-  arrowDownUstensil.addEventListener("click", () => {
+  arrowDownUstensil.addEventListener("click", (e) => {
+    e.preventDefault;
     ingredientCloseElt = document.querySelector(".filter__ingredients--view");
     ingredientArrowUp = document.querySelector(
       ".filter__ingredients--angleUp .fa-angle-up"

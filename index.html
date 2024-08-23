@@ -61,6 +61,26 @@
               >
                 <img src="src/assets/image/loupe.svg" alt="Search" />
               </button>
+              <button
+                type="button"
+                class="search__input__clear absolute top-8 right-16 text-gray-500 hover:text-gray-700 focus:outline-none"
+                style="display: none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
             <span class="no-result-message text-white"></span>
           </div>
@@ -89,12 +109,12 @@
         <!-- CARDS COMPONENT JAVASCRIPTS recipes_cards.js -->
       </section>
     </main>
-    <script src="src/scripts/main_index/index.js"></script>
-    <script src="src/scripts/main_index/recipes_cards.js"></script>
-    <script src="src/scripts/utils/filters_create.js"></script>
-    <script src="src/scripts/utils/filters_fill.js"></script>
-    <script src="src/scripts/utils/filters_input.js"></script>
-    <script src="src/scripts/utils/tags.js"></script>
-    <script src="src/scripts/utils/search_bar.js"></script>
+    <script src="src/scripts/utils/filters_create.js" defer></script>
+    <script src="src/scripts/utils/filters_input.js" defer></script>
+    <script src="src/scripts/utils/tags.js" defer></script>
+    <script src="src/scripts/utils/filters_fill.js" defer></script>
+    <script src="src/scripts/utils/search_bar.js" defer></script>
+    <script src="src/scripts/main_index/recipes_cards.js" defer></script>
+    <script src="src/scripts/main_index/index.js" defer></script>
   </body>
 </html>
