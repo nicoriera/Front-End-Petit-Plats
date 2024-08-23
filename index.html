@@ -87,6 +87,183 @@
         </div>
       </div>
     </header>
+<<<<<<< HEAD
+    <main class="mx-24 mt-4 mb-16">
+      <div id="filters" class="flex relative flex-row gap-12 justify-between">
+        <div class="dropdown-filters-wrapper z-100 truncate flex gap-12">
+          <!-- Ingrédients -->
+
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-ingredients')"
+                id="dropdown-ingredients-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-ingredients"
+                role="button"
+              >
+                Ingrédients <i class="chevron fa-solid fa-chevron-down"></i>
+              </div>
+              <div
+                class="dropdown hidden bg-white z-20 top-10 left-0 flex-col max-h-72 max-w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-ingredients"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-ingredients"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-ingredients"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-ingredients').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-ingredients-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-ingredients').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-ingredients"
+              class="hidden inline-flex justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-ingredient-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-ingredients').classList.add('hidden')"
+              >
+                x
+              </button>
+            </div>
+          </div>
+
+          <!-- Appareils -->
+
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-appliances')"
+                id="dropdown-appliances-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-appliances"
+                role="button"
+                data-dropdown-toggle="dropdown-appliances"
+              >
+                Appareils <i class="chevron fa-solid fa-chevron-down"></i>
+              </div>
+              <div
+                class="dropdown hidden bg-white z-20 top-12 left-56 flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-appliances"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-appliances"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-appliances"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-appliances').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-appliances-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-appliances').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-appliances"
+              class="hidden inline-flex justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-appliance-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-appliances').classList.add('hidden')"
+              >
+                x
+              </button>
+            </div>
+          </div>
+
+          <!-- Ustensiles -->
+
+          <div class="flex flex-col gap-8">
+            <div class="flex-col w-44 p-4 rounded-lg bg-white">
+              <div
+                onclick="toggleDropdown('dropdown-ustensils')"
+                id="dropdown-ustensils-toggle"
+                class="inline-flex justify-between w-full items-center cursor-pointer"
+                aria-expanded="false"
+                aria-controls="dropdown-ustensils"
+                role="button"
+                data-dropdown-toggle="dropdown-ustensils"
+              >
+                Ustensiles <i class="chevron fa-solid fa-chevron-down"></i>
+              </div>
+              <div
+                class="dropdown hidden bg-white z-20 top-12 left-[448px] flex-col max-h-72 w-44 overflow-y-auto transition-all duration-300 ease-in-out absolute rounded-br-xl rounded-bl-xl"
+                id="dropdown-ustensils"
+              >
+                <div class="relative mx-2">
+                  <input
+                    id="search-ustensils"
+                    class="border max-w-40 rounded-sm my-4 p-1 focus:outline-none"
+                    type="search"
+                  />
+                  <i
+                    class="fa-solid absolute text-gray-300 fa-magnifying-glass top-6 right-2"
+                  ></i>
+                  <button
+                    id="clear-search-ustensils"
+                    class="absolute top-6 right-8 text-xs text-gray-300 hidden"
+                    onclick="document.getElementById('search-ustensils').value = ''"
+                  >
+                    X
+                  </button>
+                </div>
+                <div
+                  id="dropdown-ustensils-buttons"
+                  class="flex flex-col"
+                  onclick="document.getElementById('dropdown-label-search-ustensils').classList.remove('hidden')"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              id="dropdown-label-search-ustensils"
+              class="hidden inline-flex justify-between rounded-lg p-4 bg-amber-300"
+            >
+              <div id="dropdown-label-search-ustensil-value"></div>
+              <button
+                class="text-base font-bold"
+                onclick="document.getElementById('dropdown-label-search-ustensils').classList.add('hidden')"
+              >
+                x
+              </button>
+            </div>
+          </div>
+=======
 
     <main class="main m-16">
       <section id="filters" class="flex flex-row justify-between">
@@ -94,6 +271,7 @@
           <div class="filter__ingredients"></div>
           <div class="filter__appliances"></div>
           <div class="filter__ustensils"></div>
+>>>>>>> feature/sorting-native-loops
         </div>
         <div id="recipes__number"></div>
       </section>
@@ -109,6 +287,27 @@
         <!-- CARDS COMPONENT JAVASCRIPTS recipes_cards.js -->
       </section>
     </main>
+<<<<<<< HEAD
+    <!-- Models -->
+    <script src="src/scripts/models/Recipe.js"></script>
+    <script src="src/scripts/models/DropdownAppliances.js"></script>
+    <script src="src/scripts/models/DropdownIngredients.js"></script>
+    <script src="src/scripts/models/DropdownUstensils.js"></script>
+    <!-- Components -->
+    <script src="src/scripts/components/RecipeCard.js"></script>
+    <script src="src/scripts/components/RecipesNumberTotal.js"></script>
+    <script src="src/scripts/components/DropdownFilterIngredients.js"></script>
+    <script src="src/scripts/components/DropdownFilterAppliances.js"></script>
+    <script src="src/scripts/components/DropdownFilterUstensils.js"></script>
+    <script src="src/scripts/components/InputSearchGlobal.js"></script>
+    <!-- Api -->
+    <script src="src/api/api.js"></script>
+    <!-- Entry Point -->
+    <script type="module" src="app.js"></script>
+    <!-- Helpers -->
+    <script src="src/scripts/helpers/toggleDropdown.js"></script>
+    <script src="src/scripts/helpers/input.js"></script>
+=======
     <script src="src/scripts/utils/filters_create.js" defer></script>
     <script src="src/scripts/utils/filters_input.js" defer></script>
     <script src="src/scripts/utils/tags.js" defer></script>
@@ -116,5 +315,6 @@
     <script src="src/scripts/utils/search_bar.js" defer></script>
     <script src="src/scripts/main_index/recipes_cards.js" defer></script>
     <script src="src/scripts/main_index/index.js" defer></script>
+>>>>>>> feature/sorting-native-loops
   </body>
 </html>
