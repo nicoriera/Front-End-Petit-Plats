@@ -27,11 +27,8 @@ function getSearchIngredients() {
 // eslint-disable-next-line no-unused-vars
 function inputIngredient() {
   const searchInputIngredient = document.getElementById("ingredients-input");
-  console.log("searchInputIngredient", searchInputIngredient);
 
   searchInputIngredient.addEventListener("keyup", () => {
-    console.log("searchInputIngredient", searchInputIngredient);
-
     // clearTimeout is defined on search_bar.js
     // eslint-disable-next-line no-undef
     clearTimeout(typingTimer);

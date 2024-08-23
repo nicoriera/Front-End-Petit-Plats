@@ -41,19 +41,13 @@ function searchLive() {
   Les tableaux sont définis dans tags.js dans la fonction filteredRecipesWithTags. */
   if (
     Array.from(
-      document.querySelectorAll(
-        ".tag__ingredients--wrapper .tag__ingredient .tag-blue"
-      )
+      document.querySelectorAll(".tag__ingredients--wrapper .tag__ingredient")
     ).length > 0 ||
     Array.from(
-      document.querySelectorAll(
-        ".tag__appliances--wrapper .tag__appliance .tag-green"
-      )
+      document.querySelectorAll(".tag__appliances--wrapper .tag__appliance")
     ).length > 0 ||
     Array.from(
-      document.querySelectorAll(
-        ".tag__ustensils--wrapper .tag__ustensil .tag-red"
-      )
+      document.querySelectorAll(".tag__ustensils--wrapper .tag__ustensil")
     ).length > 0
   ) {
     tagsUsed = true;
