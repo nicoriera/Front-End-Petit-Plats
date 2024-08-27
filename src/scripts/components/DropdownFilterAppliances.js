@@ -12,23 +12,19 @@ class DropdownFilterAppliances {
     }
 
     let debounceTimeout;
-    $inputSearch.addEventListener("input", (e) => {
-      e.preventDefault();
-      const searchValue = e.target.value.toLowerCase();
+    $inputSearch.addEventListener(
+      "input",
+      (e) => {
+        e.preventDefault();
+        const searchValue = e.target.value.toLowerCase();
 
-      clearTimeout(debounceTimeout);
-      debounceTimeout = setTimeout(() => {
-        this.updateDropdownAppliances(searchValue);
-<<<<<<< HEAD
-<<<<<<< HEAD
-      }, 300);
-=======
-      }, 300); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
->>>>>>> 5d55c6f (created label search and continue search in dropdown)
-=======
-      }, 300);
->>>>>>> 19f15ba (created search for dropdown ingredient)
-    });
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+          this.updateDropdownAppliances(searchValue);
+        }, 300);
+      },
+      300
+    ); // Attend 300ms après la dernière frappe de l'utilisateur avant de mettre à jour la liste déroulante
   }
 
   loadAllAppliances() {
@@ -41,24 +37,12 @@ class DropdownFilterAppliances {
     const dropdownFiltered = dropdownValues.filter((value) => {
       return value.toLowerCase().includes(searchValue);
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     console.log(dropdownFiltered, "dropdownFiltered");
->>>>>>> 5d55c6f (created label search and continue search in dropdown)
-=======
->>>>>>> 19f15ba (created search for dropdown ingredient)
 
     const dropdownSorted = dropdownFiltered.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    console.log(dropdownSorted, "dropdownSorted");
->>>>>>> 5d55c6f (created label search and continue search in dropdown)
-=======
->>>>>>> 19f15ba (created search for dropdown ingredient)
 
     const $dropdownAppliancesButtons = (this.$dropdownFiltersAppliances =
       document.getElementById("dropdown-appliances-buttons"));
