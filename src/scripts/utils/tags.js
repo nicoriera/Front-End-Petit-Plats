@@ -270,39 +270,37 @@ function closeUstensilDropdown() {
 /* filteredRecipesWithTags */
 // eslint-disable-next-line no-unused-vars
 function filteredRecipesWithTags(recipesToFilter) {
-  const taggedIngredientsDOM = Array.from(
-    document.querySelectorAll(".tag__ingredients--wrapper .tag__ingredient")
-  );
+  const taggedIngredients = Array.from(
+    document.querySelectorAll(".tag__ingredients--wrapper .tag__ingredient p")
+  ).map((tag) => tag.innerText.toLowerCase());
 
-  const taggedAppliancesDOM = Array.from(
-    document.querySelectorAll(".tag__appliances--wrapper .tag__appliance")
-  );
+  const taggedAppliances = Array.from(
+    document.querySelectorAll(".tag__appliances--wrapper .tag__appliance p")
+  ).map((tag) => tag.innerText.toLowerCase());
 
-  const taggedUstensilsDOM = Array.from(
-    document.querySelectorAll(".tag__ustensils--wrapper .tag__ustensil")
-  );
+  const taggedUstensils = Array.from(
+    document.querySelectorAll(".tag__ustensils--wrapper .tag__ustensil p")
+  ).map((tag) => tag.innerText.toLowerCase());
 
-  const taggedIngredients = taggedIngredientsDOM.map((tag) =>
-    tag.innerText.toLowerCase()
-  );
-  const taggedAppliances = taggedAppliancesDOM.map((tag) =>
-    tag.innerText.toLowerCase()
-  );
-  const taggedUstensils = taggedUstensilsDOM.map((tag) =>
-    tag.innerText.toLowerCase()
-  );
-
-  return recipesToFilter.filter((recipe) => {
-    const ingredientsMatch = taggedIngredients.every((tag) =>
-      recipe.ingredients.some((ing) => ing.ingredient.toLowerCase() === tag)
+  const recipesToDisplay = recipesToFilter.filter((recipe) => {
+    const ingredientsInRecipe = recipe.ingredients.map((ing) =>
+      ing.ingredient.toLowerCase()
     );
-    const applianceMatch =
-      taggedAppliances.length === 0 ||
-      taggedAppliances.includes(recipe.appliance.toLowerCase());
-    const ustensilsMatch = taggedUstensils.every((tag) =>
-      recipe.ustensils.includes(tag)
+    const applianceInRecipe = recipe.appliance.toLowerCase();
+    const ustensilsInRecipe = recipe.ustensils.map((ust) => ust.toLowerCase());
+
+    const matchesIngredients = taggedIngredients.every((tag) =>
+      ingredientsInRecipe.includes(tag)
+    );
+    const matchesAppliances =
+      !taggedAppliances.length || taggedAppliances.includes(applianceInRecipe);
+    const matchesUstensils = taggedUstensils.every((tag) =>
+      ustensilsInRecipe.includes(tag)
     );
 
-    return ingredientsMatch && applianceMatch && ustensilsMatch;
+    return matchesIngredients && matchesAppliances && matchesUstensils;
   });
+
+  fillFilters(recipesToDisplay);
+  return recipesToDisplay;
 }

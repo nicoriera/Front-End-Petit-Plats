@@ -32,69 +32,49 @@ if (!noResultText) {
 let typingTimer;
 const typeInterval = 100; // Intervalle de délai de recherche en millisecondes
 
-// Implémentation du Quick Sort avec des boucles natives
+// Implémentation du Quick Sort avec programmation fonctionnelle
 function quickSort(arr) {
   if (arr.length <= 1) return arr;
 
-  const pivot = arr[arr.length - 1];
-  const left = [];
-  const right = [];
-
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i].name.toLowerCase() < pivot.name.toLowerCase()) left.push(arr[i]);
-    else right.push(arr[i]);
-  }
+  const [pivot, ...rest] = arr;
+  const left = rest.filter(
+    (item) => item.name.toLowerCase() < pivot.name.toLowerCase()
+  );
+  const right = rest.filter(
+    (item) => item.name.toLowerCase() >= pivot.name.toLowerCase()
+  );
 
   return [...quickSort(left), pivot, ...quickSort(right)];
 }
 
-// Fonction de recherche avec boucles natives
+// Fonction de recherche avec programmation fonctionnelle
 function searchLive() {
-  let tagsUsed = hasActiveTags(); // Déterminer s'il y a des tags actifs
+  const tagsUsed = hasActiveTags(); // Vérifie si des tags sont actifs
   let recipesToDisplay = [];
-  let mainInput;
+  let mainInput = "";
 
-  // Vérification si plus de 2 caractères sont saisis
   if (searchBarInput && searchBarInput.value.length > 2) {
     mainInput = searchBarInput.value.toLowerCase();
 
-    for (let i = 0; i < recipes.length; i++) {
-      let recipeIsMatching = false;
+    recipesToDisplay = recipes.filter(
+      (recipe) =>
+        recipe.name.toLowerCase().includes(mainInput) ||
+        recipe.description.toLowerCase().includes(mainInput) ||
+        recipe.ingredients.some((ingredient) =>
+          ingredient.ingredient.toLowerCase().includes(mainInput)
+        )
+    );
 
-      if (recipes[i].name.toLowerCase().includes(mainInput)) {
-        recipeIsMatching = true;
-      } else if (recipes[i].description.toLowerCase().includes(mainInput)) {
-        recipeIsMatching = true;
-      } else {
-        for (let j = 0; j < recipes[i].ingredients.length; j++) {
-          if (
-            recipes[i].ingredients[j].ingredient
-              .toLowerCase()
-              .includes(mainInput)
-          ) {
-            recipeIsMatching = true;
-            break;
-          }
-        }
-      }
-
-      if (recipeIsMatching) {
-        recipesToDisplay.push(recipes[i]);
-      }
-    }
-
-    recipesToDisplay = quickSort(recipesToDisplay);
+    recipesToDisplay = quickSort(recipesToDisplay); // Tri fonctionnel
     console.log(recipesToDisplay);
 
     fillFilters(recipesToDisplay);
   }
 
-  // Appliquer les tags si nécessaire
   if (tagsUsed) {
     recipesToDisplay = filteredRecipesWithTags(recipesToDisplay);
   }
 
-  // Afficher les résultats ou un message d'erreur
   if (recipesToDisplay.length > 0) {
     noResultText.innerHTML = "";
     displayData(recipesToDisplay);
@@ -103,21 +83,12 @@ function searchLive() {
     displayData([]);
   }
 
-  // Réinitialisation si la barre de recherche est vide ou contient moins de 3 caractères
   if (searchBarInput && searchBarInput.value.length < 3 && !tagsUsed) {
     fillFilters(recipes);
     displayData(recipes);
     noResultText.innerHTML = "";
   }
-
-  // Afficher ou masquer le bouton de suppression en fonction du texte dans l'input
-  if (searchBarInput.value) {
-    clearSearchButton.style.display = "block";
-  } else {
-    clearSearchButton.style.display = "none";
-  }
 }
-
 // Gestion de la recherche au clic sur le bouton
 if (searchButton) {
   searchButton.addEventListener("click", searchLive);
