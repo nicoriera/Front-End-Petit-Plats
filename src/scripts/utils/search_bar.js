@@ -66,7 +66,6 @@ function searchLive() {
     );
 
     recipesToDisplay = quickSort(recipesToDisplay); // Tri fonctionnel
-    console.log(recipesToDisplay);
 
     fillFilters(recipesToDisplay);
   }
@@ -87,6 +86,13 @@ function searchLive() {
     fillFilters(recipes);
     displayData(recipes);
     noResultText.innerHTML = "";
+  }
+
+  // Afficher ou masquer le bouton de suppression en fonction du texte dans l'input
+  if (searchBarInput.value) {
+    clearSearchButton.style.display = "block";
+  } else {
+    clearSearchButton.style.display = "none";
   }
 }
 // Gestion de la recherche au clic sur le bouton
