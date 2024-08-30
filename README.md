@@ -9,7 +9,8 @@ Bienvenue sur le projet **Les Petits Plats** ! Ce projet est une application web
 - [Technologies utilisées](#technologies-utilisées)
 - [Installation](#installation)
 - [Utilisation](#utilisation)
-- [Contact](#contact)
+- [Validation](#validation)
+-
 
 ## Aperçu
 
@@ -59,11 +60,16 @@ Pour démarrer le projet en local, vous pouvez utiliser le script npm dev qui a 
 
    ```bash
    npm run dev
-
-   Cela va :
-       •	Compiler le CSS avec Tailwind CSS.
-       •	Démarrer un serveur local avec live-server sur le port 8080 et ouvrir automatiquement le projet dans votre navigateur.
-
    ```
 
+Cela va :
+• Compiler le CSS avec Tailwind CSS.
+• Démarrer un serveur local avec live-server sur le port 8080 et ouvrir automatiquement le projet dans votre navigateur.
+
 2. Port : Le projet sera accessible à http://localhost:8080.
+
+## Validation
+
+1. W3 CSS : https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fnicoriera.github.io%2FFront-End-Petit-Plats%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=fr
+
+2. W3 HTML : https://validator.w3.org/nu/?doc=https%3A%2F%2Fnicoriera.github.io%2FFront-End-Petit-Plats%2F
