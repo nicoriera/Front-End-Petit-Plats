@@ -90,19 +90,34 @@ function fillFilters(recipes) {
       }
     });
   });
-  /* Variable défini dans tags.js */
-  // eslint-disable-next-line no-undef
+
+  /* Réinitialisation des variables d'ajout de tags */
   tagIngredientAlreadyAdded = false;
-  // eslint-disable-next-line no-undef
-  addTagFilterIngredients();
-  // eslint-disable-next-line no-undef
   tagApplianceAlreadyAdded = false;
-  // eslint-disable-next-line no-undef
-  addTagFilterAppliances();
-  // eslint-disable-next-line no-undef
   tagUstensilAlreadyAdded = false;
-  // eslint-disable-next-line no-undef
-  addTagFilterUstensils();
+
+  /* Appel de la fonction générique pour ajouter des tags */
+  addTagFilter(
+    "ingredient",
+    tagIngredientAlreadyAdded,
+    filterItemIngredients,
+    tagIngredientWrapper,
+    closeIngredientDropdown
+  );
+  addTagFilter(
+    "appliance",
+    tagApplianceAlreadyAdded,
+    filterItemAppliances,
+    tagApplianceWrapper,
+    closeApplianceDropdown
+  );
+  addTagFilter(
+    "ustensil",
+    tagUstensilAlreadyAdded,
+    filterItemUstensils,
+    tagUstensilWrapper,
+    closeUstensilDropdown
+  );
 }
 
 /*** Fonction pour ouvrir qu'un seul filtre à la fois. ***/
