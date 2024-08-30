@@ -1,37 +1,13 @@
-class Api {
-  /**
-   *
-   * @param {string} url
-   */
-  constructor(url) {
-    this.url = url;
-  }
+// // Fonction pour récupérer les recettes depuis un fichier JSON
+// async function fetchRecipes() {
+//   try {
+//     const response = await fetch("src/data/recipes.json");
+//     const data = await response.json();
+//     return data.recipes;
+//   } catch (error) {
+//     console.error("Erreur lors de la récupération des recettes :", error);
+//     return [];
+//   }
+// }
 
-  async get() {
-    return fetch(this.url)
-      .then((res) => res.json())
-      .catch((err) => console.log("an error occurs", err));
-  }
-}
-
-class RecipeApi extends Api {
-  constructor(url) {
-    super(url);
-    this.data = null;
-  }
-
-  async fetchData() {
-    if (!this.data) {
-      this.data = await this.get();
-    }
-    return this.data;
-  }
-
-  async getRecipes() {
-    return await this.fetchData();
-  }
-
-  async getDropdownFilters() {
-    return await this.fetchData();
-  }
-}
+// export { fetchRecipes };

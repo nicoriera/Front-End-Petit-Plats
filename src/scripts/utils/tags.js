@@ -34,37 +34,16 @@ const tagUstensilWrapper = document.querySelector(".tag__ustensils--wrapper");
 
 /* Ingrédients */
 function addTagFilterIngredients() {
-  if (tagIngredientAlreadyAdded === false) {
+  if (!tagIngredientAlreadyAdded) {
     tagIngredientAlreadyAdded = true;
     Array.from(filterItemIngredients).forEach((element) => {
       element.addEventListener("click", (e) => {
         e.preventDefault();
-        const tagIngredientContainer = document.createElement("div");
-        tagIngredientContainer.setAttribute("class", "tag__ingredient");
-        tagIngredientContainer.classList.add(
-          "flex",
-          "items-center",
-          "justify-between",
-          "w-44",
-          "bg-amber-300",
-          "rounded-lg",
-          "p-4",
-          "mr-10",
-          "mt-6"
-        );
+        const tagIngredientContainer = createTagContainer("tag__ingredient");
+        const tagIngredient = createTagElement(e.target.innerText);
+        const deleteTagIcon = createDeleteTagIcon();
 
-        const tagIngredient = document.createElement("p");
-        tagIngredient.innerText = e.target.innerText;
-        console.log(tagIngredient);
-
-        const deleteTagIcon = document.createElement("span");
-        deleteTagIcon.classname = "deleteIcon";
-
-        const deleteIconImg = document.createElement("i");
-        deleteIconImg.className = "fa-solid fa-x";
-        deleteIconImg.classList.add("cursor-pointer", "w-5");
-
-        deleteIconImg.addEventListener("click", (e) => {
+        deleteTagIcon.addEventListener("click", (e) => {
           e.preventDefault();
           tagIngredientContainer.remove();
           searchLive(); // Recalculer la recherche après suppression du tag
@@ -73,7 +52,6 @@ function addTagFilterIngredients() {
 
         tagIngredientContainer.appendChild(tagIngredient);
         tagIngredientContainer.appendChild(deleteTagIcon);
-        deleteTagIcon.appendChild(deleteIconImg);
 
         tagIngredientWrapper.appendChild(tagIngredientContainer);
 
@@ -83,6 +61,42 @@ function addTagFilterIngredients() {
       });
     });
   }
+}
+
+function createTagContainer(className) {
+  const tagContainer = document.createElement("div");
+  tagContainer.setAttribute("class", className);
+  tagContainer.classList.add(
+    "flex",
+    "items-center",
+    "justify-between",
+    "w-44",
+    "bg-amber-300",
+    "rounded-lg",
+    "p-4",
+    "mr-10",
+    "mt-6"
+  );
+  return tagContainer;
+}
+
+function createTagElement(text) {
+  const tagElement = document.createElement("p");
+  tagElement.innerText = text;
+  return tagElement;
+}
+
+function createDeleteTagIcon() {
+  const deleteTagIcon = document.createElement("span");
+  deleteTagIcon.className = "deleteIcon";
+
+  const deleteIconImg = document.createElement("i");
+  deleteIconImg.className = "fa-solid fa-x";
+  deleteIconImg.classList.add("cursor-pointer", "w-5");
+
+  deleteTagIcon.appendChild(deleteIconImg);
+
+  return deleteTagIcon;
 }
 
 function closeIngredientDropdown() {
@@ -113,36 +127,16 @@ function closeIngredientDropdown() {
 
 /* Appareils */
 function addTagFilterAppliances() {
-  if (tagApplianceAlreadyAdded === false) {
+  if (!tagApplianceAlreadyAdded) {
     tagApplianceAlreadyAdded = true;
     Array.from(filterItemAppliances).forEach((element) => {
       element.addEventListener("click", (e) => {
         e.preventDefault();
-        const tagApplianceContainer = document.createElement("div");
-        tagApplianceContainer.setAttribute("class", "tag__appliance");
-        tagApplianceContainer.classList.add(
-          "flex",
-          "items-center",
-          "justify-between",
-          "w-44",
-          "bg-amber-300",
-          "rounded-lg",
-          "p-4",
-          "mr-10",
-          "mt-6"
-        );
+        const tagApplianceContainer = createTagContainer("tag__appliance");
+        const tagAppliance = createTagElement(e.target.innerText);
+        const deleteTagIcon = createDeleteTagIcon();
 
-        const tagAppliance = document.createElement("p");
-        tagAppliance.innerText = e.target.innerText;
-
-        const deleteTagIcon = document.createElement("span");
-        deleteTagIcon.className = "deleteIcon";
-
-        const deleteIconImg = document.createElement("i");
-        deleteIconImg.className = "fa-solid fa-x";
-        deleteIconImg.classList.add("cursor-pointer", "w-5");
-
-        deleteIconImg.addEventListener("click", (e) => {
+        deleteTagIcon.addEventListener("click", (e) => {
           e.preventDefault();
           tagApplianceContainer.remove();
           searchLive(); // Recalculer la recherche après suppression du tag
@@ -151,7 +145,6 @@ function addTagFilterAppliances() {
 
         tagApplianceContainer.appendChild(tagAppliance);
         tagApplianceContainer.appendChild(deleteTagIcon);
-        deleteTagIcon.appendChild(deleteIconImg);
 
         tagApplianceWrapper.appendChild(tagApplianceContainer);
 
@@ -190,36 +183,16 @@ function closeApplianceDropdown() {
 
 /* Ustensiles */
 function addTagFilterUstensils() {
-  if (tagUstensilAlreadyAdded === false) {
+  if (!tagUstensilAlreadyAdded) {
     tagUstensilAlreadyAdded = true;
     Array.from(filterItemUstensils).forEach((element) => {
       element.addEventListener("click", (e) => {
         e.preventDefault();
-        const tagUstensilContainer = document.createElement("div");
-        tagUstensilContainer.setAttribute("class", "tag__ustensil");
-        tagUstensilContainer.classList.add(
-          "flex",
-          "items-center",
-          "justify-between",
-          "w-44",
-          "bg-amber-300",
-          "rounded-lg",
-          "p-4",
-          "mr-10",
-          "mt-6"
-        );
+        const tagUstensilContainer = createTagContainer("tag__ustensil");
+        const tagUstensil = createTagElement(e.target.innerText);
+        const deleteTagIcon = createDeleteTagIcon();
 
-        const tagUstensil = document.createElement("p");
-        tagUstensil.innerText = e.target.innerText;
-
-        const deleteTagIcon = document.createElement("span");
-        deleteTagIcon.className = "deleteIcon";
-
-        const deleteIconImg = document.createElement("i");
-        deleteIconImg.className = "fa-solid fa-x";
-        deleteIconImg.classList.add("cursor-pointer", "w-5");
-
-        deleteIconImg.addEventListener("click", (e) => {
+        deleteTagIcon.addEventListener("click", (e) => {
           e.preventDefault();
           tagUstensilContainer.remove();
           searchLive(); // Recalculer la recherche après suppression du tag
@@ -228,7 +201,6 @@ function addTagFilterUstensils() {
 
         tagUstensilContainer.appendChild(tagUstensil);
         tagUstensilContainer.appendChild(deleteTagIcon);
-        deleteTagIcon.appendChild(deleteIconImg);
 
         tagUstensilWrapper.appendChild(tagUstensilContainer);
 
