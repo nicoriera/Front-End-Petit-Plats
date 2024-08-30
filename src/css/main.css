@@ -610,10 +610,6 @@ video {
   left: 24rem;
 }
 
-.left-\[448px\] {
-  left: 448px;
-}
-
 .right-0 {
   right: 0px;
 }
@@ -1214,7 +1210,7 @@ video {
 }
 
 .bg-hero-pattern {
-  background-image: url('/src/assets/pictures/lampos-aritonang-24gR_9lCdes-unsplash 1.png');
+  background-image: url('/src/assets/pictures/lampos-aritonang-24gR_9lCdes-unsplash_1.png');
 }
 
 .bg-cover {
