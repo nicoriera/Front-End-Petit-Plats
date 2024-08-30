@@ -10,7 +10,6 @@ Bienvenue sur le projet **Les Petits Plats** ! Ce projet est une application web
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Validation](#validation)
--
 
 ## Aperçu
 
