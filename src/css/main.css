@@ -1209,10 +1209,6 @@ video {
   background-color: rgb(254 249 195 / var(--tw-bg-opacity));
 }
 
-.bg-hero-pattern {
-  background-image: url('/src/assets/pictures/lampos-aritonang-24gR_9lCdes-unsplash_1.png');
-}
-
 .bg-cover {
   background-size: cover;
 }
