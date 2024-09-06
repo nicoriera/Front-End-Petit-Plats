@@ -1,32 +1,26 @@
 function getSearchIngredients() {
-  const filterRender = document.querySelectorAll(
-    ".filter__ingredients--list li"
-  );
-
+  const searchQuery = document
+    .getElementById("ingredients-input")
+    .value.toLowerCase();
   const cards = document.querySelectorAll(".filter__ingredients--items");
 
-  const searchQuery = document.getElementById("ingredients-input").value;
-
   cards.forEach((card) => {
-    if (card.innerText.toLowerCase().includes(searchQuery.toLowerCase())) {
+    const cardText = card.innerText.toLowerCase();
+    if (cardText.includes(searchQuery)) {
       card.classList.remove("hidden");
     } else {
       card.classList.add("hidden");
     }
   });
-  return filterRender;
+
+  return document.querySelectorAll(".filter__ingredients--list li");
 }
 
-/* Used on filters_recipes.js */
-// eslint-disable-next-line no-unused-vars
 function inputIngredient() {
   const searchInputIngredient = document.getElementById("ingredients-input");
 
   searchInputIngredient.addEventListener("keyup", () => {
-    // clearTimeout is defined on search_bar.js
-    // eslint-disable-next-line no-undef
     clearTimeout(typingTimer);
-    // eslint-disable-next-line no-undef
     typingTimer = setTimeout(getSearchIngredients, typeInterval);
   });
 }
