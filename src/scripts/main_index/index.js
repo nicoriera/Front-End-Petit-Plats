@@ -27,6 +27,10 @@ function init() {
   filterIngredients();
   filterAppliances();
   filterUstensils();
+  /* Rechercher dans les filtres */
+  inputIngredient();
+  inputAppliance();
+  inputUstensil();
   /* N'ouvrir qu'un seul filtre à la fois */
   isArrowClicked();
   /* Remplir les filtres avec les données */

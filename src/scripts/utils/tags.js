@@ -150,15 +150,15 @@ function closeDropdown(dropdownSelector) {
 
 /* Fermeture des dropdowns spécifiques */
 function closeIngredientDropdown() {
-  closeDropdown(".filter__ingredients--template");
+  closeDropdown(".filter__ingredients--view");
 }
 
 function closeApplianceDropdown() {
-  closeDropdown(".filter__appliances--template");
+  closeDropdown(".filter__appliances--view");
 }
 
 function closeUstensilDropdown() {
-  closeDropdown(".filter__ustensils--template");
+  closeDropdown(".filter__ustensils--view");
 }
 
 /** Filtrage des recettes avec les tags **/
