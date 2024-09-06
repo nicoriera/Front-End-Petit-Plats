@@ -1,6 +1,6 @@
 # Les Petits Plats
 
-Bienvenue sur le projet **Les Petits Plats** ! Ce projet est une application web de recettes de cuisine, permettant aux utilisateurs de rechercher parmi plus de 1500 recettes simples et délicieuses.
+Bienvenue sur le projet **Les Petits Plats** ! Ce projet est une application web de recettes de cuisine, permettant aux utilisateurs de rechercher des recettes simples et délicieuses.
 
 ## Table des matières
 
@@ -13,7 +13,7 @@ Bienvenue sur le projet **Les Petits Plats** ! Ce projet est une application web
 
 ## Aperçu
 
-Lien du projet : https://nicoriera.github.io/Front-End-Petit-Plats/
+Lien du projet : https://les-petits-plats-de-nico.netlify.app/
 
 ## Fonctionnalités
 
