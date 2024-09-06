@@ -177,8 +177,12 @@ function openFilter({
   arrowUp.style.display = "inline";
   input.style.display = "flex";
   clearButton.style.display = input.value ? "block" : "none";
-  template.style.width = "176px";
-  template.style.height = "315px";
+
+  if (`${filterClassName}--view`) {
+    article.style.width = "176px";
+    article.style.maxHeight = "315px";
+  }
+
   listBox.style.display = "flex";
   listBox.classList.add("flex", "flex-col", "text-ellipsis", "overflow-y-auto");
   input.focus();
@@ -202,8 +206,11 @@ function closeFilter({
   arrowUp.style.display = "none";
   input.style.display = "none";
   clearButton.style.display = "none";
-  template.style.width = "170px";
-  template.style.height = "auto";
+  if (`${filterClassName}--close`) {
+    article.style.width = "170px";
+    article.style.height = "auto";
+  }
+
   listBox.style.display = "none";
 }
 

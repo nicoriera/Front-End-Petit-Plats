@@ -9,6 +9,7 @@ function getSearchIngredients() {
   const cards = document.querySelectorAll(".filter__ingredients--items");
 
   const searchQuery = document.getElementById("ingredients-input").value;
+  console.log(searchQuery);
 
   cards.forEach((card) => {
     if (card.innerText.toLowerCase().includes(searchQuery.toLowerCase())) {
@@ -24,6 +25,7 @@ function getSearchIngredients() {
 // eslint-disable-next-line no-unused-vars
 function inputIngredient() {
   const searchInputIngredient = document.getElementById("ingredients-input");
+  console.log(searchInputIngredient);
 
   searchInputIngredient.addEventListener("keyup", () => {
     // clearTimeout is defined on search_bar.js
