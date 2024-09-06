@@ -1,38 +1,44 @@
 /** Fonction pour afficher le contenu de 'ingrédients' pour nos cards. **/
 /* getIngredients is used on our factory 'getRecipeCard' */
 
+function createIngredientElement(ingredient) {
+  const ingredientContainer = document.createElement("div");
+  ingredientContainer.classList.add("mt-2");
+
+  const ingredientName = document.createElement("div");
+  ingredientName.classList.add(
+    "text-zinc-900",
+    "text-sm",
+    "font-medium",
+    "font-['Manrope']"
+  );
+  ingredientName.textContent = ingredient.ingredient;
+
+  const ingredientDetails = document.createElement("div");
+  ingredientDetails.classList.add(
+    "text-neutral-500",
+    "text-sm",
+    "font-normal",
+    "font-['Manrope']"
+  );
+  ingredientDetails.textContent = `${ingredient.quantity || ""} ${
+    ingredient.unit || ""
+  }`;
+
+  ingredientContainer.appendChild(ingredientName);
+  ingredientContainer.appendChild(ingredientDetails);
+
+  return ingredientContainer;
+}
+
 function getIngredients(ingredients) {
   const column = document.createElement("div");
   column.classList.add("grid", "grid-cols-2", "gap-4");
 
-  for (const ingredient of ingredients) {
-    const ingredientContainer = document.createElement("div");
-    ingredientContainer.classList.add("mt-2");
-
-    const ingredientName = document.createElement("div");
-    ingredientName.classList.add(
-      "text-zinc-900",
-      "text-sm",
-      "font-medium",
-      "font-['Manrope']"
-    );
-    ingredientName.textContent = ingredient.ingredient;
-
-    const ingredientDetails = document.createElement("div");
-    ingredientDetails.classList.add(
-      "text-neutral-500",
-      "text-sm",
-      "font-normal",
-      "font-['Manrope']"
-    );
-    ingredientDetails.textContent = `${
-      ingredient.quantity ? ingredient.quantity : ""
-    } ${ingredient.unit ? ingredient.unit : ""}`;
-
-    ingredientContainer.appendChild(ingredientName);
-    ingredientContainer.appendChild(ingredientDetails);
-    column.appendChild(ingredientContainer);
-  }
+  ingredients.forEach((ingredient) => {
+    const ingredientElement = createIngredientElement(ingredient);
+    column.appendChild(ingredientElement);
+  });
 
   return column;
 }
@@ -56,6 +62,44 @@ function getImage(imageUrl, altText) {
 /** Factory qui permet de générer nos cards de Recipes. **/
 /* getRecipeCard is used in index.js */
 // eslint-disable-next-line no-unused-vars
+function createRecipeTitle(name) {
+  const recipeName = document.createElement("h2");
+  recipeName.textContent = name;
+  recipeName.className =
+    "nom text-black text-lg font-normal font-['Anton'] mt-4";
+  return recipeName;
+}
+
+function createRecipeDuration(time) {
+  const recipeDuration = document.createElement("div");
+  recipeDuration.textContent = `${time} min`;
+  recipeDuration.className =
+    "durée text-center text-zinc-900 text-xs font-normal font-['Manrope'] bg-amber-300 rounded-[14px] absolute top-4 right-4 px-[15px] py-[5px]";
+  return recipeDuration;
+}
+
+function createRecipeDescription(description) {
+  const recipeDescription = document.createElement("p");
+  recipeDescription.textContent = description;
+  recipeDescription.className =
+    "description h-[80px] mt-4 mb-5 text-zinc-900 text-sm font-normal font-['Manrope'] overflow-hidden text-ellipsis";
+  return recipeDescription;
+}
+
+function createRecipeHeaders() {
+  const titleRecipe = document.createElement("h2");
+  titleRecipe.textContent = "RECETTE";
+  titleRecipe.className =
+    "titre recette text-neutral-500 mt-6 text-xs font-bold font-['Manrope'] uppercase tracking-wide";
+
+  const titleIngredients = document.createElement("h2");
+  titleIngredients.textContent = "INGRÉDIENTS";
+  titleIngredients.className =
+    "titre ingredients text-neutral-500 my-6 text-xs font-bold font-['Manrope'] uppercase tracking-wide";
+
+  return { titleRecipe, titleIngredients };
+}
+
 function getRecipeCard(data) {
   const {
     id,
@@ -72,113 +116,33 @@ function getRecipeCard(data) {
   const article = document.createElement("article");
   article.setAttribute("id", id);
   article.setAttribute("servings", servings);
-  article.classList.add(
-    "rounded-[21px]",
-    "shadow",
-    "relative",
-    "recipe-card",
-    "w-full",
-    "h-[740px]",
-    "bg-white"
-  );
+  article.className =
+    "rounded-[21px] shadow relative recipe-card w-full h-[740px] bg-white";
 
   const imgElement = getImage(image, name);
-
-  const blankImage = document.createElement("div");
-  blankImage.classList.add("blank-space");
-
-  const recipeName = document.createElement("h2");
-  recipeName.textContent = name;
-  recipeName.className = "nom";
-  recipeName.classList.add(
-    "text-black",
-    "text-lg",
-    "font-normal",
-    "font-['Anton']",
-    "mt-4"
-  );
-
-  const recipeDuration = document.createElement("div");
-  recipeDuration.textContent = `${time} min`;
-  recipeDuration.className = "durée";
-  recipeDuration.classList.add(
-    "text-center",
-    "text-zinc-900",
-    "text-xs",
-    "font-normal",
-    "font-['Manrope']",
-    "bg-amber-300",
-    "rounded-[14px]",
-    "absolute",
-    "top-4",
-    "right-4",
-    "px-[15px]",
-    "py-[5px]"
-  );
-
-  const cardInfo = document.createElement("div");
-  cardInfo.classList.add("informations");
-  cardInfo.setAttribute("appliance", appliance);
-  cardInfo.setAttribute("ustensils", ustensils);
-  cardInfo.classList.add("px-4", "py-4");
-
-  /* getIngredients est définit en début de page */
+  const recipeDuration = createRecipeDuration(time);
+  const recipeName = createRecipeTitle(name);
+  const recipeDescription = createRecipeDescription(description);
+  const { titleRecipe, titleIngredients } = createRecipeHeaders();
   const recipeIngredients = getIngredients(ingredients);
 
-  const recipeDescription = document.createElement("p");
-  recipeDescription.textContent = description;
-  recipeDescription.className = "description";
-  recipeDescription.classList.add(
-    "h-[80px]",
-    "mt-4",
-    "mb-5",
-    "text-zinc-900",
-    "text-sm",
-    "font-normal",
-    "font-['Manrope']",
-    "overflow-hidden",
-    "text-ellipsis"
-  );
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("informations", "px-4", "py-4");
+  cardInfo.setAttribute("appliance", appliance);
+  cardInfo.setAttribute("ustensils", ustensils);
 
-  const hidden = document.createElement("div");
-  hidden.classList.add("is-hidden");
-
-  const titleRecipe = document.createElement("h2");
-  titleRecipe.textContent = "RECETTE";
-  titleRecipe.className = "titre recette"; // A revoir;
-  titleRecipe.classList.add(
-    "text-neutral-500",
-    "mt-6",
-    "text-xs",
-    "font-bold",
-    "font-['Manrope']",
-    "uppercase",
-    "tracking-wide"
-  );
-
-  const titleIngredients = document.createElement("h2");
-  titleIngredients.textContent = "INGRÉDIENTS";
-  titleIngredients.className = "titre ingredients"; // A revoir
-  titleIngredients.classList.add(
-    "text-neutral-500",
-    "my-6",
-    "text-xs",
-    "font-bold",
-    "font-['Manrope']",
-    "uppercase",
-    "tracking-wide"
-  );
-
-  /* Append section */
+  // Append elements to article
   article.appendChild(imgElement);
-  article.appendChild(blankImage);
   article.appendChild(recipeDuration);
-  article.appendChild(cardInfo);
   cardInfo.appendChild(recipeName);
   cardInfo.appendChild(titleRecipe);
   cardInfo.appendChild(recipeDescription);
   cardInfo.appendChild(titleIngredients);
   cardInfo.appendChild(recipeIngredients);
+  article.appendChild(cardInfo);
+
+  const hidden = document.createElement("div");
+  hidden.classList.add("is-hidden");
   article.appendChild(hidden);
 
   return article;
