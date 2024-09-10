@@ -101,23 +101,39 @@ function createRecipeHeaders() {
 }
 
 function getRecipeCard(data) {
-  const {
-    id,
-    name,
-    servings,
-    ingredients,
-    time,
-    description,
-    appliance,
-    ustensils,
-    image,
-  } = data;
+  const { id, servings, appliance, ustensils } = data;
 
+  const article = createArticleElement(id, servings);
+  const cardInfo = createCardInfo(appliance, ustensils);
+
+  // Append elements to article
+  appendElementsToArticle(article, data, cardInfo);
+
+  const hidden = createHiddenElement();
+  article.appendChild(hidden);
+
+  return article;
+}
+
+function createArticleElement(id, servings) {
   const article = document.createElement("article");
   article.setAttribute("id", id);
   article.setAttribute("servings", servings);
   article.className =
     "rounded-[21px] shadow relative recipe-card w-full h-[740px] bg-white";
+  return article;
+}
+
+function createCardInfo(appliance, ustensils) {
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("informations", "px-4", "py-4");
+  cardInfo.setAttribute("appliance", appliance);
+  cardInfo.setAttribute("ustensils", ustensils);
+  return cardInfo;
+}
+
+function appendElementsToArticle(article, data, cardInfo) {
+  const { image, name, time, description, ingredients } = data;
 
   const imgElement = getImage(image, name);
   const recipeDuration = createRecipeDuration(time);
@@ -126,12 +142,6 @@ function getRecipeCard(data) {
   const { titleRecipe, titleIngredients } = createRecipeHeaders();
   const recipeIngredients = getIngredients(ingredients);
 
-  const cardInfo = document.createElement("div");
-  cardInfo.classList.add("informations", "px-4", "py-4");
-  cardInfo.setAttribute("appliance", appliance);
-  cardInfo.setAttribute("ustensils", ustensils);
-
-  // Append elements to article
   article.appendChild(imgElement);
   article.appendChild(recipeDuration);
   cardInfo.appendChild(recipeName);
@@ -140,10 +150,10 @@ function getRecipeCard(data) {
   cardInfo.appendChild(titleIngredients);
   cardInfo.appendChild(recipeIngredients);
   article.appendChild(cardInfo);
+}
 
+function createHiddenElement() {
   const hidden = document.createElement("div");
   hidden.classList.add("is-hidden");
-  article.appendChild(hidden);
-
-  return article;
+  return hidden;
 }
