@@ -1,130 +1,102 @@
-/*** Fonction pour remplir les filtres par catégorie ***/
-
-/** fillfilters() is initiated on index.js **/
-// eslint-disable-next-line no-unused-vars
 function fillFilters(recipes) {
   const ingredientsBloc = document.querySelector(".filter__ingredients--list");
   const appliancesBloc = document.querySelector(".filter__appliances--list");
   const ustensilsBloc = document.querySelector(".filter__ustensils--list");
 
-  const ingredientsList = [];
-  const appliancesList = [];
-  const ustensilsList = [];
+  // Clear existing lists
+  clearBlocks([ingredientsBloc, appliancesBloc, ustensilsBloc]);
 
-  // On vide les listes à chaque fois que l'on appel la fonction.
-  ingredientsBloc.innerHTML = "";
-  appliancesBloc.innerHTML = "";
-  ustensilsBloc.innerHTML = "";
+  const ingredientsList = getUniqueItems(
+    recipes,
+    "ingredient",
+    ingredientsBloc,
+    ".tag__ingredient"
+  );
+  const appliancesList = getUniqueItems(
+    recipes,
+    "appliance",
+    appliancesBloc,
+    ".tag__appliance"
+  );
+  const ustensilsList = getUniqueItems(
+    recipes,
+    "ustensil",
+    ustensilsBloc,
+    ".tag__ustensil"
+  );
+
+  addFilters(ingredientsList, appliancesList, ustensilsList);
+}
+
+function clearBlocks(blocks) {
+  blocks.forEach((block) => (block.innerHTML = ""));
+}
+
+function getUniqueItems(recipes, type, bloc, tagSelector) {
+  const tags = [...document.querySelectorAll(tagSelector)].map(
+    (tag) => tag.innerText
+  );
+  const list = [];
 
   recipes.forEach((recipe) => {
-    /** Ingredients **/
-    // if tags already used, don't push it.
-    const itags = [...document.querySelectorAll(".tag__ingredient")].map(
-      (itag) => itag.innerText
-    );
-    recipe.ingredients.forEach(({ ingredient }) => {
-      if (
-        ingredientsList.includes(ingredient) === false &&
-        itags.includes(ingredient) === false
-      ) {
-        ingredientsList.push(ingredient);
-        const filterItem = document.createElement("li");
-        filterItem.classList.add(
-          "filter__ingredients--items",
-          "cursor-pointer",
-          "px-4",
-          "py-2",
-          "capitalize",
-          "hover:bg-amber-300"
-        );
-        filterItem.innerText = ingredient;
-        ingredientsBloc.appendChild(filterItem);
-      }
-    });
+    const items =
+      type === "ingredient"
+        ? recipe.ingredients.map((i) => i.ingredient)
+        : type === "appliance"
+        ? [recipe.appliance]
+        : recipe.ustensils;
 
-    /** appliances **/
-    // if tags already used, don't push it.
-    const atags = [...document.querySelectorAll(".tag__appliance")].map(
-      (atag) => atag.innerText
-    );
-    if (
-      appliancesList.includes(recipe.appliance) === false &&
-      atags.includes(recipe.appliance) === false
-    ) {
-      appliancesList.push(recipe.appliance);
-      const filterItem = document.createElement("li");
-      filterItem.classList.add(
-        "filter__appliances--items",
-        "cursor-pointer",
-        "px-4",
-        "py-2",
-        "capitalize",
-        "hover:bg-amber-300"
-      );
-      filterItem.innerText = recipe.appliance;
-      appliancesBloc.appendChild(filterItem);
-    }
-
-    /** ustensils **/
-    // if tags already used, don't push it.
-    const utags = [...document.querySelectorAll(".tag__ustensil")].map(
-      (utag) => utag.innerText
-    );
-    recipe.ustensils.forEach((ustensil) => {
-      if (
-        ustensilsList.includes(ustensil) === false &&
-        utags.includes(ustensil) === false
-      ) {
-        ustensilsList.push(ustensil);
-        const filterItem = document.createElement("li");
-        filterItem.classList.add(
-          "filter__ustensils--items",
-          "cursor-pointer",
-          "px-4",
-          "py-2",
-          "capitalize",
-          "hover:bg-amber-300"
-        );
-        filterItem.innerText = ustensil;
-        ustensilsBloc.appendChild(filterItem);
+    items.forEach((item) => {
+      if (!list.includes(item) && !tags.includes(item)) {
+        list.push(item);
+        const filterItem = createFilterItem(`filter__${type}s--items`, item);
+        bloc.appendChild(filterItem);
       }
     });
   });
 
-  /* Réinitialisation des variables d'ajout de tags */
-  tagIngredientAlreadyAdded = false;
-  tagApplianceAlreadyAdded = false;
-  tagUstensilAlreadyAdded = false;
+  return list;
+}
 
-  /* Appel de la fonction générique pour ajouter des tags */
+function addFilters(ingredientsList, appliancesList, ustensilsList) {
   addTagFilter(
     "ingredient",
-    tagIngredientAlreadyAdded,
+    false,
     filterItemIngredients,
     tagIngredientWrapper,
     closeIngredientDropdown
   );
   addTagFilter(
     "appliance",
-    tagApplianceAlreadyAdded,
+    false,
     filterItemAppliances,
     tagApplianceWrapper,
     closeApplianceDropdown
   );
   addTagFilter(
     "ustensil",
-    tagUstensilAlreadyAdded,
+    false,
     filterItemUstensils,
     tagUstensilWrapper,
     closeUstensilDropdown
   );
 }
 
-/*** Fonction pour ouvrir qu'un seul filtre à la fois. ***/
-// eslint-disable-next-line no-unused-vars
-function isArrowClicked() {
-  /** Variables **/
+function createFilterItem(className, text) {
+  const filterItem = document.createElement("li");
+  filterItem.classList.add(
+    className,
+    "cursor-pointer",
+    "px-4",
+    "py-2",
+    "capitalize",
+    "hover:bg-amber-300"
+  );
+  filterItem.innerText = text;
+  return filterItem;
+}
 
+function getArrow() {
   const arrowDownIngredient = document.querySelector(
     ".filter__ingredients--angleDown"
   );
@@ -134,70 +106,81 @@ function isArrowClicked() {
   const arrowDownUstensil = document.querySelector(
     ".filter__ustensils--angleDown"
   );
+}
 
-  let ingredientCloseElt;
-  let ingredientArrowUp;
-  let applianceCloseElt;
-  let applianceArrowUp;
-  let ustensilCloseElt;
-  let ustensilArrowUp;
+function isArrowClicked() {
+  handleArrowClickForIngredient();
+  handleArrowClickForAppliance();
+  handleArrowClickForUstensil();
+}
 
-  /** Events **/
+function handleArrowClickForIngredient() {
+  const arrowDownIngredient = document.querySelector(
+    ".filter__ingredients--angleDown"
+  );
 
-  /* Ingredient */
   arrowDownIngredient.addEventListener("click", (e) => {
     e.preventDefault();
-    applianceCloseElt = document.querySelector(".filter__appliances--view");
-    applianceArrowUp = document.querySelector(
+    const applianceCloseElt = document.querySelector(
+      ".filter__appliances--view"
+    );
+    const applianceArrowUp = document.querySelector(
       ".filter__appliances--angleUp .fa-angle-up"
     );
-    ustensilCloseElt = document.querySelector(".filter__ustensils--view");
-    ustensilArrowUp = document.querySelector(
+    const ustensilCloseElt = document.querySelector(".filter__ustensils--view");
+    const ustensilArrowUp = document.querySelector(
       ".filter__ustensils--angleUp .fa-angle-up"
     );
-    if (applianceCloseElt != null) {
-      applianceArrowUp.click();
-    }
-    if (ustensilCloseElt != null) {
-      ustensilArrowUp.click();
-    }
-  });
 
-  /* Appliance */
+    if (applianceCloseElt) applianceArrowUp.click();
+    if (ustensilCloseElt) ustensilArrowUp.click();
+  });
+}
+
+function handleArrowClickForAppliance() {
+  const arrowDownAppliance = document.querySelector(
+    ".filter__appliances--angleDown"
+  );
+
   arrowDownAppliance.addEventListener("click", (e) => {
     e.preventDefault();
-    ustensilCloseElt = document.querySelector(".filter__ustensils--view");
-    ustensilArrowUp = document.querySelector(
+    const ustensilCloseElt = document.querySelector(".filter__ustensils--view");
+    const ustensilArrowUp = document.querySelector(
       ".filter__ustensils--angleUp .fa-angle-up"
     );
-    ingredientCloseElt = document.querySelector(".filter__ingredients--view");
-    ingredientArrowUp = document.querySelector(
+    const ingredientCloseElt = document.querySelector(
+      ".filter__ingredients--view"
+    );
+    const ingredientArrowUp = document.querySelector(
       ".filter__ingredients--angleUp .fa-angle-up"
     );
-    if (ustensilCloseElt != null) {
-      ustensilArrowUp.click();
-    }
-    if (ingredientCloseElt != null) {
-      ingredientArrowUp.click();
-    }
-  });
 
-  /* Ustensil */
+    if (ustensilCloseElt) ustensilArrowUp.click();
+    if (ingredientCloseElt) ingredientArrowUp.click();
+  });
+}
+
+function handleArrowClickForUstensil() {
+  const arrowDownUstensil = document.querySelector(
+    ".filter__ustensils--angleDown"
+  );
+
   arrowDownUstensil.addEventListener("click", (e) => {
-    e.preventDefault;
-    ingredientCloseElt = document.querySelector(".filter__ingredients--view");
-    ingredientArrowUp = document.querySelector(
+    e.preventDefault();
+    const ingredientCloseElt = document.querySelector(
+      ".filter__ingredients--view"
+    );
+    const ingredientArrowUp = document.querySelector(
       ".filter__ingredients--angleUp .fa-angle-up"
     );
-    applianceCloseElt = document.querySelector(".filter__appliances--view");
-    applianceArrowUp = document.querySelector(
+    const applianceCloseElt = document.querySelector(
+      ".filter__appliances--view"
+    );
+    const applianceArrowUp = document.querySelector(
       ".filter__appliances--angleUp .fa-angle-up"
     );
-    if (ingredientCloseElt != null) {
-      ingredientArrowUp.click();
-    }
-    if (applianceCloseElt != null) {
-      applianceArrowUp.click();
-    }
+
+    if (ingredientCloseElt) ingredientArrowUp.click();
+    if (applianceCloseElt) applianceArrowUp.click();
   });
 }
