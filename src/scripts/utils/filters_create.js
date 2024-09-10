@@ -1,8 +1,6 @@
 function createFilterTemplate(filterName, filterClassName, inputId) {
-  const template = createDiv(`${filterClassName}--template relative`);
-  const article = createDiv(
-    `${filterClassName}--close bg-white rounded-lg w-44 flex flex-col`
-  );
+  const template = createTemplateContainer(filterClassName);
+  const article = createArticleContainer(filterClassName);
   const header = createHeader(filterName, filterClassName);
 
   const { input, clearButton, listBox } = createFilterElements(
@@ -11,6 +9,73 @@ function createFilterTemplate(filterName, filterClassName, inputId) {
   );
   const { spanAngle, arrowDown, arrowUp } = createArrowIcons(filterClassName);
 
+  addEventListeners(
+    spanAngle,
+    article,
+    arrowDown,
+    arrowUp,
+    input,
+    clearButton,
+    listBox,
+    template,
+    filterClassName
+  );
+  clearButton.addEventListener("click", () =>
+    resetInput(input, clearButton, listBox)
+  );
+
+  appendElementsToTemplate(
+    header,
+    spanAngle,
+    article,
+    input,
+    clearButton,
+    listBox,
+    template
+  );
+
+  return template;
+}
+
+// Crée le conteneur principal du template
+function createTemplateContainer(filterClassName) {
+  return createDiv(`${filterClassName}--template relative`);
+}
+
+// Crée le conteneur article
+function createArticleContainer(filterClassName) {
+  return createDiv(
+    `${filterClassName}--close bg-white rounded-lg w-44 flex flex-col`
+  );
+}
+
+// Ajoute les éléments au template
+function appendElementsToTemplate(
+  header,
+  spanAngle,
+  article,
+  input,
+  clearButton,
+  listBox,
+  template
+) {
+  header.appendChild(spanAngle);
+  article.append(header, input, clearButton, listBox);
+  template.appendChild(article);
+}
+
+// Ajoute les écouteurs d'événements pour la gestion du toggle et du bouton clear
+function addEventListeners(
+  spanAngle,
+  article,
+  arrowDown,
+  arrowUp,
+  input,
+  clearButton,
+  listBox,
+  template,
+  filterClassName
+) {
   spanAngle.addEventListener("click", (e) =>
     handleToggleClick(e, {
       article,
@@ -23,15 +88,6 @@ function createFilterTemplate(filterName, filterClassName, inputId) {
       filterClassName,
     })
   );
-  clearButton.addEventListener("click", () =>
-    resetInput(input, clearButton, listBox)
-  );
-
-  header.appendChild(spanAngle);
-  article.append(header, input, clearButton, listBox);
-  template.appendChild(article);
-
-  return template;
 }
 
 function createDiv(className) {

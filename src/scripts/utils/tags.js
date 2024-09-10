@@ -32,13 +32,13 @@ const tagUstensilWrapper = document.querySelector(".tag__ustensils--wrapper");
 
 /** Fonction générique pour ajouter des tags pour les filtres **/
 
-function addTagFilter(
+function addTagFilter({
   type,
   alreadyAdded,
   filterItems,
   wrapper,
-  dropdownCloseFunc
-) {
+  dropdownCloseFunc,
+}) {
   if (!alreadyAdded) {
     alreadyAdded = true;
     Array.from(filterItems).forEach((element) => {
@@ -67,27 +67,27 @@ function addTagFilter(
 }
 
 /* Ajouter des tags spécifiques */
-addTagFilter(
-  "ingredient",
-  tagIngredientAlreadyAdded,
-  filterItemIngredients,
-  tagIngredientWrapper,
-  closeIngredientDropdown
-);
-addTagFilter(
-  "appliance",
-  tagApplianceAlreadyAdded,
-  filterItemAppliances,
-  tagApplianceWrapper,
-  closeApplianceDropdown
-);
-addTagFilter(
-  "ustensil",
-  tagUstensilAlreadyAdded,
-  filterItemUstensils,
-  tagUstensilWrapper,
-  closeUstensilDropdown
-);
+addTagFilter({
+  type: "ingredient",
+  alreadyAdded: tagIngredientAlreadyAdded,
+  filterItems: filterItemIngredients,
+  wrapper: tagIngredientWrapper,
+  dropdownCloseFunc: closeIngredientDropdown,
+});
+addTagFilter({
+  type: "appliance",
+  alreadyAdded: tagApplianceAlreadyAdded,
+  filterItems: filterItemAppliances,
+  wrapper: tagApplianceWrapper,
+  dropdownCloseFunc: closeApplianceDropdown,
+});
+addTagFilter({
+  type: "ustensil",
+  alreadyAdded: tagUstensilAlreadyAdded,
+  filterItems: filterItemUstensils,
+  wrapper: tagUstensilWrapper,
+  dropdownCloseFunc: closeUstensilDropdown,
+});
 
 /** Création des conteneurs et éléments de tag **/
 
