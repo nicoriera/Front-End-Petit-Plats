@@ -51,22 +51,11 @@ function quickSort(arr) {
 function searchLive() {
   const tagsUsed = hasActiveTags(); // Vérifie si des tags sont actifs
   let recipesToDisplay = [];
-  let mainInput = "";
+  let mainInput = getSearchInput(); // Récupère l'input principal
 
-  if (searchBarInput && searchBarInput.value.length > 2) {
-    mainInput = searchBarInput.value.toLowerCase();
-
-    recipesToDisplay = recipes.filter(
-      (recipe) =>
-        recipe.name.toLowerCase().includes(mainInput) ||
-        recipe.description.toLowerCase().includes(mainInput) ||
-        recipe.ingredients.some((ingredient) =>
-          ingredient.ingredient.toLowerCase().includes(mainInput)
-        )
-    );
-
+  if (isValidSearchInput(mainInput)) {
+    recipesToDisplay = searchRecipes(mainInput);
     recipesToDisplay = quickSort(recipesToDisplay); // Tri fonctionnel
-
     fillFilters(recipesToDisplay);
   }
 
@@ -74,26 +63,55 @@ function searchLive() {
     recipesToDisplay = filteredRecipesWithTags(recipesToDisplay);
   }
 
+  displayResults(recipesToDisplay, mainInput, tagsUsed);
+
+  toggleClearSearchButton(); // Affiche ou masque le bouton de suppression
+}
+
+// Récupère la valeur de l'input de recherche
+function getSearchInput() {
+  return searchBarInput && searchBarInput.value.length > 2
+    ? searchBarInput.value.toLowerCase()
+    : "";
+}
+
+// Vérifie si la recherche est valide (au moins 3 caractères)
+function isValidSearchInput(mainInput) {
+  return mainInput.length > 2;
+}
+
+// Filtre les recettes en fonction de l'input principal
+function searchRecipes(mainInput) {
+  return recipes.filter(
+    (recipe) =>
+      recipe.name.toLowerCase().includes(mainInput) ||
+      recipe.description.toLowerCase().includes(mainInput) ||
+      recipe.ingredients.some((ingredient) =>
+        ingredient.ingredient.toLowerCase().includes(mainInput)
+      )
+  );
+}
+
+// Gère l'affichage des résultats de la recherche
+function displayResults(recipesToDisplay, mainInput, tagsUsed) {
   if (recipesToDisplay.length > 0) {
     noResultText.innerHTML = "";
     displayData(recipesToDisplay);
-  } else {
+  } else if (mainInput) {
     noResultText.innerHTML = `<p>Aucune recette ne contient '${mainInput}' vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>`;
     displayData([]);
   }
 
-  if (searchBarInput && searchBarInput.value.length < 3 && !tagsUsed) {
+  if (!isValidSearchInput(mainInput) && !tagsUsed) {
     fillFilters(recipes);
     displayData(recipes);
     noResultText.innerHTML = "";
   }
+}
 
-  // Afficher ou masquer le bouton de suppression en fonction du texte dans l'input
-  if (searchBarInput.value) {
-    clearSearchButton.style.display = "block";
-  } else {
-    clearSearchButton.style.display = "none";
-  }
+// Affiche ou masque le bouton de suppression de recherche
+function toggleClearSearchButton() {
+  clearSearchButton.style.display = searchBarInput.value ? "block" : "none";
 }
 // Gestion de la recherche au clic sur le bouton
 if (searchButton) {
