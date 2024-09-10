@@ -59,27 +59,27 @@ function getUniqueItems(recipes, type, bloc, tagSelector) {
 }
 
 function addFilters(ingredientsList, appliancesList, ustensilsList) {
-  addTagFilter(
-    "ingredient",
-    false,
-    filterItemIngredients,
-    tagIngredientWrapper,
-    closeIngredientDropdown
-  );
-  addTagFilter(
-    "appliance",
-    false,
-    filterItemAppliances,
-    tagApplianceWrapper,
-    closeApplianceDropdown
-  );
-  addTagFilter(
-    "ustensil",
-    false,
-    filterItemUstensils,
-    tagUstensilWrapper,
-    closeUstensilDropdown
-  );
+  addTagFilter({
+    type: "ingredient",
+    alreadyAdded: tagIngredientAlreadyAdded,
+    filterItems: filterItemIngredients,
+    wrapper: tagIngredientWrapper,
+    dropdownCloseFunc: closeIngredientDropdown,
+  });
+  addTagFilter({
+    type: "appliance",
+    alreadyAdded: tagApplianceAlreadyAdded,
+    filterItems: filterItemAppliances,
+    wrapper: tagApplianceWrapper,
+    dropdownCloseFunc: closeApplianceDropdown,
+  });
+  addTagFilter({
+    type: "ustensil",
+    alreadyAdded: tagUstensilAlreadyAdded,
+    filterItems: filterItemUstensils,
+    wrapper: tagUstensilWrapper,
+    dropdownCloseFunc: closeUstensilDropdown,
+  });
 }
 
 function createFilterItem(className, text) {
