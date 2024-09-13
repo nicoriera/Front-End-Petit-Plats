@@ -1,7 +1,11 @@
 function getSearchIngredients() {
-  const searchQuery = document
-    .getElementById("ingredients-input")
-    .value.toLowerCase();
+  const searchQuery = sanitizeInput(
+    document.getElementById("ingredients-input").value.trim().toLowerCase()
+  );
+
+  if (!isValidSearchInput(searchQuery)) {
+    return;
+  }
   const cards = document.querySelectorAll(".filter__ingredients--items");
 
   cards.forEach((card) => {

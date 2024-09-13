@@ -1,29 +1,67 @@
 function createFilterTemplate(filterName, filterClassName, inputId) {
-  const template = createTemplateContainer(filterClassName);
-  const article = createArticleContainer(filterClassName);
-  const header = createHeader(filterName, filterClassName);
-
-  const { input, clearButton, listBox } = createFilterElements(
-    inputId,
-    filterClassName
-  );
-  const { spanAngle, arrowDown, arrowUp } = createArrowIcons(filterClassName);
-
-  addEventListeners(
-    spanAngle,
+  // Crée la structure du template et ses éléments
+  const {
+    template,
     article,
+    spanAngle,
+    input,
+    clearButton,
+    listBox,
     arrowDown,
     arrowUp,
+  } = createTemplateStructure(filterClassName, filterName, inputId);
+
+  // Ajoute les événements de bascule et d'autres interactions
+  addToggleEventListeners({
+    spanAngle,
+    article,
     input,
     clearButton,
     listBox,
     template,
-    filterClassName
-  );
-  clearButton.addEventListener("click", () =>
-    resetInput(input, clearButton, listBox)
-  );
+    filterClassName,
+    arrowDown,
+    arrowUp,
+  });
 
+  if (!template) {
+    console.error("Erreur dans la création du template pour", filterName);
+    return null;
+  }
+
+  // Retourne le template
+  return template;
+}
+
+// Crée et organise la structure du template
+function createTemplateStructure(filterClassName, filterName, inputId) {
+  const template = createTemplateContainer(filterClassName); // Crée le conteneur du template
+  const article = createArticleContainer(filterClassName); // Crée l'article (bloc de filtre)
+  const header = createHeader(filterName, filterClassName); // Crée l'en-tête avec le nom du filtre
+  const { input, clearButton, listBox } = createFilterElements(
+    inputId,
+    filterClassName
+  ); // Crée les éléments du filtre (input, bouton reset, listBox)
+  const { spanAngle, arrowDown, arrowUp } = createArrowIcons(filterClassName); // Crée les flèches (haut et bas)
+
+  // Vérifier que tous les éléments sont correctement créés
+  if (
+    !template ||
+    !article ||
+    !header ||
+    !input ||
+    !clearButton ||
+    !listBox ||
+    !arrowDown ||
+    !arrowUp
+  ) {
+    console.error(
+      "Un ou plusieurs éléments DOM sont undefined dans createTemplateStructure !"
+    );
+    return null;
+  }
+
+  // Ajoute tous les éléments à la structure du template
   appendElementsToTemplate(
     header,
     spanAngle,
@@ -34,7 +72,49 @@ function createFilterTemplate(filterName, filterClassName, inputId) {
     template
   );
 
-  return template;
+  // Retourne tous les éléments nécessaires pour une utilisation ultérieure
+  return {
+    template,
+    article,
+    spanAngle,
+    input,
+    clearButton,
+    listBox,
+    arrowDown,
+    arrowUp,
+    filterClassName,
+  };
+}
+
+// Ajoute les événements d'écoute pour les éléments du filtre
+function addToggleEventListeners({
+  spanAngle,
+  article,
+  input,
+  clearButton,
+  listBox,
+  template,
+  filterClassName,
+  arrowDown,
+  arrowUp,
+}) {
+  spanAngle.addEventListener("click", (e) =>
+    handleToggleClick(e, {
+      article,
+      spanAngle,
+      input,
+      clearButton,
+      listBox,
+      template,
+      filterClassName,
+      arrowDown,
+      arrowUp,
+    })
+  );
+
+  clearButton.addEventListener("click", () =>
+    resetInput(input, clearButton, listBox)
+  ); // Événement pour réinitialiser le filtre
 }
 
 // Crée le conteneur principal du template
@@ -59,35 +139,17 @@ function appendElementsToTemplate(
   listBox,
   template
 ) {
-  header.appendChild(spanAngle);
-  article.append(header, input, clearButton, listBox);
-  template.appendChild(article);
-}
+  if (header && spanAngle) {
+    header.appendChild(spanAngle);
+  }
 
-// Ajoute les écouteurs d'événements pour la gestion du toggle et du bouton clear
-function addEventListeners(
-  spanAngle,
-  article,
-  arrowDown,
-  arrowUp,
-  input,
-  clearButton,
-  listBox,
-  template,
-  filterClassName
-) {
-  spanAngle.addEventListener("click", (e) =>
-    handleToggleClick(e, {
-      article,
-      arrowDown,
-      arrowUp,
-      input,
-      clearButton,
-      listBox,
-      template,
-      filterClassName,
-    })
-  );
+  if (article && input && clearButton && listBox) {
+    article.append(header, input, clearButton, listBox);
+  }
+
+  if (template && article) {
+    template.appendChild(article);
+  }
 }
 
 function createDiv(className) {
@@ -112,6 +174,7 @@ function createArrowIcons(filterClassName) {
   const arrowDown = createIcon("fa-angle-down");
   const arrowUp = createIcon("fa-angle-up", true);
   spanAngle.append(arrowDown, arrowUp);
+
   return { spanAngle, arrowDown, arrowUp };
 }
 

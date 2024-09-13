@@ -67,14 +67,19 @@ function openFilter({
   input,
   clearButton,
   listBox,
-  template,
   filterClassName,
 }) {
+  if (!arrowDown || !arrowUp) {
+    console.error("Les flèches n'ont pas été trouvées");
+    return;
+  }
   article.classList.replace(
     `${filterClassName}--close`,
     `${filterClassName}--view`
   );
+
   arrowDown.style.display = "none";
+
   arrowUp.style.display = "inline";
   input.style.display = "flex";
   clearButton.style.display = input.value ? "block" : "none";

@@ -1,7 +1,12 @@
 function getSearchUstensils() {
-  const searchQuery = document
-    .getElementById("ustensils-input")
-    .value.toLowerCase();
+  const searchQuery = sanitizeInput(
+    document.getElementById("ustensils-input").value.trim().toLowerCase()
+  );
+
+  if (!isValidSearchInput(searchQuery)) {
+    return;
+  }
+
   const cards = document.querySelectorAll(".filter__ustensils--items");
 
   cards.forEach((card) => {
