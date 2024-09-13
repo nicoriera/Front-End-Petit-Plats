@@ -1,11 +1,16 @@
 function getSearchAppliances() {
-  const searchQuery = document
-    .getElementById("appliances-input")
-    .value.toLowerCase();
+  const searchQuery = sanitizeInput(
+    document.getElementById("appliances-input").value.trim().toLowerCase()
+  );
+
+  if (!isValidSearchInput(searchQuery)) {
+    return;
+  }
+
   const cards = document.querySelectorAll(".filter__appliances--items");
 
   cards.forEach((card) => {
-    const cardText = card.innerText.toLowerCase();
+    const cardText = sanitizeInput(card.innerText.toLowerCase());
     if (cardText.includes(searchQuery)) {
       card.classList.remove("hidden");
     } else {

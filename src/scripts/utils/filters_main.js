@@ -1,11 +1,13 @@
 function filterFactory(filterName, filterClassName, inputId, containerClass) {
   const container = document.getElementsByClassName(containerClass)[0];
-  const filterTemplate = createFilterTemplate(
-    filterName,
-    filterClassName,
-    inputId
-  );
-  container.appendChild(filterTemplate);
+  const template = createFilterTemplate(filterName, filterClassName, inputId);
+
+  if (!template) {
+    console.error("Le template n'a pas pu être créé pour", filterName);
+    return;
+  }
+
+  container.appendChild(template);
 }
 
 function filterIngredients() {

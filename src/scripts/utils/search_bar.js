@@ -28,6 +28,18 @@ if (!noResultText) {
   );
 }
 
+if (!clearSearchButton) {
+  console.error(
+    "L'élément avec la classe .search__input__clear est introuvable dans le DOM."
+  );
+}
+
+if (!searchButton) {
+  console.error(
+    "L'élément avec la classe .search__button est introuvable dans le DOM."
+  );
+}
+
 // Déclaration du timer pour gérer le délai de recherche
 let typingTimer;
 const typeInterval = 100; // Intervalle de délai de recherche en millisecondes
@@ -71,13 +83,8 @@ function searchLive() {
 // Récupère la valeur de l'input de recherche
 function getSearchInput() {
   return searchBarInput && searchBarInput.value.length > 2
-    ? searchBarInput.value.toLowerCase()
+    ? sanitizeInput(searchBarInput.value.toLowerCase())
     : "";
-}
-
-// Vérifie si la recherche est valide (au moins 3 caractères)
-function isValidSearchInput(mainInput) {
-  return mainInput.length > 2;
 }
 
 // Filtre les recettes en fonction de l'input principal
@@ -98,11 +105,13 @@ function displayResults(recipesToDisplay, mainInput, tagsUsed) {
     noResultText.innerHTML = "";
     displayData(recipesToDisplay);
   } else if (mainInput) {
-    noResultText.innerHTML = `<p>Aucune recette ne contient '${mainInput}' vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>`;
+    // Sanitize l'input avant de l'afficher
+    const sanitizedMainInput = sanitizeInput(mainInput);
+    noResultText.innerHTML = `<p>Aucune recette ne contient '${sanitizedMainInput}' vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>`;
     displayData([]);
   }
 
-  if (!isValidSearchInput(mainInput) && !tagsUsed) {
+  if (!isValidSearchInput(mainInput, 2) && !tagsUsed) {
     fillFilters(recipes);
     displayData(recipes);
     noResultText.innerHTML = "";
@@ -119,7 +128,7 @@ if (searchButton) {
 }
 
 // Gestion du bouton de suppression
-if (clearSearchButton) {
+if (clearSearchButton && searchBarInput) {
   clearSearchButton.addEventListener("click", () => {
     searchBarInput.value = "";
     clearSearchButton.style.display = "none";
