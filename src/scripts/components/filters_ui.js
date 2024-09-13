@@ -24,11 +24,6 @@ function createFilterTemplate(filterName, filterClassName, inputId) {
     arrowUp,
   });
 
-  if (!template) {
-    console.error("Erreur dans la création du template pour", filterName);
-    return null;
-  }
-
   // Retourne le template
   return template;
 }
@@ -40,22 +35,6 @@ function createTemplateStructure(filterClassName, filterName, inputId) {
   const header = createFilterHeader(filterName, filterClassName);
   const filterElements = getFilterElements(inputId, filterClassName);
   const arrowIcons = createArrows(filterClassName);
-
-  // Vérifie que tous les éléments nécessaires sont présents
-  if (
-    !areElementsDefined([
-      template,
-      article,
-      header,
-      ...Object.values(filterElements),
-      ...Object.values(arrowIcons),
-    ])
-  ) {
-    console.error(
-      "Un ou plusieurs éléments DOM sont undefined dans createTemplateStructure !"
-    );
-    return null;
-  }
 
   appendElementsToTemplate(
     header,
