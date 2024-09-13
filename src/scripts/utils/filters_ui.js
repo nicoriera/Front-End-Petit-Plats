@@ -35,25 +35,21 @@ function createFilterTemplate(filterName, filterClassName, inputId) {
 
 // Crée et organise la structure du template
 function createTemplateStructure(filterClassName, filterName, inputId) {
-  const template = createTemplateContainer(filterClassName); // Crée le conteneur du template
-  const article = createArticleContainer(filterClassName); // Crée l'article (bloc de filtre)
-  const header = createHeader(filterName, filterClassName); // Crée l'en-tête avec le nom du filtre
-  const { input, clearButton, listBox } = createFilterElements(
-    inputId,
-    filterClassName
-  ); // Crée les éléments du filtre (input, bouton reset, listBox)
-  const { spanAngle, arrowDown, arrowUp } = createArrowIcons(filterClassName); // Crée les flèches (haut et bas)
+  const template = createTemplate(filterClassName);
+  const article = createArticle(filterClassName);
+  const header = createFilterHeader(filterName, filterClassName);
+  const filterElements = getFilterElements(inputId, filterClassName);
+  const arrowIcons = createArrows(filterClassName);
 
-  // Vérifier que tous les éléments sont correctement créés
+  // Vérifie que tous les éléments nécessaires sont présents
   if (
-    !template ||
-    !article ||
-    !header ||
-    !input ||
-    !clearButton ||
-    !listBox ||
-    !arrowDown ||
-    !arrowUp
+    !areElementsDefined([
+      template,
+      article,
+      header,
+      ...Object.values(filterElements),
+      ...Object.values(arrowIcons),
+    ])
   ) {
     console.error(
       "Un ou plusieurs éléments DOM sont undefined dans createTemplateStructure !"
@@ -61,29 +57,52 @@ function createTemplateStructure(filterClassName, filterName, inputId) {
     return null;
   }
 
-  // Ajoute tous les éléments à la structure du template
   appendElementsToTemplate(
     header,
-    spanAngle,
+    arrowIcons.spanAngle,
     article,
-    input,
-    clearButton,
-    listBox,
+    filterElements.input,
+    filterElements.clearButton,
+    filterElements.listBox,
     template
   );
 
-  // Retourne tous les éléments nécessaires pour une utilisation ultérieure
   return {
     template,
     article,
-    spanAngle,
-    input,
-    clearButton,
-    listBox,
-    arrowDown,
-    arrowUp,
+    spanAngle: arrowIcons.spanAngle,
+    input: filterElements.input,
+    clearButton: filterElements.clearButton,
+    listBox: filterElements.listBox,
+    arrowDown: arrowIcons.arrowDown,
+    arrowUp: arrowIcons.arrowUp,
     filterClassName,
   };
+}
+
+// Sous-fonctions pour décomposer la logique
+function createTemplate(filterClassName) {
+  return createTemplateContainer(filterClassName);
+}
+
+function createArticle(filterClassName) {
+  return createArticleContainer(filterClassName);
+}
+
+function createFilterHeader(filterName, filterClassName) {
+  return createHeader(filterName, filterClassName);
+}
+
+function getFilterElements(inputId, filterClassName) {
+  return createFilterElements(inputId, filterClassName);
+}
+
+function createArrows(filterClassName) {
+  return createArrowIcons(filterClassName);
+}
+
+function areElementsDefined(elements) {
+  return elements.every((element) => element !== null && element !== undefined);
 }
 
 // Ajoute les événements d'écoute pour les éléments du filtre

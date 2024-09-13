@@ -27,6 +27,7 @@ function init() {
   filterIngredients();
   filterAppliances();
   filterUstensils();
+
   /* Rechercher dans les filtres */
   inputIngredient();
   inputAppliance();
