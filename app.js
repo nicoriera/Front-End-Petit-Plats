@@ -1,8 +1,7 @@
 let recipes = [];
 
 async function getDataJson() {
-  const response = await fetch("src/data/recipes.json");
-  recipes = (await response.json()).recipes;
+  recipes = await fetchRecipes();
 
   init();
 }
