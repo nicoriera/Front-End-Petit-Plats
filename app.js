@@ -1,34 +1,41 @@
-// import { fetchRecipes } from "./src/api/api.js";
-// import {
-//   filterIngredients,
-//   filterAppliances,
-//   filterUstensils,
-// } from "./src/scripts/utils/filters_create.js";
-// import { displayData } from "./src/scripts/main_index/index.js";
-// import { fillFilters } from "./src/scripts/utils/filters_fill.js";
-// import { isArrowClicked } from "./src/scripts/utils/filters_fill.js";
+let recipes = [];
 
-// // Fonction d'initialisation de l'application
-// async function initApp() {
-//   // Récupérer les recettes
-//   let recipes = await fetchRecipes();
+async function getDataJson() {
+  const response = await fetch("src/data/recipes.json");
+  recipes = (await response.json()).recipes;
 
-//   // Initialiser l'affichage des données
-//   displayData(recipes);
+  init();
+}
+/*** Afficher les cards ***/
+function displayData(recipes) {
+  const recipeSection = document.getElementById("recipes__cards");
+  const recipeCount = document.getElementById("recipes__number");
+  recipeSection.innerHTML = "";
+  for (const recipe of recipes) {
+    /* getRecipeCard is defined in recipes_cards.js */
+    const recipeCard = getRecipeCard(recipe);
+    recipeSection.appendChild(recipeCard);
+  }
+  recipeCount.textContent = `${recipes.length} recettes`;
+  recipeCount.classList.add("text-[21px]", "font-normal", "font-['Anton']");
+}
 
-//   // Initialiser les filtres
-//   fillFilters(recipes);
+function init() {
+  /* Afficher les recipes */
+  displayData(recipes);
+  /* Afficher les filtres */
+  filterIngredients();
+  filterAppliances();
+  filterUstensils();
 
-//   // Configurer les filtres pour n'ouvrir qu'un seul à la fois
-//   isArrowClicked();
+  /* Rechercher dans les filtres */
+  inputIngredient();
+  inputAppliance();
+  inputUstensil();
+  /* N'ouvrir qu'un seul filtre à la fois */
+  isArrowClicked();
+  /* Remplir les filtres avec les données */
+  fillFilters(recipes);
+}
 
-//   // Initialiser les composants individuels de filtres
-//   filterIngredients();
-//   filterAppliances();
-//   filterUstensils();
-
-//   // Vous pouvez également ajouter d'autres initialisations ici si nécessaire
-// }
-
-// // Appeler la fonction d'initialisation lorsque le DOM est prêt
-// document.addEventListener("DOMContentLoaded", initApp);
+getDataJson();
