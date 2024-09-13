@@ -36,15 +36,15 @@ function createTemplateStructure(filterClassName, filterName, inputId) {
   const filterElements = getFilterElements(inputId, filterClassName);
   const arrowIcons = createArrows(filterClassName);
 
-  appendElementsToTemplate(
+  appendElementsToTemplate({
     header,
-    arrowIcons.spanAngle,
+    spanAngle: arrowIcons.spanAngle,
     article,
-    filterElements.input,
-    filterElements.clearButton,
-    filterElements.listBox,
-    template
-  );
+    input: filterElements.input,
+    clearButton: filterElements.clearButton,
+    listBox: filterElements.listBox,
+    template,
+  });
 
   return {
     template,
@@ -128,15 +128,16 @@ function createArticleContainer(filterClassName) {
 }
 
 // Ajoute les éléments au template
-function appendElementsToTemplate(
+function appendElementsToTemplate({
   header,
   spanAngle,
   article,
   input,
   clearButton,
   listBox,
-  template
-) {
+  template,
+}) {
+  // Vérification et ajout des éléments
   if (header && spanAngle) {
     header.appendChild(spanAngle);
   }
