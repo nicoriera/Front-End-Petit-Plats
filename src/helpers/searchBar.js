@@ -44,22 +44,23 @@ if (!searchButton) {
 let typingTimer;
 const typeInterval = 100; // Intervalle de délai de recherche en millisecondes
 
-// Implémentation du Quick Sort avec programmation fonctionnelle
-function quickSort(arr) {
+// Implémentation du Quick Sort avec programmation native loops
+function quickSortNative(arr) {
   if (arr.length <= 1) return arr;
 
-  const [pivot, ...rest] = arr;
-  const left = rest.filter(
-    (item) => item.name.toLowerCase() < pivot.name.toLowerCase()
-  );
-  const right = rest.filter(
-    (item) => item.name.toLowerCase() >= pivot.name.toLowerCase()
-  );
+  const pivot = arr[arr.length - 1];
+  const left = [];
+  const right = [];
 
-  return [...quickSort(left), pivot, ...quickSort(right)];
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i].name.toLowerCase() < pivot.name.toLowerCase()) left.push(arr[i]);
+    else right.push(arr[i]);
+  }
+
+  return [...quickSortNative(left), pivot, ...quickSortNative(right)];
 }
 
-// Fonction de recherche avec programmation fonctionnelle
+// Fonction de recherche avec programmation native loops
 function searchLive() {
   const tagsUsed = hasActiveTags(); // Vérifie si des tags sont actifs
   let recipesToDisplay = [];
@@ -67,7 +68,7 @@ function searchLive() {
 
   if (isValidSearchInput(mainInput)) {
     recipesToDisplay = searchRecipes(mainInput);
-    recipesToDisplay = quickSort(recipesToDisplay); // Tri fonctionnel
+    recipesToDisplay = quickSortNative(recipesToDisplay); // Tri natif
     fillFilters(recipesToDisplay);
   }
 
@@ -89,14 +90,20 @@ function getSearchInput() {
 
 // Filtre les recettes en fonction de l'input principal
 function searchRecipes(mainInput) {
-  return recipes.filter(
-    (recipe) =>
+  const filteredRecipes = [];
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+    if (
       recipe.name.toLowerCase().includes(mainInput) ||
       recipe.description.toLowerCase().includes(mainInput) ||
       recipe.ingredients.some((ingredient) =>
         ingredient.ingredient.toLowerCase().includes(mainInput)
       )
-  );
+    ) {
+      filteredRecipes.push(recipe);
+    }
+  }
+  return filteredRecipes;
 }
 
 // Gère l'affichage des résultats de la recherche
@@ -122,6 +129,7 @@ function displayResults(recipesToDisplay, mainInput, tagsUsed) {
 function toggleClearSearchButton() {
   clearSearchButton.style.display = searchBarInput.value ? "block" : "none";
 }
+
 // Gestion de la recherche au clic sur le bouton
 if (searchButton) {
   searchButton.addEventListener("click", searchLive);
