@@ -69,6 +69,6 @@ Cela va :
 
 ## Validation
 
-1. W3 CSS : https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fnicoriera.github.io%2FFront-End-Petit-Plats%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=fr
+1. W3 CSS : https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fles-petits-plats-de-nico.netlify.app%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=fr
 
-2. W3 HTML : https://validator.w3.org/nu/?doc=https%3A%2F%2Fnicoriera.github.io%2FFront-End-Petit-Plats%2F
+2. W3 HTML : https://validator.w3.org/nu/?doc=https%3A%2F%2Fles-petits-plats-de-nico.netlify.app%2F
