@@ -27,7 +27,7 @@ Lien du projet : https://les-petits-plats-de-nico.netlify.app/
 - **HTML5**
 - **CSS3** (Tailwind CSS)
 - **JavaScript**
-- **GitHub Pages** pour le déploiement
+- **Netlify** pour le déploiement
 
 ## Installation
 
