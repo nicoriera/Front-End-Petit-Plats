@@ -50,6 +50,7 @@ function getImage(imageUrl, altText) {
   const imgElement = document.createElement("img");
   imgElement.setAttribute("src", "src/assets/pictures/" + imageUrl);
   imgElement.setAttribute("alt", altText);
+  imgElement.setAttribute("loading", "lazy");
   imgElement.classList.add(
     "w-full",
     "h-[253px]",
