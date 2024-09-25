@@ -1,0 +1,23 @@
+/src/css/*
+Cache-Control: public, max-age=31536000
+
+/src/js/*
+Cache-Control: public, max-age=31536000
+
+/src/assets/pictures/*
+Cache-Control: public, max-age=31536000
+
+/src/assets/logo/*
+Cache-Control: public, max-age=31536000
+
+https://fonts.googleapis.com/*
+Cache-Control: public, max-age=31536000
+
+https://fonts.gstatic.com/*
+Cache-Control: public, max-age=31536000
+
+/src/assets/js/dompurify.min.js
+Cache-Control: public, max-age=31536000
+
+/index.html
+Cache-Control: public, max-age=3600  # 1 heure
